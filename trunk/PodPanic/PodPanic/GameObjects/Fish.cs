@@ -14,6 +14,16 @@ namespace PodPanic.GameObjects
 
         static private float polluted_percent;
         private Boolean isPolluted;
+        private float offY;
+        private float dir;
+        private int baseY;
+
+        private const int OFFY_AMOUNT = 10;
+        private const float SLOWEST_SPEED = 1.25f;
+        private const float FASTEST_SPEED = 3.25f;
+        private const float BOB_RATE = 0.01f;
+
+        
         
 
         
@@ -27,10 +37,23 @@ namespace PodPanic.GameObjects
         public Fish(int x, int y, Texture2D normFish, Texture2D sickFish, Game game)
             : base(null,game)
         {
-            velocity = .25f;
+            
             position.X = x;
             position.Y = y;
             Random rnd = new Random();
+            baseY = y;
+            velocity = SLOWEST_SPEED + (FASTEST_SPEED - SLOWEST_SPEED * (float)rnd.NextDouble());
+
+            System.Diagnostics.Trace.WriteLine("");
+
+            offY = (float)rnd.NextDouble();
+
+            if (rnd.NextDouble() > 0.5f)
+                dir = 1;
+            else
+                dir = -1;
+
+            
 
             if (rnd.NextDouble() <= polluted_percent)
             {
@@ -61,13 +84,23 @@ namespace PodPanic.GameObjects
         /// update moves the fish forward
         /// </summary>
         /// <param name="gameTime">game time object</param>
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
-            
 
+            offY += dir * BOB_RATE;
+            if ((dir > 0) && (offY > 1))
+            {
+                offY = 1;
+                dir = -1;
+            }
+            else if ((dir < 0) && (offY < -1))
+            {
+                offY = -1;
+                dir = 1;
+            }
 
-            position.X += velocity;
-            
+            position.X -= velocity;
+            position.Y = baseY + (OFFY_AMOUNT * offY);
 
             base.Update(gameTime);
         }
