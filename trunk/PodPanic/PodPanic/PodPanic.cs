@@ -22,12 +22,14 @@ namespace PodPanic
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameState.GameStateEnum curState;
-      
+        GameObjects.Enemy testE = new GameObjects.Enemy(300, 300, null, 67);
 
         public PodPanic()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
+            
             
         }
 
@@ -79,7 +81,7 @@ namespace PodPanic
                 this.Exit();
             
             // TODO: Add your update logic here
-
+            testE.Update(gameTime);
 
             base.Update(gameTime);
         }

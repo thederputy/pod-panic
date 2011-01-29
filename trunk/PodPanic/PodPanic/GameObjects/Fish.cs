@@ -14,6 +14,7 @@ namespace PodPanic.GameObjects
 
         static private float polluted_percent;
         private Boolean isPolluted;
+        
 
         
         /// <summary>
@@ -56,13 +57,31 @@ namespace PodPanic.GameObjects
         /// <summary>
         /// moves fish along the x at a velocity
         /// </summary>
-        public void move()
-        {
-            position.X += velocity;
+        //public void move()
+        //{
+         //   position.X += velocity;
+            
             //System.Diagnostics.Trace.WriteLine(position.X);
             //System.Diagnostics.Trace.WriteLine(isPolluted);
             //System.Diagnostics.Trace.WriteLine(polluted_percent);
+        //}
+
+
+        /// <summary>
+        /// update moves the fish forward
+        /// </summary>
+        /// <param name="gameTime">game time object</param>
+        public void Update(GameTime gameTime)
+        {
+            
+
+
+            position.X += velocity;
+            
+
+            base.Update(gameTime);
         }
+
 
         /// <summary>
         /// returns whether or not a fish is sick 
