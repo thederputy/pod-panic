@@ -13,7 +13,7 @@ namespace PodPanic.GameState
         Loading, Menu, GameRun, GamePause
     }
 
-    enum Channel
+    public enum Channel
     {
         Top, Middle, Bottom
     }

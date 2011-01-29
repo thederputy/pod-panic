@@ -46,7 +46,7 @@ namespace PodPanic.GameObjects
         /// update moves the position forward
         /// </summary>
         /// <param name="gameTime">the game time object</param>
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             //offY += gameTime.ElapsedGameTime.Milliseconds;
             offY += dir * 0.01f;
@@ -63,7 +63,7 @@ namespace PodPanic.GameObjects
 
 
 
-            position.X += velocity;
+            position.X -= velocity;
             position.Y = baseY + (offY_Amount * offY);
 
             //System.Diagnostics.Trace.WriteLine(position.X);

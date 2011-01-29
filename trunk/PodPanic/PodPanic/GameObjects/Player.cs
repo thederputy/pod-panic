@@ -147,5 +147,13 @@ namespace PodPanic.GameObjects
                     break;
             }
         }
+
+        public override void Draw(GameTime gameTime)
+        {
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 99, ((PodPanic)(this.Game)).getYChannel(currChannel) + 33, 111, 83), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, ((PodPanic)(this.Game)).getYChannel(currChannel) + 38, 99, 75), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, ((PodPanic)(this.Game)).getYChannel(currChannel), 99, 75), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, ((PodPanic)(this.Game)).getYChannel(currChannel) + 86, 99, 75), drawColor);
+        }
     }
 }

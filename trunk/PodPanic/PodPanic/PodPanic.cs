@@ -119,7 +119,21 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 if (keyManager.KeyPressed(Keys.Space))
-                    curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                {
+                    char firstChar = mainMenu.getItem().ToCharArray()[0];
+                    if (firstChar == 'S')
+                    {
+                        curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                    }
+                    else if (firstChar == 'H')
+                    {
+                        //How to logic
+                    }
+                    else if (firstChar == 'E')
+                    {
+                        //Exit logic
+                    }
+                }
                 if (keyManager.KeyPressed(Keys.W))
                     mainMenu.moveUp();
                 if (keyManager.KeyPressed(Keys.S))
@@ -211,17 +225,15 @@ namespace PodPanic
             if (curState == global::PodPanic.GameState.GameStateEnum.GamePause) drawColor = Color.Gray;
             backTemp.drawColor = drawColor;
             backTemp.Draw(gameTime);
-            spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X + 99, getYChannel(thePlayer.currChannel) + 33, 111, 83), drawColor);
-            spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X, getYChannel(thePlayer.currChannel) + 38, 99, 75), drawColor);
-            spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X + 50, getYChannel(thePlayer.currChannel), 99, 75), drawColor);
-            spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X + 50, getYChannel(thePlayer.currChannel) + 86, 99, 75), drawColor);
+            thePlayer.Draw(gameTime);
             foreach (GameObjects.GameObject obj in Objects)
             {
+                obj.drawColor = drawColor;
                 obj.Draw(gameTime);
             }
         }
 
-        private int getYChannel(global::PodPanic.GameState.Channel arg0)
+        public int getYChannel(global::PodPanic.GameState.Channel arg0)
         {
             switch (arg0)
             {
