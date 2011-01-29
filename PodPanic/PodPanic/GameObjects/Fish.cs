@@ -79,7 +79,7 @@ namespace PodPanic.GameObjects
             position.X += velocity;
             
 
-            base.Update(gameTime);
+           // base.Update(gameTime);
         }
 
 

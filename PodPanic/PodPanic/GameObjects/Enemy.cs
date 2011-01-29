@@ -75,7 +75,7 @@ namespace PodPanic.GameObjects
             //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedGameTime.Milliseconds);
             //System.Diagnostics.Trace.WriteLine("******");
 
-            base.Update(gameTime);
+           // base.Update(gameTime);
         }
 
         /// <summary>

@@ -87,7 +87,6 @@
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Menu.cs" />
     <Compile Include="GameObjects\Player.cs" />
-    <Compile Include="GameObjects\test.cs" />
     <Compile Include="GameState\GameStateEnum.cs" />
     <Compile Include="PodPanic.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
