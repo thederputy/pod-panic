@@ -51,6 +51,10 @@ namespace PodPanic.GameObjects
             }
         }
 
+        /// <summary>
+        /// Represents the chanel that the player is in.
+        /// Either Top, Middle, or Bottom.
+        /// </summary>
         public Channel currChannel;
 
         /// <summary>
