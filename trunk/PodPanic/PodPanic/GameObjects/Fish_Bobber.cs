@@ -12,17 +12,17 @@ namespace PodPanic.GameObjects
         private float dir;
         private float bRate;
         private int bAmount;
-        
+        private float sizeAdd;
+        private Random rnd;
 
-
-        public Fish_Bobber(float offset, float direction, float rate, int amount)
+        public Fish_Bobber(float offset, float direction, float rate, int amount, float sizeVar)
         {
             off = offset;
             dir = direction;
-           
+            rnd = new Random();
             bRate = rate;
             bAmount = amount;
-
+            sizeAdd = sizeVar * (float)rnd.NextDouble() - sizeVar / 2; 
         }
 
 
@@ -44,6 +44,11 @@ namespace PodPanic.GameObjects
         public float getOff()
         {
             return bAmount * off;
+        }
+
+        public float getAddSize()
+        {
+            return sizeAdd;
         }
 
 
