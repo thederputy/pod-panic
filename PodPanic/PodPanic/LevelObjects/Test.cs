@@ -26,14 +26,7 @@ namespace PodPanic
 
             LevelLogic tester = new LevelLogic();
 
-            tester.setFishToEnemyRatioXML(doc.FirstChild);
-            tester.setLevelNumberXML(doc.FirstChild);
-            tester.setFishToEnemyRatioXML(doc.FirstChild);
-            tester.setPollutedWaterRatioXML(doc.FirstChild);
-            tester.setNumberOfEnemiesXML(doc.FirstChild);
-            tester.setLevelLengthXML(doc.FirstChild);
-
-            Console.WriteLine(tester.getFishToEnemyRatio());
+          //  tester.setDataFromXML(doc);
 
 
         }
