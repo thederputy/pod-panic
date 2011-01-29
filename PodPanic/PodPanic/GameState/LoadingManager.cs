@@ -20,5 +20,9 @@ namespace PodPanic.GameState
 
     class LoadingManager
     {
+        static void createAsset(String assetName)
+        {
+
+        }
     }
 }
