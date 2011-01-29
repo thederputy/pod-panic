@@ -32,11 +32,6 @@ namespace PodPanic.LevelObjects
 
         public LevelLogic()
         {
-            setFishToEnemyRatio(0);
-            setLevelLength(0);
-            setNumberOfEnemies(0);
-            setPollutedWaterRatio(0);
-            setLevelNumber(0);
         }
 
         public void setDataFromXml(XmlNode node)
@@ -98,7 +93,7 @@ namespace PodPanic.LevelObjects
 
         private int PrecentCompleted()
         {
-            return (LevelLength / CurrentPosition)* 10;
+            return (int)(LevelLength / CurrentPosition)* 10;
         }
       
     }
