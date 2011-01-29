@@ -18,6 +18,28 @@ namespace PodPanic.GameState
 {
     class KeyMapping
     {
+        public Keys MoveUp { get; set; }
+        public Keys MoveDown { get; set; }
+        public Keys MoveRight { get; set; }
+        public Keys ActionKey { get; set; }
+        public Keys ExitKey { get; set; }
 
+        public static KeyMapping GetDefaultKeyMap()
+        {
+            return new KeyMapping() { MoveUp = Keys.W, MoveDown = Keys.S, MoveRight = Keys.D, ActionKey = Keys.Space, ExitKey = Keys.Escape };
+        }
+    }
+    class ButtonMapping
+    {
+        public Buttons MoveUp { get; set; }
+        public Buttons MoveDown { get; set; }
+        public Buttons MoveRight { get; set; }
+        public Buttons ActionKey { get; set; }
+        public Buttons ExitKey { get; set; }
+
+        public static ButtonMapping GetDefaultButtonMap()
+        {
+            return new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.Back };
+        }
     }
 }

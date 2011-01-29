@@ -19,6 +19,10 @@ namespace PodPanic
     /// </summary>
     public class PodPanic : Microsoft.Xna.Framework.Game
     {
+        public Vector2 SCREEN_SIZE = new Vector2(800, 600);
+        public const int TOPCHANNEL_Y = 150;
+        public const int MIDCHANNEL_Y = 300;
+        public const int BOTCHANNEL_Y = 450;
         GameState.KeyboardManager keyManager;
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
@@ -34,14 +38,17 @@ namespace PodPanic
         List<GameObjects.GameObject> Objects;
         bool doOnce;
         GameObjects.Menu mainMenu;
-
         GameObjects.Score score;
+        LevelObjects.LevelLogic[] Levels;
+        int CurrentLevel;
+        GameState.LevelProgress lvlProgress;
+        int secondsSinceStart;
+        int distanceCovered;
 
         public PodPanic()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            
         }
 
         /// <summary>
@@ -52,8 +59,8 @@ namespace PodPanic
         /// </summary>
         protected override void Initialize()
         {
-            this.graphics.PreferredBackBufferHeight = 600;
-            this.graphics.PreferredBackBufferWidth = 800;
+            this.graphics.PreferredBackBufferHeight = (int)SCREEN_SIZE.Y;
+            this.graphics.PreferredBackBufferWidth = (int)SCREEN_SIZE.X;
             //this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             Window.Title = "Pod-Panic";
@@ -65,6 +72,9 @@ namespace PodPanic
             backTemp = new global::PodPanic.GameObjects.Background(this);
             Objects = new List<global::PodPanic.GameObjects.GameObject>();
             doOnce = false;
+            lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
+            CurrentLevel = 0;
+            secondsSinceStart = 0;
             base.Initialize();
         }
 
@@ -84,7 +94,12 @@ namespace PodPanic
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
-            mainMenu = new global::PodPanic.GameObjects.Menu(GraphicsDevice.DisplayMode.Width / 2 - logo.Width/2, GraphicsDevice.DisplayMode.Height / 4 - logo.Height / 2, new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
+            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
+            Levels = new global::PodPanic.LevelObjects.LevelLogic[1];
+            Levels[0] = new global::PodPanic.LevelObjects.LevelLogic();
+            Levels[0].LevelLength = 1000;
+            Levels[0].LevelName = "Sneaky Sneaky";
+            Levels[0].LevelNumber = 5;
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
 
@@ -160,15 +175,51 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 //Do Key Detection
-                if (keyManager.KeyPressed(Keys.Space))
+                
+                if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
-                    curState = global::PodPanic.GameState.GameStateEnum.GamePause;
-                    score.Stop();
+                    secondsSinceStart += (int)gameTime.ElapsedRealTime.Milliseconds;
+                    if (keyManager.KeyPressed(Keys.Space))
+                    {
+                        curState = global::PodPanic.GameState.GameStateEnum.GamePause;
+                        score.Stop();
+                    }
+                    if (secondsSinceStart >= 1000)
+                    {
+                        secondsSinceStart = 0;
+                        lvlProgress = global::PodPanic.GameState.LevelProgress.RunningLevel;
+                    }
                 }
-                if (keyManager.KeyPressed(Keys.W))
-                    thePlayer.moveUp();
-                else if (keyManager.KeyPressed(Keys.S))
-                    thePlayer.modeDown();
+                else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
+                {
+                    distanceCovered += 1;
+                    if (distanceCovered >= Levels[CurrentLevel].LevelLength)
+                    {
+                        lvlProgress = global::PodPanic.GameState.LevelProgress.FinishedLevel;
+                        distanceCovered = 0;
+                    }
+                    if (keyManager.KeyPressed(Keys.Space))
+                    {
+                        curState = global::PodPanic.GameState.GameStateEnum.GamePause;
+                        score.Stop();
+                    }
+                    if (keyManager.KeyPressed(Keys.W))
+                        thePlayer.moveUp();
+                    else if (keyManager.KeyPressed(Keys.S))
+                        thePlayer.modeDown();
+                }
+                else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
+                {
+                    if (keyManager.KeyPressed(Keys.Space))
+                    {
+                        lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
+                        if (!(CurrentLevel + 1 >= Levels.Length))
+                            CurrentLevel += 1;
+                        else ;
+                            //Signal End Game
+                    }
+                }
+                
 
                 if (keyManager.KeyPressed(Keys.Q))
                     thePlayer.increaseHP(10);
@@ -181,12 +232,12 @@ namespace PodPanic
 
                 if (!doOnce)
                 {
-                    Objects.Add(new global::PodPanic.GameObjects.Enemy(800, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
+                    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
                     doOnce = true;
                 }
                 if (doOnce && Objects.Count < 2)
                 {
-                    Objects.Add(new global::PodPanic.GameObjects.Enemy(800, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
+                    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.Y, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
                 }
                 foreach (GameObjects.GameObject obj in Objects)
                 {
@@ -205,10 +256,7 @@ namespace PodPanic
                         }
                         else
                         {
-                            //if((GameObjects.Fish)(obj.
-                            //{
 
-                            //}
                         }
                         
                     }
@@ -247,17 +295,37 @@ namespace PodPanic
             spriteBatch.Begin();
             if (curState == global::PodPanic.GameState.GameStateEnum.Loading)
             {
-                spriteBatch.DrawString(devFont, "Loading", new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(devFont, "Loading", Vector2.Zero, Color.White);
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 backTemp.Draw(gameTime);
-                spriteBatch.DrawString(devFont, "Menu State", new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(devFont, "Menu State", Vector2.Zero, Color.White);
                 mainMenu.draw(spriteBatch);
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 helpDraw(gameTime);
+                if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
+                {
+                    string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
+                    string line1 = "\"" + Levels[CurrentLevel].LevelName + "\"";
+                    spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).X / 2), Color.White);
+                }
+                else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
+                {
+                    //draw special running things...?
+                }
+                else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
+                {
+                    string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
+                    string line1 = "COMPLETE";
+                    score.Stop();
+                    spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).Y / 2), Color.White);
+                    spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
+                }
+                
+                spriteBatch.DrawString(devFont, "Running playerHP: " + thePlayer.CurrHP, Vector2.Zero, Color.White);
                 spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, new Vector2(0, 0), Color.White);
                 //Draw background
                 //Draw player
@@ -267,9 +335,9 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
                 helpDraw(gameTime);
-                spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, new Vector2(0, 10), Color.White);
-                spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(GraphicsDevice.DisplayMode.Width / 2, GraphicsDevice.DisplayMode.Height / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
-                spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(GraphicsDevice.DisplayMode.Width / 2, 2 * GraphicsDevice.DisplayMode.Height / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+                spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, Vector2.Zero, Color.White);
+                spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(SCREEN_SIZE.X / 2, SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+                spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 //Update text of pause state
                 
             }
@@ -288,7 +356,7 @@ namespace PodPanic
         private void helpDraw(GameTime gameTime)
         {
             Color drawColor = Color.White;
-            if (curState == global::PodPanic.GameState.GameStateEnum.GamePause) drawColor = Color.Gray;
+            if (curState == global::PodPanic.GameState.GameStateEnum.GamePause || lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel) drawColor = Color.Gray;
             backTemp.drawColor = drawColor;
             backTemp.Draw(gameTime);
             thePlayer.drawColor = drawColor;
@@ -304,9 +372,9 @@ namespace PodPanic
         {
             switch (arg0)
             {
-                case global::PodPanic.GameState.Channel.Top: return 150;
-                case global::PodPanic.GameState.Channel.Middle: return 300;
-                case global::PodPanic.GameState.Channel.Bottom: return 450;
+                case global::PodPanic.GameState.Channel.Top: return TOPCHANNEL_Y;
+                case global::PodPanic.GameState.Channel.Middle: return MIDCHANNEL_Y;
+                case global::PodPanic.GameState.Channel.Bottom: return BOTCHANNEL_Y;
             }
             return 0;
         }

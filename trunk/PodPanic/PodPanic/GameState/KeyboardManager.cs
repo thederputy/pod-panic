@@ -19,8 +19,10 @@ namespace PodPanic.GameState
     /// </summary>
     public class KeyboardManager : Microsoft.Xna.Framework.GameComponent
     {
-        private KeyboardState prevState;
-        private KeyboardState curState;
+        private KeyboardState prevKeyState;
+        private KeyboardState curKeyState;
+        private GamePadState prevPadState;
+        private GamePadState curPadState;
 
         public KeyboardManager(Game game)
             : base(game)
@@ -34,9 +36,8 @@ namespace PodPanic.GameState
         /// </summary>
         public override void Initialize()
         {
-            prevState = Keyboard.GetState();
-            curState = Keyboard.GetState();
-
+            curKeyState = prevKeyState = Keyboard.GetState();
+            curPadState = prevPadState = GamePad.GetState(PlayerIndex.One);
             base.Initialize();
         }
 
@@ -46,17 +47,26 @@ namespace PodPanic.GameState
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            prevState = curState;
-            curState = Keyboard.GetState();
+            prevKeyState = curKeyState;
+            curKeyState = Keyboard.GetState();
+            prevPadState = curPadState;
+            curPadState = GamePad.GetState(PlayerIndex.One);
 
             base.Update(gameTime);
         }
 
         public bool KeyPressed(Keys Key)
         {
-            if (prevState.IsKeyUp(Key) && curState.IsKeyDown(Key))
+            if (prevKeyState.IsKeyUp(Key) && curKeyState.IsKeyDown(Key))
                 return true;
             return false;
         }
+        public bool ButtonPressed(Buttons Button)
+        {
+            if (prevPadState.IsButtonUp(Button) && curPadState.IsButtonDown(Button))
+                return true;
+            return false;
+        }
+            
     }
 }

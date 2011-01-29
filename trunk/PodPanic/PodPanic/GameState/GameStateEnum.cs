@@ -17,4 +17,9 @@ namespace PodPanic.GameState
     {
         Top, Middle, Bottom
     }
+
+    enum LevelProgress
+    {
+        StartingLevel, RunningLevel, FinishedLevel
+    }
 }
