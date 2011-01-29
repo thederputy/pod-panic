@@ -19,14 +19,16 @@ namespace PodPanic.LevelObjects
 {
     class LevelLogic
     {
+        public float FishToEnemyRatio {get; set;}
+        public float PollutedWaterRatio { get; set; }
+        public int NumberOfEnemies {get; set;}
+        public int LevelLength {get; set;}
+        public int LevelNumber {get; set;}
+        public Texture2D Background {get; set;}
+        public String LevelName {get; set;}
+        public float CurrentPosition {get; set;}
 
-        public float FishToEnemyRatio;
-        public float PollutedWaterRatio;
-        public int NumberOfEnemies;
-        public int LevelLength;
-        public int LevelNumber;
-        public Texture2D Background;
-        public static TimeSpan ElapsedGameTime;
+        public static TimeSpan ElapsedGameTime; 
 
         public LevelLogic()
         {
@@ -37,17 +39,22 @@ namespace PodPanic.LevelObjects
             setLevelNumber(0);
         }
 
+        public void setDataFromXml(XmlNode node)
+        {
+            setFishToEnemyRatioXML(node);
+            setPollutedWaterRatioXML(node);
+            setNumberOfEnemiesXML(node);
+            setLevelLengthXML(node);
+            setLevelNumberXML(node);
+            setLevelNameXML(node);
+        }
+
         public LevelLogic(Texture2D loadedTexture)
         {
             Background = loadedTexture;
         }
 
-        public void setFishToEnemyRatio(float ratio)
-        {
-            FishToEnemyRatio = ratio;
-        }
-
-        public void setFishToEnemyRatioXML(XmlNode node)
+        private void setFishToEnemyRatioXML(XmlNode node)
         {
             //XmlNode root = node.FirstChild;
 
@@ -56,78 +63,43 @@ namespace PodPanic.LevelObjects
             FishToEnemyRatio = Convert.ToSingle(value);
         }
 
-        public float getFishToEnemyRatio()
-        {
-            return FishToEnemyRatio;
-        }
-
-        public void setPollutedWaterRatio(float ratio)
-        {
-            PollutedWaterRatio = ratio;
-        }
-
-        public void setPollutedWaterRatioXML(XmlNode node)
+        private void setPollutedWaterRatioXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("PollutedWaterRatio").InnerText;
             FishToEnemyRatio = Convert.ToSingle(value);
         }
 
-        public float getPollutedWaterRatio()
-        {
-            return PollutedWaterRatio;
-        }
-
-        public void setNumberOfEnemies(int number)
-        {
-            NumberOfEnemies = number;
-        }
-
-        public void setNumberOfEnemiesXML(XmlNode node)
+        private void setNumberOfEnemiesXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("NumberOfEnemies").InnerText;
             FishToEnemyRatio = Convert.ToSingle(value);
         }
 
-        public int getNumberOfEnemies()
-        {
-            return NumberOfEnemies;
-        }
-
-        public void setLevelLength(int length)
-        {
-            LevelLength = length;
-        }
-
-        public void setLevelLengthXML(XmlNode node)
+        private void setLevelLengthXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("LevelLength").InnerText;
             FishToEnemyRatio = Convert.ToSingle(value);
         }
 
-        public int getLevelLength()
-        {
-            return LevelLength;
-        }
-
-        public void setLevelNumber(int level)
-        {
-            LevelNumber = level;
-        }
-
-        public void setLevelNumberXML(XmlNode node)
+        private void setLevelNumberXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("LevelNumber").InnerText;
             FishToEnemyRatio = Convert.ToSingle(value);
         }
 
-        public int getLevelNumber()
+        private void setLevelNameXML(XmlNode node)
         {
-            return LevelNumber;
+            LevelName = node.Attributes.GetNamedItem("LevelName").InnerText;
         }
 
+        private int PrecentCompleted()
+        {
+            return (LevelLength / CurrentPosition)* 10;
+        }
+      
     }
 }

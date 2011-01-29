@@ -84,11 +84,17 @@ namespace PodPanic
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu(GraphicsDevice.DisplayMode.Width / 2 - logo.Width/2, GraphicsDevice.DisplayMode.Height / 4 - logo.Height / 2, new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
-            score = new GameObjects.Score(new Vector2(100,0),devFont);
+            score = new GameObjects.Score(new Vector2(675,0),devFont);
+
+
 
             //Loading Logic - Graphics
             //Loading Logic - Levels
-            //Loading Logic - GameFormat
+            //Loading Logic - GameForm
+
+            //How much level is left
+
+
         }
 
         /// <summary>
@@ -250,7 +256,7 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 helpDraw(gameTime);
-                spriteBatch.DrawString(devFont, "Running playerHP: " + thePlayer.CurrHP, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, new Vector2(0, 0), Color.White);
                 //Draw background
                 //Draw player
                 
@@ -259,7 +265,7 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
                 helpDraw(gameTime);
-                spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, new Vector2(0, 10), Color.White);
                 spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(GraphicsDevice.DisplayMode.Width / 2, GraphicsDevice.DisplayMode.Height / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(GraphicsDevice.DisplayMode.Width / 2, 2 * GraphicsDevice.DisplayMode.Height / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 //Update text of pause state

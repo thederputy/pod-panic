@@ -22,7 +22,7 @@ namespace PodPanic
         public static void Main(string[] args)
         {
             XmlDocument doc = new XmlDocument();
-            doc.LoadXml("<Level  LevelNumber = '1'  FishToEnemyRatio = '1' PollutedWaterRatio = '1' NumberOfEnemies = '1' LevelLength = '1'/>");
+            doc.LoadXml("<Level  LevelNumber = '1' LevelName = 'Beginning' FishToEnemyRatio = '1' PollutedWaterRatio = '1' NumberOfEnemies = '1' LevelLength = '1'/>");
 
             LevelLogic tester = new LevelLogic();
 
