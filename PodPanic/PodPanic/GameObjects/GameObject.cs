@@ -24,11 +24,17 @@ namespace PodPanic.GameObjects
         public float velocity;
         #endregion
 
+        /// <summary>
+        /// Creates a gameObject.
+        /// </summary>
+        /// <param name="loadedTexture"></param>
         public GameObject(Texture2D loadedTexture)
         {
             velocity = 0.0f;
             position = Vector2.Zero;
             sprite = loadedTexture;
         }
+
+
     }
 }

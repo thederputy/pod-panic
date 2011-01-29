@@ -9,4 +9,9 @@ namespace PodPanic.GameState
     {
         Loading, Menu, GameRun, GamePause
     }
+
+    enum Channel
+    {
+        Top, Middle, Bottom
+    }
 }
