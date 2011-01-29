@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -90,11 +91,12 @@ namespace PodPanic
 
             //Loading Logic - Graphics
             //Loading Logic - Levels
-            //Loading Logic - GameForm
+            LevelObjects.LevelLogic level1 = new LevelObjects.LevelLogic();
 
-            //How much level is left
-
-
+            // to get to the levels
+            XmlNode levelNode = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "testLevel.xml");
+            level1.setDataFromXml(levelNode);
+            //Loading Logic - GameFormat
         }
 
         /// <summary>
