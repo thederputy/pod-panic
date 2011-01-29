@@ -52,12 +52,14 @@ namespace PodPanic
         {
             this.graphics.PreferredBackBufferHeight = 600;
             this.graphics.PreferredBackBufferWidth = 800;
+            //this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             Window.Title = "Pod-Panic";
             keyManager = new global::PodPanic.GameState.KeyboardManager(this);
             keyManager.Initialize();
             curState = global::PodPanic.GameState.GameStateEnum.Loading;
             AlphaShader = new global::PodPanic.GameState.AlphaShader();
+            AlphaBlinker = new global::PodPanic.GameState.AlphaBlinker();
             backTemp = new global::PodPanic.GameObjects.Background(this);
             Objects = new List<global::PodPanic.GameObjects.GameObject>();
             doOnce = false;
@@ -79,7 +81,8 @@ namespace PodPanic
             devFont = this.Content.Load<SpriteFont>("DevFont");
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
-            mainMenu = new global::PodPanic.GameObjects.Menu(0, 0, new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, test, devFont);
+            Texture2D logo = this.Content.Load<Texture2D>("LOGO");
+            mainMenu = new global::PodPanic.GameObjects.Menu(GraphicsDevice.DisplayMode.Width / 2 - logo.Width/2, GraphicsDevice.DisplayMode.Height / 4 - logo.Height / 2, new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
             //Loading Logic - Graphics
             //Loading Logic - Levels
             //Loading Logic - GameFormat
@@ -102,8 +105,6 @@ namespace PodPanic
         protected override void Update(GameTime gameTime)
         {
             keyManager.Update(gameTime);
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
             
             if (curState == global::PodPanic.GameState.GameStateEnum.Loading)
             {
@@ -131,13 +132,14 @@ namespace PodPanic
                     }
                     else if (firstChar == 'E')
                     {
-                        //Exit logic
+                        this.Exit();
                     }
                 }
                 if (keyManager.KeyPressed(Keys.W))
                     mainMenu.moveUp();
                 if (keyManager.KeyPressed(Keys.S))
                     mainMenu.moveDown();
+                backTemp.Update(gameTime);
                 //Check player cursor position
                 //Highlight menu options
             }
@@ -150,6 +152,9 @@ namespace PodPanic
                     thePlayer.moveUp();
                 else if (keyManager.KeyPressed(Keys.S))
                     thePlayer.modeDown();
+
+                if (keyManager.KeyPressed(Keys.Q))
+                    thePlayer.increaseHP(10);
                 backTemp.Update(gameTime);
                 //Update Enemy Position
                 if (!doOnce)
@@ -164,16 +169,42 @@ namespace PodPanic
                 foreach (GameObjects.GameObject obj in Objects)
                 {
                     obj.Update(gameTime);
+                    //Collision Detection
+                    if(new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100).Intersects(new Rectangle((int)thePlayer.getPosition().X, (int)getYChannel(thePlayer.currChannel), 200, 150)))
+                    {
+                        //has collided with object - friend or foe?
+                        if(obj.GetType() == typeof(GameObjects.Enemy))
+                        {
+                            if (((GameObjects.Enemy)(obj)).hasHitPlayer == false)
+                            {
+                                thePlayer.reduceHP(((GameObjects.Enemy)(obj)).getDamage());
+                                ((GameObjects.Enemy)(obj)).hasHitPlayer = true;
+                            } 
+                        }
+                        else
+                        {
+                            //if((GameObjects.Fish)(obj.
+                            //{
+
+                            //}
+                        }
+                        
+                    }
                 }
                 //Update Player Position
+                thePlayer.Update(gameTime);
+                //Collision Detection
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
                 if (keyManager.KeyPressed(Keys.Space))
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                if (keyManager.KeyPressed(Keys.Escape))
+                    this.Exit();
                 //Update text of pause state
             }
             AlphaShader.Update(gameTime);
+            AlphaBlinker.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -191,13 +222,14 @@ namespace PodPanic
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
+                backTemp.Draw(gameTime);
                 spriteBatch.DrawString(devFont, "Menu State", new Vector2(0, 0), Color.White);
                 mainMenu.draw(spriteBatch);
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 helpDraw(gameTime);
-                spriteBatch.DrawString(devFont, "Running", new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(devFont, "Running playerHP: " + thePlayer.CurrHP, new Vector2(0, 0), Color.White);
                 //Draw background
                 //Draw player
                 
@@ -206,7 +238,9 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
                 helpDraw(gameTime);
-                spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(400, 300) - new Vector2(PausedFont.MeasureString("PAUSED").X*0.5f,PausedFont.MeasureString("PAUSED").Y*0.5f) , new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+                spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, new Vector2(0, 0), Color.White);
+                spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(GraphicsDevice.DisplayMode.Width / 2, GraphicsDevice.DisplayMode.Height / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+                spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(GraphicsDevice.DisplayMode.Width / 2, 2 * GraphicsDevice.DisplayMode.Height / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 //Update text of pause state
                 
             }
@@ -225,6 +259,7 @@ namespace PodPanic
             if (curState == global::PodPanic.GameState.GameStateEnum.GamePause) drawColor = Color.Gray;
             backTemp.drawColor = drawColor;
             backTemp.Draw(gameTime);
+            thePlayer.drawColor = drawColor;
             thePlayer.Draw(gameTime);
             foreach (GameObjects.GameObject obj in Objects)
             {
