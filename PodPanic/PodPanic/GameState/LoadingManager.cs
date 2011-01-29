@@ -12,6 +12,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using System.Xml;
 #endregion
 
 namespace PodPanic.GameState
@@ -22,7 +23,7 @@ namespace PodPanic.GameState
     {
         static void createAsset(String assetName)
         {
-
+           
         }
     }
 }

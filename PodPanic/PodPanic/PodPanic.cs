@@ -34,6 +34,7 @@ namespace PodPanic
         bool doOnce;
         GameObjects.Menu mainMenu;
 
+        GameObjects.Score score;
 
         public PodPanic()
         {
@@ -83,6 +84,8 @@ namespace PodPanic
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu(GraphicsDevice.DisplayMode.Width / 2 - logo.Width/2, GraphicsDevice.DisplayMode.Height / 4 - logo.Height / 2, new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
+            score = new GameObjects.Score(new Vector2(100,0),devFont);
+
             //Loading Logic - Graphics
             //Loading Logic - Levels
             //Loading Logic - GameFormat
@@ -111,6 +114,7 @@ namespace PodPanic
                 //Temporary Loading Simulator
                 if (keyManager.KeyPressed(Keys.Space))
                     curState = global::PodPanic.GameState.GameStateEnum.Menu;
+            
 
                 //Check Load State - if loaded:
                 // -- Move to Menu State
@@ -125,6 +129,8 @@ namespace PodPanic
                     if (firstChar == 'S')
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                        score.Show();
+                        score.Start();
                     }
                     else if (firstChar == 'H')
                     {
@@ -147,7 +153,10 @@ namespace PodPanic
             {
                 //Do Key Detection
                 if (keyManager.KeyPressed(Keys.Space))
+                {
                     curState = global::PodPanic.GameState.GameStateEnum.GamePause;
+                    score.Stop();
+                }
                 if (keyManager.KeyPressed(Keys.W))
                     thePlayer.moveUp();
                 else if (keyManager.KeyPressed(Keys.S))
@@ -157,6 +166,11 @@ namespace PodPanic
                     thePlayer.increaseHP(10);
                 backTemp.Update(gameTime);
                 //Update Enemy Position
+
+                if (keyManager.KeyPressed(Keys.O))
+                    score.Add(500);
+
+
                 if (!doOnce)
                 {
                     Objects.Add(new global::PodPanic.GameObjects.Enemy(800, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
@@ -195,16 +209,23 @@ namespace PodPanic
                 thePlayer.Update(gameTime);
                 //Collision Detection
             }
+
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
                 if (keyManager.KeyPressed(Keys.Space))
+                {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                    score.Start();
+                }
                 if (keyManager.KeyPressed(Keys.Escape))
                     this.Exit();
                 //Update text of pause state
             }
             AlphaShader.Update(gameTime);
             AlphaBlinker.Update(gameTime);
+
+            score.Update();
+
             base.Update(gameTime);
         }
 
@@ -244,6 +265,9 @@ namespace PodPanic
                 //Update text of pause state
                 
             }
+
+            score.draw(spriteBatch);
+
             spriteBatch.End();
             
 

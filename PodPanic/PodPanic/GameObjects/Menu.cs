@@ -20,6 +20,8 @@ namespace PodPanic.GameObjects
         private Texture2D item;
         private SpriteFont menuFont;
 
+        private const int ADDITIONAL_SPACE_Y = 30;
+
 
         public Menu(int x, int y,List<String> mList,Texture2D menuItem, Texture2D logoImage,SpriteFont font)
         {
@@ -28,8 +30,8 @@ namespace PodPanic.GameObjects
 
             firstItem.X = x;
             firstItem.Y = y;
-            
-            distance = menuItem.Height + 30;
+
+            distance = menuItem.Height + ADDITIONAL_SPACE_Y;
 
             logo = logoImage;
             item = menuItem;

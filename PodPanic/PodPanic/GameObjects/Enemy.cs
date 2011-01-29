@@ -10,12 +10,17 @@ namespace PodPanic.GameObjects
 {
     class Enemy : GameObject
     {
+
         private int damage;
         private float offY;
-        private int offY_Amount;
         private float dir;
         private int baseY;
         public bool hasHitPlayer { get; set; }
+
+        private const int OFFY_AMOUNT = 10;
+        private const float SLOWEST_SPEED = 1.5f;
+        private const float FASTEST_SPEED = 2.8f;
+        private const float BOB_RATE = 0.01f;
 
 
         /// <summary>
@@ -29,16 +34,31 @@ namespace PodPanic.GameObjects
         public Enemy(int x, int y, Texture2D loadedTexture, int dam, Game game)
             : base(loadedTexture,game)
         {
-            velocity = .5f;
+            Random rnd = new Random();
+
+            velocity = SLOWEST_SPEED + (FASTEST_SPEED - SLOWEST_SPEED * (float)rnd.NextDouble());
+
+            System.Diagnostics.Trace.WriteLine("");
+
+
+            offY = (float)rnd.NextDouble();
+
+            if (rnd.NextDouble() > 0.5f)
+                dir = 1;
+            else
+                dir = -1;
+
             position.X = x;
             position.Y = y;
             baseY = y;
-            offY = 0;
+            
             damage = dam;
-            dir = 1;
-            offY_Amount = 10;
-            hasHitPlayer = false;
+            
         }
+
+        
+
+
         
         /// <summary>
         /// update moves the position forward
@@ -47,7 +67,7 @@ namespace PodPanic.GameObjects
         public override void Update(GameTime gameTime)
         {
             //offY += gameTime.ElapsedGameTime.Milliseconds;
-            offY += dir * 0.01f;
+            offY += dir * BOB_RATE;
             if ((dir > 0)&&(offY > 1)){
                 offY = 1;
                 dir = -1;
@@ -62,11 +82,15 @@ namespace PodPanic.GameObjects
 
 
             position.X -= velocity;
-            position.Y = baseY + (offY_Amount * offY);
+            position.Y = baseY + (OFFY_AMOUNT * offY);
 
             //System.Diagnostics.Trace.WriteLine(position.X);
             //System.Diagnostics.Trace.WriteLine(position.Y);
             //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedGameTime.Milliseconds);
+            //System.Diagnostics.Trace.WriteLine("******");
+
+            //System.Diagnostics.Trace.WriteLine("******");
+            //System.Diagnostics.Trace.WriteLine(velocity);
             //System.Diagnostics.Trace.WriteLine("******");
 
             base.Update(gameTime);

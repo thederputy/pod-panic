@@ -22,6 +22,12 @@ namespace PodPanic.GameObjects
         protected Texture2D sprite;
         protected Vector2 position;
         protected float velocity;
+        protected Boolean isDead;
+        
+
+        private const int SPRITESIZEX = 150;
+        private const int SPRITESIZEY = 150;
+
         #endregion
 
         public Color drawColor { get; set; }
@@ -37,6 +43,8 @@ namespace PodPanic.GameObjects
             velocity = 0.0f;
             position = Vector2.Zero;
             sprite = loadedTexture;
+             
+
         }
 
         /// <summary>
@@ -87,8 +95,10 @@ namespace PodPanic.GameObjects
 
         public override void  Draw(GameTime gameTime)
         {
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, 150, 150), drawColor);
+            if(!isDead){
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, SPRITESIZEX, SPRITESIZEY), drawColor);
             base.Draw(gameTime);
+            }
         }
 
     }
