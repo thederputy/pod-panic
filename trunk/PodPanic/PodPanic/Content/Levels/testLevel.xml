@@ -1,4 +1,0 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<XnaContent>
-	<Level LevelNumber='1' LevelName='TestLevel' LevelLength='100' FishToEnemyRatio='1' PollutedWaterRatio='1' NumberOfEnemies='1' />
-</XnaContent>
