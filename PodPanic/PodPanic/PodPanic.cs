@@ -11,7 +11,6 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
-
 namespace PodPanic
 {
     /// <summary>
@@ -29,6 +28,11 @@ namespace PodPanic
         GameState.AlphaShader AlphaShader;
         GameState.AlphaBlinker AlphaBlinker;
         GameObjects.Background backTemp;
+        Texture2D BadGuy1;
+        Texture2D BadGuy2;
+        List<GameObjects.GameObject> Objects;
+        bool doOnce;
+        GameObjects.Menu mainMenu;
 
 
         public PodPanic()
@@ -55,7 +59,8 @@ namespace PodPanic
             curState = global::PodPanic.GameState.GameStateEnum.Loading;
             AlphaShader = new global::PodPanic.GameState.AlphaShader();
             backTemp = new global::PodPanic.GameObjects.Background(this);
-            
+            Objects = new List<global::PodPanic.GameObjects.GameObject>();
+            doOnce = false;
             base.Initialize();
         }
 
@@ -65,12 +70,16 @@ namespace PodPanic
         /// </summary>
         protected override void LoadContent()
         {
-            thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaTEST"));
+            thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaTEST"), this);
             backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/Background_2");
+            BadGuy1 = this.Content.Load<Texture2D>("Enemies/Net_Test");
+            BadGuy2 = this.Content.Load<Texture2D>("Enemies/Oil_Test");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             devFont = this.Content.Load<SpriteFont>("DevFont");
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
+            Texture2D test = this.Content.Load<Texture2D>("MenuItem");
+            mainMenu = new global::PodPanic.GameObjects.Menu(0, 0, new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, test, devFont);
             //Loading Logic - Graphics
             //Loading Logic - Levels
             //Loading Logic - GameFormat
@@ -101,7 +110,6 @@ namespace PodPanic
                 //Temporary Loading Simulator
                 if (keyManager.KeyPressed(Keys.Space))
                     curState = global::PodPanic.GameState.GameStateEnum.Menu;
-            testE.Update(gameTime);
 
                 //Check Load State - if loaded:
                 // -- Move to Menu State
@@ -112,6 +120,10 @@ namespace PodPanic
             {
                 if (keyManager.KeyPressed(Keys.Space))
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                if (keyManager.KeyPressed(Keys.W))
+                    mainMenu.moveUp();
+                if (keyManager.KeyPressed(Keys.S))
+                    mainMenu.moveDown();
                 //Check player cursor position
                 //Highlight menu options
             }
@@ -126,6 +138,19 @@ namespace PodPanic
                     thePlayer.modeDown();
                 backTemp.Update(gameTime);
                 //Update Enemy Position
+                if (!doOnce)
+                {
+                    Objects.Add(new global::PodPanic.GameObjects.Enemy(800, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
+                    doOnce = true;
+                }
+                if (doOnce && Objects.Count < 2)
+                {
+                    Objects.Add(new global::PodPanic.GameObjects.Enemy(800, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
+                }
+                foreach (GameObjects.GameObject obj in Objects)
+                {
+                    obj.Update(gameTime);
+                }
                 //Update Player Position
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
@@ -153,6 +178,7 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 spriteBatch.DrawString(devFont, "Menu State", new Vector2(0, 0), Color.White);
+                mainMenu.draw(spriteBatch);
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
@@ -189,8 +215,10 @@ namespace PodPanic
             spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X, getYChannel(thePlayer.currChannel) + 38, 99, 75), drawColor);
             spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X + 50, getYChannel(thePlayer.currChannel), 99, 75), drawColor);
             spriteBatch.Draw(thePlayer.getTexture(), new Rectangle((int)thePlayer.getPosition().X + 50, getYChannel(thePlayer.currChannel) + 86, 99, 75), drawColor);
-            
-            
+            foreach (GameObjects.GameObject obj in Objects)
+            {
+                obj.Draw(gameTime);
+            }
         }
 
         private int getYChannel(global::PodPanic.GameState.Channel arg0)
