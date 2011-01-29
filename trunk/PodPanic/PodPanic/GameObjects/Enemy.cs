@@ -15,6 +15,7 @@ namespace PodPanic.GameObjects
         private int offY_Amount;
         private float dir;
         private int baseY;
+        public bool hasHitPlayer { get; set; }
 
 
         /// <summary>
@@ -36,11 +37,8 @@ namespace PodPanic.GameObjects
             damage = dam;
             dir = 1;
             offY_Amount = 10;
+            hasHitPlayer = false;
         }
-
-        
-
-
         
         /// <summary>
         /// update moves the position forward
