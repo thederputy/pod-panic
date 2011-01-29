@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace PodPanic.GameObjects
 {
-    class GameObject 
+    class GameObject : Microsoft.Xna.Framework.GameComponent
     {
         #region Attributes
         protected Texture2D sprite;
@@ -28,7 +28,8 @@ namespace PodPanic.GameObjects
         /// Creates a gameObject.
         /// </summary>
         /// <param name="loadedTexture"></param>
-        public GameObject(Texture2D loadedTexture)
+        public GameObject(Texture2D loadedTexture, Game game)
+            : base(game)
         {
             velocity = 0.0f;
             position = Vector2.Zero;
@@ -45,20 +46,46 @@ namespace PodPanic.GameObjects
             return sprite;
         }
 
-        //public void Update(GameTime gameTime)
-       // {
+
+        /// <summary>
+        /// updates
+        /// 
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public override void Update(GameTime gameTime)
+        {
+            // TODO: Add your update code here
+
+            base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// 
+        /// initializes
+        /// </summary>
+        public override void Initialize()
+        {
+            // TODO: Add your initialization code here
+
+            base.Initialize();
+        }
 
 
-            //base.Update(gameTime);
-       // }
-
-
+        /// <summary>
+        /// 
+        /// function use to get the vector for the top left corner
+        /// </summary>
+        /// <returns> returns a vector that contains, </returns>
         public Vector2 getPosition()
         {
             return position;
         }
 
-        
+
+        public void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, position, Color.White);
+        }
 
     }
 }

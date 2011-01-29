@@ -24,8 +24,8 @@ namespace PodPanic.GameObjects
         /// <param name="y">starting y</param>
         /// <param name="normFish">image for normal fish</param>
         /// <param name="sickFish">image for sick fish</param>
-        public Fish(int x, int y, Texture2D normFish, Texture2D sickFish)
-            : base(null)
+        public Fish(int x, int y, Texture2D normFish, Texture2D sickFish, Game game)
+            : base(null,game)
         {
             velocity = .25f;
             position.X = x;
@@ -54,17 +54,7 @@ namespace PodPanic.GameObjects
             polluted_percent = percent;       
         }
 
-        /// <summary>
-        /// moves fish along the x at a velocity
-        /// </summary>
-        //public void move()
-        //{
-         //   position.X += velocity;
-            
-            //System.Diagnostics.Trace.WriteLine(position.X);
-            //System.Diagnostics.Trace.WriteLine(isPolluted);
-            //System.Diagnostics.Trace.WriteLine(polluted_percent);
-        //}
+        
 
 
         /// <summary>
@@ -79,7 +69,7 @@ namespace PodPanic.GameObjects
             position.X += velocity;
             
 
-           // base.Update(gameTime);
+            base.Update(gameTime);
         }
 
 

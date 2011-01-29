@@ -25,8 +25,8 @@ namespace PodPanic.GameObjects
         /// <param name="loadedTexture">the texture it draws</param>
         /// <param name="dam">how much damage it does</param>
         /// 
-        public Enemy(int x, int y, Texture2D loadedTexture, int dam)
-            : base(loadedTexture)
+        public Enemy(int x, int y, Texture2D loadedTexture, int dam, Game game)
+            : base(loadedTexture,game)
         {
             velocity = .5f;
             position.X = x;
@@ -38,11 +38,7 @@ namespace PodPanic.GameObjects
             offY_Amount = 10;
         }
 
-        //public void move()
-        //{
-         //   position.X += velocity;
-         //   position.Y = baseY + offY;
-        //}
+        
 
 
         
@@ -75,7 +71,7 @@ namespace PodPanic.GameObjects
             //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedGameTime.Milliseconds);
             //System.Diagnostics.Trace.WriteLine("******");
 
-           // base.Update(gameTime);
+            base.Update(gameTime);
         }
 
         /// <summary>
