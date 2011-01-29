@@ -38,6 +38,8 @@ namespace PodPanic
         List<GameObjects.GameObject> Objects;
         bool doOnce;
         GameObjects.Menu mainMenu;
+        Texture2D fishTest;
+
         GameObjects.Score score;
         LevelObjects.LevelLogic[] Levels;
         int CurrentLevel;
@@ -102,6 +104,8 @@ namespace PodPanic
             Levels[0].LevelNumber = 5;
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
+            //List<Texture2D> fList = new List<Texture2D>();
+            fishTest = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
 
 
             //Loading Logic - Graphics
@@ -109,8 +113,8 @@ namespace PodPanic
             LevelObjects.LevelLogic level1 = new LevelObjects.LevelLogic();
 
             // to get to the levels
-            XmlNode levelNode = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "testLevel.xml");
-            level1.setDataFromXml(levelNode);
+            //XmlNode levelNode = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "testLevel.xml");
+            //level1.setDataFromXml(levelNode);
             //Loading Logic - GameFormat
         }
 
@@ -233,11 +237,17 @@ namespace PodPanic
                 if (!doOnce)
                 {
                     Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
+                    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Middle), fishTest, fishTest, this));
+                    
                     doOnce = true;
                 }
-                if (doOnce && Objects.Count < 2)
+                if (doOnce && Objects.Count < 3)
                 {
                     Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.Y, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
+                    //testing fish
+
+                    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Bottom), fishTest, fishTest, this));
+                    //end testing fish
                 }
                 foreach (GameObjects.GameObject obj in Objects)
                 {
@@ -272,7 +282,7 @@ namespace PodPanic
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
                     score.Start();
-                }
+                    }
                 if (keyManager.KeyPressed(Keys.Escape))
                     this.Exit();
                 //Update text of pause state

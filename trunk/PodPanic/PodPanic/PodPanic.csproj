@@ -85,6 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GameObjects\Background.cs" />
+    <Compile Include="GameObjects\Fish_Bobber.cs" />
     <Compile Include="GameObjects\Score.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Menu.cs" />
@@ -95,7 +96,6 @@
     <Compile Include="GameState\KeyMapping.cs" />
     <Compile Include="GameState\LoadingManager.cs" />
     <Compile Include="LevelObjects\LevelLogic.cs" />
-    <Compile Include="LevelObjects\Test.cs" />
     <Compile Include="PodPanic.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\Fish.cs" />
@@ -103,6 +103,20 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Background\Background.png" />
+    <Content Include="Content\Background\Background_2.png" />
+    <Content Include="Content\Background\Sand_Full.png" />
+    <Content Include="Content\Background\Water_Full.png" />
+    <Content Include="Content\Enemies\Net_Test.png" />
+    <Content Include="Content\Enemies\Oil_Test.png" />
+    <Content Include="Content\Food\Salmon_Sprite.png" />
+    <Content Include="Content\Levels\testLevel.xml" />
+    <Content Include="Content\LOGO.png" />
+    <Content Include="Content\MenuItem.png" />
+    <Content Include="Content\obj\x86\Debug\Content.contentproj.FileListAbsolute.txt" />
+    <Content Include="Content\obj\x86\Debug\ContentPipeline.xml" />
+    <Content Include="Content\Orca\OrcaANIM.png" />
+    <Content Include="Content\Orca\OrcaTEST.png" />
     <Content Include="Documentation\LevelDesignRequirements.txt" />
     <Content Include="Documentation\level_data.xml.txt" />
     <Content Include="Game.ico" />
@@ -150,6 +164,17 @@
       <ProductName>Microsoft XNA Framework Redistributable 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Content.contentproj" />
+    <None Include="Content\Content.contentproj.user" />
+    <None Include="Content\DevFont.spritefont" />
+    <None Include="Content\obj\x86\Debug\ResolveAssemblyReference.cache" />
+    <None Include="Content\PausedFont.spritefont" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Content\bin\x86\Debug\" />
+    <Folder Include="Content\obj\x86\Debug\TempPE\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
