@@ -99,10 +99,10 @@ namespace PodPanic
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[3];
-            Levels[0] = new global::PodPanic.LevelObjects.LevelLogic();
-            Levels[0].LevelLength = 1000;
-            Levels[0].LevelName = "Sneaky Sneaky";
-            Levels[0].LevelNumber = 5;
+            Levels[2] = new global::PodPanic.LevelObjects.LevelLogic();
+            Levels[2].LevelLength = 1000;
+            Levels[2].LevelName = "Sneaky Sneaky";
+            Levels[2].LevelNumber = 5;
 
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
@@ -116,12 +116,10 @@ namespace PodPanic
             LevelObjects.LevelLogic level2 = new LevelObjects.LevelLogic();
 
             // to get to the levels
-            XmlNode levelNode = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "testLevel.xml");
-            level1.setDataFromXml(levelNode);
             XmlNode levelNode1 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level1.xml");
             level1.setDataFromXml(levelNode1);
             XmlNode levelNode2 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level2.xml");
-            level1.setDataFromXml(levelNode2);
+            level2.setDataFromXml(levelNode2);
 
             Levels[0] = level1;
             Levels[1] = level2;
@@ -232,7 +230,8 @@ namespace PodPanic
                         lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
                         if (!(CurrentLevel + 1 >= Levels.Length))
                             CurrentLevel += 1;
-                       // else
+                        else ;
+                        //else ;
                             //Signal End Game
                     }
                 }
@@ -423,6 +422,6 @@ namespace PodPanic
             return 0;
         }
 
-        
+
     }
 }

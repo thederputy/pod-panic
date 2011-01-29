@@ -1,0 +1,23 @@
+Sounds Requirements
+
+TITLE						LENGTH		COMMENTS
+
+Title screen
+------------------------
+gulls_waves_horn.wav		00:07		(mix of gulls + waves + horn)
+
+In Game
+------------------------
+OceaSurg.wav				00:04		(good for looping)
+
+Level Finish
+------------------------
+
+
+Random Sounds
+------------------------
+ocean.aif					00:04		(clean crisp seashore) TOO HIGH SOUND
+ocean.wav					00:05		(not as crisp as ocean.aif, but nice)
+ocean2(ocean surf).wav		00:02		(wave splash)
+ocean53.wav					00:09		(mostly gulls)
+oceanLap (ocean surf)		00:03		(soft wave lapping) BAD

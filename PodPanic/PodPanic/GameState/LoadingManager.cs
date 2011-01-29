@@ -50,12 +50,8 @@ namespace PodPanic.GameState
                     levelNode = currNode;
                 }
             }
-
+            
             return levelNode;
-        }
-
-        public static void loadGraphicsAsset(String assetName)
-        {
         }
     }
 }
