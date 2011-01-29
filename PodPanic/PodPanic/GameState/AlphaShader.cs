@@ -15,6 +15,9 @@ namespace PodPanic.GameState
 {
     class AlphaShader
     {
+        public const int MAX_ALPHA = 255;
+        public const int MIN_ALPHA = 0;
+        public const int NUM_TICKS = 2;
         public int AlphaVal { get; set; }
         private bool isUp;
         int milliCovered;
@@ -27,45 +30,48 @@ namespace PodPanic.GameState
         public void Update(GameTime curTime)
         {
             milliCovered += (int)curTime.ElapsedRealTime.Ticks;
-            if (milliCovered >= 2)
+            if (milliCovered >= NUM_TICKS)
             {
                 milliCovered = 0;
                 if (isUp)
                     AlphaVal += 1;
                 else
                     AlphaVal -= 1;
-                if (AlphaVal <= 0)
+                if (AlphaVal <= MIN_ALPHA)
                 {
                     isUp = true;
-                    AlphaVal = 0;
+                    AlphaVal = MIN_ALPHA;
                 }
-                else if (AlphaVal >= 255)
+                else if (AlphaVal >= MAX_ALPHA)
                 {
                     isUp = false;
-                    AlphaVal = 255;
+                    AlphaVal = MAX_ALPHA;
                 }
-                AlphaVal = Math.Max(Math.Min(AlphaVal, 255), 0);
+                AlphaVal = Math.Max(Math.Min(AlphaVal, MAX_ALPHA), MIN_ALPHA);
             }
         }
     }
     class AlphaBlinker
     {
+        public const int MAX_ALPHA = 255;
+        public const int MIN_ALPHA = 0;
+        public const int NUM_MILLISECONDS = 500;
         public int AlphaVal { get; set; }
         int milliCovered;
         public AlphaBlinker()
         {
-            AlphaVal = 255;
+            AlphaVal = MAX_ALPHA;
             milliCovered = 0;
         }
         public void Update(GameTime curTime)
         {
             milliCovered += curTime.ElapsedRealTime.Milliseconds;
-            if (milliCovered >= 500)
+            if (milliCovered >= NUM_MILLISECONDS)
             {
-                if (AlphaVal == 0)
-                    AlphaVal = 255;
+                if (AlphaVal == MIN_ALPHA)
+                    AlphaVal = MAX_ALPHA;
                 else
-                    AlphaVal = 0;
+                    AlphaVal = MIN_ALPHA;
                 milliCovered = 0;
             }
         }
