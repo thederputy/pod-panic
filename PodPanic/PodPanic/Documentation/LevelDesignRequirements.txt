@@ -4,7 +4,6 @@ Levels:
 --Probability Fish Pollution
 --Probability Enemy Type
 --Probability Enemy/Fish
---Probability of Occurence
 --Time Between Events
 --Pollution Level
 --Level Name

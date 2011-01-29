@@ -24,6 +24,8 @@ namespace PodPanic.GameObjects
         protected float velocity;
         #endregion
 
+        public Color drawColor { get; set; }
+
         /// <summary>
         /// Creates a gameObject.
         /// </summary>
@@ -31,6 +33,7 @@ namespace PodPanic.GameObjects
         public GameObject(Texture2D loadedTexture, Game game)
             : base(game)
         {
+            drawColor = Color.White;
             velocity = 0.0f;
             position = Vector2.Zero;
             sprite = loadedTexture;
@@ -84,7 +87,7 @@ namespace PodPanic.GameObjects
 
         public override void  Draw(GameTime gameTime)
         {
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, position, Color.White);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, 150, 150), drawColor);
             base.Draw(gameTime);
         }
 

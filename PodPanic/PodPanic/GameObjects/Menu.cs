@@ -48,16 +48,15 @@ namespace PodPanic.GameObjects
                     color = Color.Gold;
                 spriteBatch.Draw(item, new Vector2(firstItem.X + logo.Width/2 - item.Width/2, firstItem.Y + logo.Height + item.Height + i * distance), color);
                 color = Color.White;
-                spriteBatch.DrawString(menuFont, menuList[i], new Vector2(firstItem.X + logo.Width / 2 - item.Width / 2 + 5, firstItem.Y + logo.Height + item.Height + i * distance + 5), color);
+                Vector2 centerOffset = menuFont.MeasureString(menuList[i]);
+                centerOffset = new Vector2(centerOffset.X * 0.5f, centerOffset.Y * 0.5f);
+                spriteBatch.DrawString(menuFont, menuList[i], new Vector2(firstItem.X + logo.Width / 2 - centerOffset.X, firstItem.Y + logo.Height + item.Height + i * distance + centerOffset.Y), color);
             }
-
+            // 
 
             // x = x + logowidth/2 - itemwidth/2 (+5)
             // y = y + logoheight + itemheight, + i * distance (+5)
         }
-
-
-
         public void moveUp()
         {
             if(pointer > 0){
@@ -69,22 +68,9 @@ namespace PodPanic.GameObjects
             if(pointer < menuList.Count -1){
                 pointer++;
             }
-
         }
         public String getItem(){
             return menuList[pointer];
         }
-
-        
-
-
-
-
-
-
-
-
-
-
     }
 }
