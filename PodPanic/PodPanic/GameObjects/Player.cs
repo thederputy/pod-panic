@@ -20,6 +20,7 @@ namespace PodPanic.GameObjects
     class Player : GameObject
     {
         private float currHP;
+        private float currRot;
 
         /// <summary>
         /// Stores the current HP of the unit.
@@ -64,7 +65,8 @@ namespace PodPanic.GameObjects
         public Player(Texture2D loadedTexture, Game game)
             :base(loadedTexture, game)
         {
-
+            position = new Vector2(50, ((PodPanic)(this.Game)).getYChannel(currChannel));
+            currRot = 0.0f;
         }
 
         /// <summary>
@@ -148,12 +150,51 @@ namespace PodPanic.GameObjects
             }
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            int threshold = 75;
+            updateAlive();
+            if (position.Y > ((PodPanic)(this.Game)).getYChannel(currChannel))
+            {
+                position.Y -= 2;
+                if (currRot > -Math.PI / 6 && position.Y - ((PodPanic)(this.Game)).getYChannel(currChannel) > threshold)
+                {
+                    currRot -= 0.01f;
+                }
+                else if (position.Y - ((PodPanic)(this.Game)).getYChannel(currChannel) < threshold)
+                {
+                    currRot += 0.01f;
+                }
+            }
+            else if (position.Y < ((PodPanic)(this.Game)).getYChannel(currChannel))
+            {
+                position.Y += 2;
+                if (currRot < Math.PI / 6 && ((PodPanic)(this.Game)).getYChannel(currChannel) - position.Y > threshold)
+                {
+                    currRot += 0.01f;
+                }
+                else if (((PodPanic)(this.Game)).getYChannel(currChannel) - position.Y < threshold)
+                {
+                    currRot -= 0.01f;
+                }
+            }
+            else
+            {
+
+                if (currRot > 0.0f)
+                    currRot -= 0.01f;
+                else if (currRot < 0.0f)
+                    currRot += 0.01f;
+            }
+            base.Update(gameTime);
+        }
+
         public override void Draw(GameTime gameTime)
         {
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 99, ((PodPanic)(this.Game)).getYChannel(currChannel) + 33, 111, 83), drawColor);
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, ((PodPanic)(this.Game)).getYChannel(currChannel) + 38, 99, 75), drawColor);
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, ((PodPanic)(this.Game)).getYChannel(currChannel), 99, 75), drawColor);
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, ((PodPanic)(this.Game)).getYChannel(currChannel) + 86, 99, 75), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 99, (int)position.Y + 33, 111, 83), null, drawColor, currRot, new Vector2(400,300), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y + 38, 99, 75), null, drawColor, currRot, new Vector2(400, 300), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, (int)position.Y, 99, 75), null, drawColor, currRot, new Vector2(400, 300), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, (int)position.Y + 86, 99, 75), null, drawColor, currRot, new Vector2(400, 300), SpriteEffects.None, 0);
         }
     }
 }
