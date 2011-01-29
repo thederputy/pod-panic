@@ -17,15 +17,19 @@ namespace PodPanic.GameState
     {
         public int AlphaVal { get; set; }
         private bool isUp;
+        int milliCovered;
 
         public AlphaShader()
         {
             AlphaVal = 255;
+            milliCovered = 0;
         }
         public void Update(GameTime curTime)
         {
-            if (curTime.ElapsedRealTime.Milliseconds >= 1)
+            milliCovered += (int)curTime.ElapsedRealTime.Ticks;
+            if (milliCovered >= 2)
             {
+                milliCovered = 0;
                 if (isUp)
                     AlphaVal += 1;
                 else
