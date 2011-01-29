@@ -16,7 +16,7 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace PodPanic.GameObjects
 {
-    class GameObject : Microsoft.Xna.Framework.GameComponent
+    class GameObject : Microsoft.Xna.Framework.DrawableGameComponent
     {
         #region Attributes
         protected Texture2D sprite;
@@ -82,9 +82,10 @@ namespace PodPanic.GameObjects
         }
 
 
-        public void Draw(SpriteBatch spriteBatch)
+        public override void  Draw(GameTime gameTime)
         {
-            spriteBatch.Draw(sprite, position, Color.White);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, position, Color.White);
+            base.Draw(gameTime);
         }
 
     }
