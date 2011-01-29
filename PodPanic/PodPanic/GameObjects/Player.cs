@@ -61,8 +61,8 @@ namespace PodPanic.GameObjects
         /// Constructor for the Player.
         /// </summary>
         /// <param name="loadedTexture"></param>
-        public Player(Texture2D loadedTexture)
-            :base(loadedTexture)
+        public Player(Texture2D loadedTexture, Game game)
+            :base(loadedTexture, game)
         {
 
         }
