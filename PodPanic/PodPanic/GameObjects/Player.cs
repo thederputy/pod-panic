@@ -32,6 +32,10 @@ namespace PodPanic.GameObjects
         private float currHP;
         private float currRot;
 
+        private const int ANIMATE_SPEED = 100;// in milliseconds
+        private const int SPRITE_HEIGHT = 70;
+        private const int SPRITE_WIDTH = 190;//380
+
 
         /// <summary>
         /// Stores the current HP of the unit.
@@ -69,6 +73,9 @@ namespace PodPanic.GameObjects
         /// </summary>
         public Channel currChannel;
 
+
+
+
         /// <summary>
         /// Constructor for the Player.
         /// </summary>
@@ -79,6 +86,10 @@ namespace PodPanic.GameObjects
             position = new Vector2(50, ((PodPanic)(this.Game)).getYChannel(currChannel));
             currRot = 0.0f;
         }
+
+
+
+
 
         /// <summary>
         /// Reduces the player's health. If it is 0, they will be marked as not alive.

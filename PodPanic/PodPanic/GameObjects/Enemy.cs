@@ -18,8 +18,8 @@ namespace PodPanic.GameObjects
         public bool hasHitPlayer { get; set; }
 
         private const int OFFY_AMOUNT = 10;
-        private const float SLOWEST_SPEED = 1.5f;
-        private const float FASTEST_SPEED = 2.8f;
+        private const float SLOWEST_SPEED = 1.3f;
+        private const float FASTEST_SPEED = 2.2f;
         private const float BOB_RATE = 0.01f;
 
 
@@ -38,7 +38,7 @@ namespace PodPanic.GameObjects
 
             velocity = SLOWEST_SPEED + (FASTEST_SPEED - SLOWEST_SPEED * (float)rnd.NextDouble());
 
-            System.Diagnostics.Trace.WriteLine("");
+            //System.Diagnostics.Trace.WriteLine("");
 
 
             offY = (float)rnd.NextDouble();
@@ -78,7 +78,7 @@ namespace PodPanic.GameObjects
                 dir = 1;
             }
 
-
+            
 
 
             position.X -= velocity;
