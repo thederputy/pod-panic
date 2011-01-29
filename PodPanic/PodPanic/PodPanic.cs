@@ -16,12 +16,13 @@ namespace PodPanic
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game1 : Microsoft.Xna.Framework.Game
+    public class PodPanic : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        GameState.GameStateEnum curState;        
 
-        public Game1()
+        public PodPanic()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -35,8 +36,7 @@ namespace PodPanic
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
+            curState = global::PodPanic.GameState.GameStateEnum.Loading;
             base.Initialize();
         }
 
@@ -84,8 +84,6 @@ namespace PodPanic
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }
