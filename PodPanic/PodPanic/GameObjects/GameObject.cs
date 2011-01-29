@@ -45,10 +45,20 @@ namespace PodPanic.GameObjects
             return sprite;
         }
 
+        public void Update(GameTime gameTime)
+        {
+
+
+            //base.Update(gameTime);
+        }
+
+
         public Vector2 getPosition()
         {
             return position;
         }
+
+        
 
     }
 }
