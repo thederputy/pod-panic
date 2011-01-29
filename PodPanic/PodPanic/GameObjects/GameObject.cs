@@ -19,9 +19,9 @@ namespace PodPanic.GameObjects
     class GameObject
     {
         #region Attributes
-        public Texture2D sprite;
-        public Vector2 position;
-        public float velocity;
+        protected Texture2D sprite;
+        protected Vector2 position;
+        protected float velocity;
         #endregion
 
         /// <summary>
@@ -35,6 +35,20 @@ namespace PodPanic.GameObjects
             sprite = loadedTexture;
         }
 
+        /// <summary>
+        /// 
+        /// returns the sprite of the object
+        /// </summary>
+        /// <returns>returns a 2d texture</returns>
+        public Texture2D getTexture()
+        {
+            return sprite;
+        }
+
+        public Vector2 getPosition()
+        {
+            return position;
+        }
 
     }
 }
