@@ -91,7 +91,7 @@ namespace PodPanic.LevelObjects
             LevelName = node.Attributes.GetNamedItem("LevelName").InnerText;
         }
 
-        private int PrecentCompleted()
+        public int PercentCompleted()
         {
             return (int)(LevelLength / CurrentPosition)* 10;
         }

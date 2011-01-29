@@ -37,6 +37,7 @@ namespace PodPanic
         Texture2D BadGuy2;
         List<GameObjects.GameObject> Objects;
         bool doOnce;
+        bool DevMode;
         GameObjects.Menu mainMenu;
         Texture2D fishTest;
 
@@ -97,11 +98,12 @@ namespace PodPanic
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
-            Levels = new global::PodPanic.LevelObjects.LevelLogic[1];
+            Levels = new global::PodPanic.LevelObjects.LevelLogic[3];
             Levels[0] = new global::PodPanic.LevelObjects.LevelLogic();
             Levels[0].LevelLength = 1000;
             Levels[0].LevelName = "Sneaky Sneaky";
             Levels[0].LevelNumber = 5;
+
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
             //List<Texture2D> fList = new List<Texture2D>();
@@ -111,10 +113,18 @@ namespace PodPanic
             //Loading Logic - Graphics
             //Loading Logic - Levels
             LevelObjects.LevelLogic level1 = new LevelObjects.LevelLogic();
+            LevelObjects.LevelLogic level2 = new LevelObjects.LevelLogic();
 
             // to get to the levels
-            //XmlNode levelNode = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "testLevel.xml");
-            //level1.setDataFromXml(levelNode);
+            XmlNode levelNode = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "testLevel.xml");
+            level1.setDataFromXml(levelNode);
+            XmlNode levelNode1 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level1.xml");
+            level1.setDataFromXml(levelNode1);
+            XmlNode levelNode2 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level2.xml");
+            level1.setDataFromXml(levelNode2);
+
+            Levels[0] = level1;
+            Levels[1] = level2;
             //Loading Logic - GameFormat
         }
 
@@ -172,6 +182,8 @@ namespace PodPanic
                     mainMenu.moveUp();
                 if (keyManager.KeyPressed(Keys.S))
                     mainMenu.moveDown();
+
+
                 backTemp.Update(gameTime);
                 //Check player cursor position
                 //Highlight menu options
@@ -211,6 +223,7 @@ namespace PodPanic
                         thePlayer.moveUp();
                     else if (keyManager.KeyPressed(Keys.S))
                         thePlayer.modeDown();
+
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
@@ -219,11 +232,10 @@ namespace PodPanic
                         lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
                         if (!(CurrentLevel + 1 >= Levels.Length))
                             CurrentLevel += 1;
-                        else ;
+                       // else
                             //Signal End Game
                     }
                 }
-                
 
                 if (keyManager.KeyPressed(Keys.Q))
                     thePlayer.increaseHP(10);
@@ -282,11 +294,21 @@ namespace PodPanic
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
                     score.Start();
-                    }
+                }
+
                 if (keyManager.KeyPressed(Keys.Escape))
                     this.Exit();
                 //Update text of pause state
             }
+
+            if (keyManager.KeyPressed(Keys.Z)) //triggers DevMode
+            {
+                if (DevMode)
+                    DevMode = false;
+                else
+                    DevMode = true;
+            }
+
             AlphaShader.Update(gameTime);
             AlphaBlinker.Update(gameTime);
 
@@ -305,12 +327,14 @@ namespace PodPanic
             spriteBatch.Begin();
             if (curState == global::PodPanic.GameState.GameStateEnum.Loading)
             {
-                spriteBatch.DrawString(devFont, "Loading", Vector2.Zero, Color.White);
+                if (DevMode)
+                    spriteBatch.DrawString(devFont, "Loading", Vector2.Zero, Color.White);
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 backTemp.Draw(gameTime);
-                spriteBatch.DrawString(devFont, "Menu State", Vector2.Zero, Color.White);
+                if (DevMode)
+                    spriteBatch.DrawString(devFont, "Menu State", Vector2.Zero, Color.White);
                 mainMenu.draw(spriteBatch);
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
@@ -334,9 +358,13 @@ namespace PodPanic
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).Y / 2), Color.White);
                     spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
                 }
+
+                if (DevMode)
+                {
+                    spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, Vector2.Zero, Color.White);
+                    spriteBatch.DrawString(devFont, "Level: " + Levels[CurrentLevel].LevelNumber, new Vector2(0, 20), Color.White);
+                } 
                 
-                spriteBatch.DrawString(devFont, "Running playerHP: " + thePlayer.CurrHP, Vector2.Zero, Color.White);
-                spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, new Vector2(0, 0), Color.White);
                 //Draw background
                 //Draw player
                 
@@ -345,7 +373,11 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
                 helpDraw(gameTime);
-                spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, Vector2.Zero, Color.White);
+            
+                if (DevMode)
+                {
+                    spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, Vector2.Zero, Color.White);
+                }
                 spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(SCREEN_SIZE.X / 2, SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 //Update text of pause state
@@ -354,6 +386,8 @@ namespace PodPanic
 
             score.draw(spriteBatch);
 
+            if (DevMode)
+                spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
             spriteBatch.End();
             
 
@@ -388,5 +422,7 @@ namespace PodPanic
             }
             return 0;
         }
+
+        
     }
 }

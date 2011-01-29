@@ -29,6 +29,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <StartupObject>PodPanic.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <DebugSymbols>true</DebugSymbols>
@@ -110,6 +111,8 @@
     <Content Include="Content\Enemies\Net_Test.png" />
     <Content Include="Content\Enemies\Oil_Test.png" />
     <Content Include="Content\Food\Salmon_Sprite.png" />
+    <Content Include="Content\Levels\level1.xml" />
+    <Content Include="Content\Levels\level2.xml" />
     <Content Include="Content\Levels\testLevel.xml" />
     <Content Include="Content\LOGO.png" />
     <Content Include="Content\MenuItem.png" />
