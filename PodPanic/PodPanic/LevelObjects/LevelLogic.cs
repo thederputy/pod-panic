@@ -19,29 +19,24 @@ namespace PodPanic.LevelObjects
 {
     class LevelLogic
     {
-        public float FishToEnemyRatio {get; set;}
-        public float PollutedWaterRatio { get; set; }
-        public int NumberOfEnemies {get; set;}
-        public int LevelLength {get; set;}
-        public int LevelNumber {get; set;}
+
+        public int LevelLength { get; set;}
+        public float ProbabilityFishPollution { get; set; }
+        public float ProbabilityEnemyType { get; set; }
+        public float ProbabilityEnemyFish { get; set;}
+        public int TimeBetweenEvents { get; set;}
+        public float PollutionLevel { get; set; }
+        public String LevelName { get; set; }
+        public int LevelNumber { get; set; }
+        public int CurrentPosition { get; set; }
+
         public Texture2D Background {get; set;}
-        public String LevelName {get; set;}
-        public float CurrentPosition {get; set;}
 
         public static TimeSpan ElapsedGameTime; 
 
+
         public LevelLogic()
         {
-        }
-
-        public void setDataFromXml(XmlNode node)
-        {
-            setFishToEnemyRatioXML(node);
-            setPollutedWaterRatioXML(node);
-            setNumberOfEnemiesXML(node);
-            setLevelLengthXML(node);
-            setLevelNumberXML(node);
-            setLevelNameXML(node);
         }
 
         public LevelLogic(Texture2D loadedTexture)
@@ -49,27 +44,17 @@ namespace PodPanic.LevelObjects
             Background = loadedTexture;
         }
 
-        private void setFishToEnemyRatioXML(XmlNode node)
+        public void setDataFromXml(XmlNode node)
         {
-            //XmlNode root = node.FirstChild;
-
-            String value;
-            value = node.Attributes.GetNamedItem("FishToEnemyRatio").InnerText;
-            FishToEnemyRatio = Convert.ToSingle(value);
-        }
-
-        private void setPollutedWaterRatioXML(XmlNode node)
-        {
-            String value;
-            value = node.Attributes.GetNamedItem("PollutedWaterRatio").InnerText;
-            PollutedWaterRatio = Convert.ToSingle(value);
-        }
-
-        private void setNumberOfEnemiesXML(XmlNode node)
-        {
-            String value;
-            value = node.Attributes.GetNamedItem("NumberOfEnemies").InnerText;
-            NumberOfEnemies = Convert.ToInt32(value);
+            setLevelLengthXML(node);
+            setProbabilityEnemyTypeXML(node);
+            setProbabilityFishPollutionXML(node);
+            setProbabilityEnemyTypeXML(node);
+            setProbabilityEnemyFishXML(node);
+            setTimeBetweenEventsXML(node);
+            setPollutionLevelXML(node);
+            setLevelNameXML(node);
+            setLevelNumberXML(node);
         }
 
         private void setLevelLengthXML(XmlNode node)
@@ -79,16 +64,58 @@ namespace PodPanic.LevelObjects
             LevelLength = Convert.ToInt32(value);
         }
 
-        private void setLevelNumberXML(XmlNode node)
+        private void setProbabilityEnemyTypeXMP(XmlNode node)
         {
             String value;
-            value = node.Attributes.GetNamedItem("LevelNumber").InnerText;
-            LevelNumber = Convert.ToInt32(value);
+            value = node.Attributes.GetNamedItem("ProbabilityEnemyType").InnerText;
+            ProbabilityEnemyType = Convert.ToSingle(value);
+        }
+        
+        private void setProbabilityFishPollutionXML(XmlNode node)
+        {
+            String value;
+            value = node.Attributes.GetNamedItem("ProbabilityFishPollution").InnerText;
+            ProbabilityFishPollution = Convert.ToSingle(value);
+        } 
+
+        private void setProbabilityEnemyTypeXML(XmlNode node)
+        {
+            String value;
+            value = node.Attributes.GetNamedItem("ProbabilityEnemyType").InnerText;
+            ProbabilityEnemyType = Convert.ToSingle(value);
+        }
+
+        private void setProbabilityEnemyFishXML(XmlNode node)
+        {
+            String value;
+            value = node.Attributes.GetNamedItem("ProbabilityEnemyFish").InnerText;
+            ProbabilityEnemyFish = Convert.ToSingle(value);
+        }
+
+        private void setTimeBetweenEventsXML(XmlNode node)
+        {
+            String value;
+            value = node.Attributes.GetNamedItem("TimeBetweenEvents").InnerText;
+            TimeBetweenEvents = Convert.ToInt32(value);
+        }
+
+        private void setPollutionLevelXML(XmlNode node)
+        {
+            String value;
+            value = node.Attributes.GetNamedItem("PollutionLevel").InnerText;
+            PollutionLevel = Convert.ToSingle(value);
         }
 
         private void setLevelNameXML(XmlNode node)
         {
             LevelName = node.Attributes.GetNamedItem("LevelName").InnerText;
+        }
+
+        private void setLevelNumberXML(XmlNode node)
+        {
+            String value;
+            value = node.Attributes.GetNamedItem("LevelNumber").InnerText;
+            LevelNumber = Convert.ToInt32(value);
         }
 
         public int PercentCompleted()
