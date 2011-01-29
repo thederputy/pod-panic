@@ -29,20 +29,28 @@ namespace PodPanic.GameState
             XmlDocument levelXml = new XmlDocument();
             levelXml.Load(fileName);
 
-            // Create the reader to read the xml document
-            XmlTextReader levelReader = new XmlTextReader(fileName);
-            levelReader.MoveToContent();
+            XmlNodeList rootNodes = levelXml.ChildNodes;
+            XmlNodeList contentNodes = null;
+            XmlNode currNode = null, levelNode = null;
 
-            XmlNode levelNode;
-
-            while (true)
+            for (int i = 0; i < rootNodes.Count; i++)
             {
-                levelNode = levelXml.ReadNode(levelReader);
-                if (levelNode.Name.Equals("Level"))
+                currNode = rootNodes.Item(i);
+                if (currNode.Name.Equals("XnaContent"))
                 {
-                    break;  // we read a level node correctly?
+                    contentNodes = currNode.ChildNodes;
                 }
             }
+
+            for (int i = 0; i < contentNodes.Count; i++)
+            {
+                currNode = contentNodes.Item(i);
+                if (currNode.Name.Equals("Level"))
+                {
+                    levelNode = currNode;
+                }
+            }
+
             return levelNode;
         }
 
