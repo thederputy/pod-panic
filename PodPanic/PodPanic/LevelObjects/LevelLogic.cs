@@ -62,28 +62,28 @@ namespace PodPanic.LevelObjects
         {
             String value;
             value = node.Attributes.GetNamedItem("PollutedWaterRatio").InnerText;
-            FishToEnemyRatio = Convert.ToSingle(value);
+            PollutedWaterRatio = Convert.ToSingle(value);
         }
 
         private void setNumberOfEnemiesXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("NumberOfEnemies").InnerText;
-            FishToEnemyRatio = Convert.ToSingle(value);
+            NumberOfEnemies = Convert.ToInt32(value);
         }
 
         private void setLevelLengthXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("LevelLength").InnerText;
-            FishToEnemyRatio = Convert.ToSingle(value);
+            LevelLength = Convert.ToInt32(value);
         }
 
         private void setLevelNumberXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("LevelNumber").InnerText;
-            FishToEnemyRatio = Convert.ToSingle(value);
+            LevelNumber = Convert.ToInt32(value);
         }
 
         private void setLevelNameXML(XmlNode node)
