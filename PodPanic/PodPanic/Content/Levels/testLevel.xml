@@ -1,0 +1,5 @@
+<Level LevelNumber='1' LevelName='TestLevel' LevelLength='100' FishToEnemyRatio='1' PollutedWaterRatio='1' NumberOfEnemies='1' />
+
+
+
+<!-- <Level  LevelNumber='1' LevelName='TestLevel'  FishToEnemyRatio='1' PollutedWaterRatio = '1' NumberOfEnemies = '1' LevelLength = '1'/>" -->

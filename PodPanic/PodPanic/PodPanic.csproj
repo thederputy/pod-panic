@@ -94,6 +94,8 @@
     <Compile Include="GameState\KeyboardManager.cs" />
     <Compile Include="GameState\KeyMapping.cs" />
     <Compile Include="GameState\LoadingManager.cs" />
+    <Compile Include="LevelObjects\LevelLogic.cs" />
+    <Compile Include="LevelObjects\Test.cs" />
     <Compile Include="PodPanic.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
     <Compile Include="GameObjects\Fish.cs" />
@@ -148,10 +150,6 @@
       <ProductName>Microsoft XNA Framework Redistributable 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="LevelObjects\" />
-    <Folder Include="NewFolder1\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
