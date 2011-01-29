@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
 
+
 namespace PodPanic
 {
     /// <summary>
@@ -20,12 +21,14 @@ namespace PodPanic
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
-        GameState.GameStateEnum curState;        
+        GameState.GameStateEnum curState;
+      
 
         public PodPanic()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
         }
 
         /// <summary>
@@ -38,6 +41,9 @@ namespace PodPanic
         {
             curState = global::PodPanic.GameState.GameStateEnum.Loading;
             base.Initialize();
+
+   
+
         }
 
         /// <summary>
@@ -71,8 +77,9 @@ namespace PodPanic
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            
             // TODO: Add your update logic here
+
 
             base.Update(gameTime);
         }
@@ -84,6 +91,8 @@ namespace PodPanic
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            
 
             base.Draw(gameTime);
         }
