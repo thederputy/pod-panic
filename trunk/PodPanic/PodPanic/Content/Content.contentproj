@@ -389,6 +389,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sounds\netCaught.wav">
+      <Name>netCaught</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Levels\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
