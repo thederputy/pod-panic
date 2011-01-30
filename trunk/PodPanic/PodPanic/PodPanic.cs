@@ -48,6 +48,11 @@ namespace PodPanic
         int secondsSinceStart;
         int secondsSinceLastEvent;
         int distanceCovered;
+        Color overlayColor = new Color(255,100,100,0);
+        Color crossColor = new Color(255, 100, 100, 0);
+        Texture2D overlay;
+        Texture2D cross;
+
 
         #region Sound Effects
         SoundEffect ambientWavesEngine;
@@ -124,8 +129,8 @@ namespace PodPanic
 
             //List<Texture2D> fList = new List<Texture2D>();
             Fish = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
-
-
+            overlay = this.Content.Load<Texture2D>("Background/OverLay");
+            cross = this.Content.Load<Texture2D>("WhaleSkull");
             //Loading Logic - Graphics
             //Loading Logic - Levels
             LevelObjects.LevelLogic level1 = new LevelObjects.LevelLogic();
@@ -187,6 +192,7 @@ namespace PodPanic
         protected override void Update(GameTime gameTime)
         {
             keyManager.Update(gameTime);
+            updateOverLay();
             
             if (curState == global::PodPanic.GameState.GameStateEnum.Loading)
             {
@@ -241,7 +247,7 @@ namespace PodPanic
                 
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
-                    secondsSinceStart += (int)gameTime.ElapsedRealTime.Milliseconds;
+                    secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
                     //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedRealTime.Milliseconds);
                     SoundManager.playSound(entrySplashInstance, 0.5f);
                     if (keyManager.KeyPressed(Keys.Space))
@@ -254,6 +260,7 @@ namespace PodPanic
                     {
                         secondsSinceStart = 0;
                         lvlProgress = global::PodPanic.GameState.LevelProgress.RunningLevel;
+                        score.Start();
                     }
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
@@ -334,8 +341,8 @@ namespace PodPanic
                 backTemp.Update(gameTime);
                 //Update Enemy Position
 
-                if (keyManager.KeyPressed(Keys.O))
-                    score.Add(500);
+                //if (keyManager.KeyPressed(Keys.O))
+                    //score.Add(500);
 
 
                 //if (!doOnce)
@@ -449,6 +456,7 @@ namespace PodPanic
                 if (DevMode)
                     spriteBatch.DrawString(devFont, "Menu State", Vector2.Zero, Color.White);
                 mainMenu.draw(spriteBatch);
+                //drawCredits(spriteBatch,25,250); // /// creadits
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
@@ -502,10 +510,57 @@ namespace PodPanic
 
             if (DevMode)
                 spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
+
+            drawOverLay(spriteBatch);
+            
+            
+            
             spriteBatch.End();
             
 
             base.Draw(gameTime);
+        }
+
+        private void updateOverLay()
+        {
+            if (thePlayer.getHealthPercent() < 25)
+            {
+                if (thePlayer.getHealthPercent() > 12)
+                    crossColor.A = (byte)((25 - thePlayer.getHealthPercent()) * 20);
+                else
+                    crossColor.A = (byte)(240);
+                
+            }
+            else
+            {
+                crossColor.A = 0;
+            }
+
+            if (thePlayer.getHealthPercent() < 60)
+            {
+                overlayColor.A = (byte)((60 - thePlayer.getHealthPercent()) * 4);
+                //System.Diagnostics.Trace.WriteLine(overlayColor.A);
+            }
+            else
+            {
+                overlayColor.A = 0 ;
+            }
+
+             
+        }
+
+        private void drawOverLay(SpriteBatch spriteBatch)
+        {
+            overlayColor.R = thePlayer.drawColor.R;
+            crossColor.R = thePlayer.drawColor.R;
+            //crossColor.A = 255;
+            //crossColor.B = 100;
+
+
+            spriteBatch.Draw(overlay, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), overlayColor);//overlayColor
+            spriteBatch.Draw(cross, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), crossColor); //thePlayer.drawColor
+      
+            
         }
 
         /// <summary>
@@ -537,6 +592,32 @@ namespace PodPanic
                 case global::PodPanic.GameState.Channel.Bottom: return BOTCHANNEL_Y;
             }
             return 0;
+        }
+
+
+        public void drawCredits(SpriteBatch spriteBatch,int x, int y)
+        {
+            spriteBatch.DrawString(devFont, "Designer:", new Vector2(x, y + 40 ), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 60 ), Color.White);
+
+            spriteBatch.DrawString(devFont, "Art:", new Vector2(x, y + 100 ), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 120), Color.White);
+
+            spriteBatch.DrawString(devFont, "Sound:", new Vector2(x, y + 160), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 180), Color.White);
+
+            spriteBatch.DrawString(devFont, "Programing:", new Vector2(x, y + 220), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 240), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 260), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 280), Color.White);
+            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 300), Color.White);
+
+            //spriteBatch.DrawString(devFont, "Thing:", new Vector2(x, y + 40 * 1), Color.White);
+            //spriteBatch.DrawString(devFont, "the Yes:", new Vector2(x, y + 60 * 1), Color.White);
+
+
+            
+
         }
 
 
