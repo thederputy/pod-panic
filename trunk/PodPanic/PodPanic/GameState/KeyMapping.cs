@@ -18,7 +18,7 @@ namespace PodPanic.GameState
 {
     class KeyMapping
     {
-        public static KeyMapping CurrentKeyMap { get;set;}
+        public static KeyMapping CurrentKeyMap { get; set;}
         public Keys MoveUp { get; set; }
         public Keys MoveDown { get; set; }
         public Keys MoveRight { get; set; }
