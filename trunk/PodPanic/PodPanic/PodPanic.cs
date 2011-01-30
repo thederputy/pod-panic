@@ -157,7 +157,7 @@ namespace PodPanic
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Credits", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[4];
-            score = new GameObjects.Score(new Vector2(675, 5), devFont);
+            score = new GameObjects.Score(new Vector2(600, 5), devFont);
 
             //List<Texture2D> fList = new List<Texture2D>();
             Fish = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
@@ -561,6 +561,7 @@ namespace PodPanic
                 helpDraw(gameTime);
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
+                    score.beginLevel();
                     string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
                     string line1 = "\"" + Levels[CurrentLevel].LevelName + "\"";
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).X / 2), Color.White);
@@ -590,11 +591,15 @@ namespace PodPanic
                     string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
                     string line1 = "COMPLETE";
                     score.Stop();
-                    score.endLevel(thePlayer);
+                    if (!score.updatedEndOfLevel)
+                    {
+                        score.endLevel(thePlayer, Levels[CurrentLevel].LevelNumber);
+                    }
                     // get the strings from the score class, then draw them
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).Y / 2), Color.White);
                     spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
                 }
+                score.draw(spriteBatch);
 
                 if (DevMode)
                 {
@@ -626,7 +631,7 @@ namespace PodPanic
             {
                 spriteBatch.Draw(BonusTexture, new Rectangle(0,0,(int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), Color.White);
             }
-            score.draw(spriteBatch);
+            //score.draw(spriteBatch);
 
             if (DevMode)
                 spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
