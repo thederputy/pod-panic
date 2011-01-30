@@ -87,7 +87,7 @@ namespace PodPanic
         /// </summary>
         protected override void LoadContent()
         {
-            thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaTEST"), this);
+            thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaFinal2"), this);
             backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/Background_2");
             BadGuy1 = this.Content.Load<Texture2D>("Enemies/Net_Test");
             BadGuy2 = this.Content.Load<Texture2D>("Enemies/Oil_Test");
