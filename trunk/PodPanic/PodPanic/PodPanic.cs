@@ -123,7 +123,7 @@ namespace PodPanic
             backTemp.MidegroundTexture = this.Content.Load<Texture2D>("Background/MidGround");
             backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/SkyandDepth");
             Net = this.Content.Load<Texture2D>("Enemies/Net_Test");
-            OilBarrel = this.Content.Load<Texture2D>("Enemies/Oil_Test");
+            OilBarrel = this.Content.Load<Texture2D>("Enemies/OilBarrel");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             devFont = this.Content.Load<SpriteFont>("DevFont");
