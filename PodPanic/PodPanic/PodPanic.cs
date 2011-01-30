@@ -201,6 +201,7 @@ namespace PodPanic
             // TODO: Unload any non ContentManager content here
         }
 
+        #region Update
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -435,7 +436,9 @@ namespace PodPanic
 
             base.Update(gameTime);
         }
+        #endregion
 
+        #region Draw
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -507,14 +510,10 @@ namespace PodPanic
                 spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
 
             drawOverLay(spriteBatch);
-            
-            
-            
             spriteBatch.End();
-            
-
             base.Draw(gameTime);
         }
+        #endregion
 
         private void updateOverLay()
         {
@@ -590,7 +589,7 @@ namespace PodPanic
         }
 
 
-        public void drawCredits(SpriteBatch spriteBatch,int x, int y)
+        public void drawCredits(SpriteBatch spriteBatch, int x, int y)
         {
             spriteBatch.DrawString(devFont, "Designer:", new Vector2(x, y + 40 ), Color.White);
             spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 60 ), Color.White);
@@ -606,15 +605,6 @@ namespace PodPanic
             spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 260), Color.White);
             spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 280), Color.White);
             spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 300), Color.White);
-
-            //spriteBatch.DrawString(devFont, "Thing:", new Vector2(x, y + 40 * 1), Color.White);
-            //spriteBatch.DrawString(devFont, "the Yes:", new Vector2(x, y + 60 * 1), Color.White);
-
-
-            
-
         }
-
-
     }
 }
