@@ -19,9 +19,8 @@
     <ManifestCertificateThumbprint>B4864B5D0FDD09959122C4F31721014FA46433A0</ManifestCertificateThumbprint>
     <ManifestKeyFile>PodPanic_TemporaryKey.pfx</ManifestKeyFile>
     <GenerateManifests>true</GenerateManifests>
-    <SignManifests>false</SignManifests>
+    <SignManifests>true</SignManifests>
     <TargetZone>LocalIntranet</TargetZone>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
     <TargetFrameworkSubset>Full</TargetFrameworkSubset>
     <PublishUrl>C:\Users\Jacob\Desktop\pod-panic\Releases\</PublishUrl>
     <Install>true</Install>
