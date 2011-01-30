@@ -347,31 +347,9 @@ namespace PodPanic
                             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
                             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
                         }
-                            //Signal End Game
                     }
                 }
                 backTemp.Update(gameTime);
-                //Update Enemy Position
-
-                //if (keyManager.KeyPressed(Keys.O))
-                    //score.Add(500);
-
-
-                //if (!doOnce)
-                //{
-                //    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
-                //    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Middle), fishTest, fishTest, this));
-                    
-                //    doOnce = true;
-                //}
-                //if (doOnce && Objects.Count < 3)
-                //{
-                //    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.Y, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
-                //    //testing fish
-
-                //    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Bottom), fishTest, fishTest, this));
-                //    //end testing fish
-                //}
                 for ( int i = 0; i < Objects.Count; i++)
                 {
                     GameObjects.GameObject obj = Objects[i];
