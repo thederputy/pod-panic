@@ -34,8 +34,8 @@ namespace PodPanic
         GameState.AlphaShader AlphaShader;
         GameState.AlphaBlinker AlphaBlinker;
         GameObjects.Background backTemp;
-        Texture2D BadGuy1;
-        Texture2D BadGuy2;
+        Texture2D Net;
+        Texture2D OilBarrel;
         Texture2D Fish;
         List<GameObjects.GameObject> Objects;
         bool DevMode;
@@ -110,8 +110,8 @@ namespace PodPanic
             backTemp.ForegroundTexture = this.Content.Load<Texture2D>("Background/Water_Final");
             backTemp.MidegroundTexture = this.Content.Load<Texture2D>("Background/MidGround");
             backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/SkyandDepth");
-            BadGuy1 = this.Content.Load<Texture2D>("Enemies/Net_Test");
-            BadGuy2 = this.Content.Load<Texture2D>("Enemies/Oil_Test");
+            Net = this.Content.Load<Texture2D>("Enemies/Net_Test");
+            OilBarrel = this.Content.Load<Texture2D>("Enemies/Oil_Test");
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             devFont = this.Content.Load<SpriteFont>("DevFont");
@@ -274,7 +274,7 @@ namespace PodPanic
                         float chance = rand.Next(0, 20) / 20.0f;
                         if (chance < Levels[CurrentLevel].ProbabilityEnemyFish)
                         {
-                            GameObjects.Enemy newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), BadGuy1, 1, this);
+                            GameObjects.Enemy newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 1, this, GameState.EnemyType.Net);
                             Objects.Add(newEnemy);
                         }
                         else

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -22,6 +23,7 @@ namespace PodPanic.GameObjects
         private List<Fish_Bobber> bobbers;
         private Rectangle source;
         private Boolean first = true;
+        private Timer deathTimer;
 
         
         private const float SLOWEST_SPEED = 2.25f;
@@ -38,12 +40,7 @@ namespace PodPanic.GameObjects
         private const int FISHDISTANCEY = 20;
         private const float FISHSIZEVARIATION = 30;
 
-
-
         static private Random rnd;
-        
-        
-
         
         /// <summary>
         /// create a fish that moves from right to left
@@ -57,9 +54,6 @@ namespace PodPanic.GameObjects
         public Fish(int x, int y, Texture2D normFish, Texture2D sickFish, Game game)
             : base(null, game)
         {
-            
-
-
             source = new Rectangle(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
 
             position.X = x;
@@ -147,9 +141,12 @@ namespace PodPanic.GameObjects
                 bobbers[i].Update();
             }
 
-            position.X -= velocity;
-            //position.Y = baseY + (OFFY_AMOUNT * offY);
-            position.Y = baseY;
+            if (!isDead)
+            {
+                position.X -= velocity;
+                //position.Y = baseY + (OFFY_AMOUNT * offY);
+                position.Y = baseY;
+            }
 
 
             // System.Diagnostics.Trace.WriteLine(" hey : " + gameTime.ElapsedRealTime.Milliseconds);
