@@ -52,11 +52,13 @@ namespace PodPanic
 
         #region Sound Effects
         SoundEffect ambientWavesEngine;
+        SoundEffect chompEngine;
         SoundEffect entrySplashEngine;
         SoundEffect finSplashEngine;
         SoundEffect gameStartEngine;
 
         SoundEffectInstance ambientWavesInstance;
+        SoundEffectInstance chompInstance;
         SoundEffectInstance entrySplashInstance;
         SoundEffectInstance finSplashInstance;
         SoundEffectInstance gameStartInstance;
@@ -149,6 +151,9 @@ namespace PodPanic
             ambientWavesEngine = Content.Load<SoundEffect>("Sounds/ambientWaves");
             ambientWavesInstance = ambientWavesEngine.CreateInstance();
 
+            chompEngine = Content.Load<SoundEffect>("Sounds/chomp");
+            chompInstance = chompEngine.CreateInstance();
+
             entrySplashEngine = Content.Load<SoundEffect>("Sounds/entrySplash");
             entrySplashInstance = entrySplashEngine.CreateInstance();
 
@@ -224,6 +229,7 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 #region Sound Playing
+                SoundManager.stopSound(gameStartInstance);
                 SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
                 #endregion
                 //Do Key Detection
