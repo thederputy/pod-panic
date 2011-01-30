@@ -374,7 +374,7 @@ namespace PodPanic
                         if (!(CurrentLevel + 1 >= Levels.Length))
                         {
                             CurrentLevel += 1;
-                            //GameObjects.Player.Speed += 3;
+                            GameObjects.Player.Speed += 3;
                         }
                         else
                         {
@@ -386,8 +386,9 @@ namespace PodPanic
                             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
                         }
                     }
-                }
+                } //end FinishedLevel
                 backTemp.Update(gameTime);
+                //begin collision detection
                 for ( int i = 0; i < Objects.Count; i++)
                 {
                     GameObjects.GameObject obj = Objects[i];
@@ -436,12 +437,12 @@ namespace PodPanic
                                 fish.hasHitPlayer = true;
                             }
                         }
-                    } // end collision detection
+                    } //end intersection checking
                     if (obj.getPosition().X < -obj.getTexture().Width)
                         Objects.Remove(obj);
                     if (obj.signalRemoval)
-                        Objects.Remove(obj);   
-                }
+                        Objects.Remove(obj);
+                }//end collision detection
                 //Update Player Position
                 thePlayer.Update(gameTime);
             }
