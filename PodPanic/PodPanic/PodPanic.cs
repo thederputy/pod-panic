@@ -57,6 +57,9 @@ namespace PodPanic
         int targetA = 0;
         int counterFamine;
 
+        int TimesWon;
+        int TimesLost;
+
         Texture2D overlay;
         Texture2D cross;
         Texture2D[] BonusTexturesArray;
@@ -122,6 +125,8 @@ namespace PodPanic
             rand = new Random();
             GameState.KeyMapping.CurrentKeyMap = GameState.KeyMapping.GetDefaultKeyMap();
             GameState.ButtonMapping.CurrentButtonMap = GameState.ButtonMapping.GetDefaultButtonMap();
+            TimesWon = 0;
+            TimesLost = 0;
             base.Initialize();
         }
 
@@ -288,12 +293,7 @@ namespace PodPanic
                 SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
                 #endregion
                 //Do Key Detection
-                counterFamine += (int)gameTime.ElapsedGameTime.Milliseconds;
-                if (counterFamine >= 4000) //**************************************here
-                {
-                    counterFamine = 0;
-                    thePlayer.reduceHP(1);
-                }
+                
 
 
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
@@ -316,7 +316,19 @@ namespace PodPanic
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {
-                    //Event Spawning Logic - dooood, do shit here. Now.
+
+
+                    counterFamine += (int)gameTime.ElapsedGameTime.Milliseconds;
+                    if (counterFamine >= 3500) //**************************************here
+                    {
+                        counterFamine = 0;
+                        thePlayer.reduceHP(1);
+                    }
+                    
+                    
+                    //Event Spawning Logic - dooood, do shit here. No
+                    
+                    
                     secondsSinceLastEvent += 1;
                     if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
                     {
@@ -393,7 +405,7 @@ namespace PodPanic
                             BonusTexture = BonusTexturesArray[thePlayer.whatVictory()];
 
                             Reset();
-
+                            TimesWon++;
                             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
                             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
                         }
@@ -504,10 +516,12 @@ namespace PodPanic
 
             if (keyManager.KeyPressed(Keys.Z)) //triggers DevMode
             {
-                if (DevMode)
-                    DevMode = false;
-                else
-                    DevMode = true;
+
+                DevMode = !DevMode;
+                //if (DevMode)
+                //    DevMode = false;
+                //else
+                //    DevMode = true;
             }
 
             AlphaShader.Update(gameTime);
@@ -586,6 +600,8 @@ namespace PodPanic
                 {
                     spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, Vector2.Zero, Color.White);
                     spriteBatch.DrawString(devFont, "Level: " + Levels[CurrentLevel].LevelNumber, new Vector2(0, 20), Color.White);
+                    spriteBatch.DrawString(devFont, "times won: " + TimesWon, new Vector2(0,60), Color.White);
+                    spriteBatch.DrawString(devFont, "times lost: " + TimesLost, new Vector2(0,80), Color.White);
                 } 
                 
                 //Draw background
@@ -708,6 +724,7 @@ namespace PodPanic
             BonusTexture = BonusTexturesArray[1];
             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
+            TimesLost++;
             Reset();
         }
     }
