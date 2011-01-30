@@ -34,13 +34,25 @@ namespace PodPanic.GameObjects
         private float currRot;
         public static int Speed { get; set; }
 
+
+        private const float BOB_RATE = 0.02f;
+        private const int OFFY_AMOUNT = 15;
+
         private const int ANIMATE_SPEED = 75;
-        private const int SPRITE_HEIGHT = 280;
-        private const int SPRITE_WIDTH = 780;
+        private const int SPRITE_HEIGHT = 28;
+        private const int SPRITE_WIDTH = 78;
         private const int FRAMES = 4;
         private int timeCounter;
         private int animationPointer;
         private Rectangle source;
+
+
+        Fish_Bobber bobber_lead;
+        Fish_Bobber bobber_top;
+        Fish_Bobber bobber_bottom;
+        Fish_Bobber bobber_rear;
+
+
         /// <summary>
         /// Stores the current HP of the unit.
         /// Read-only method. The actual HP change will happen in the <code>recuceHP</code>
@@ -91,6 +103,15 @@ namespace PodPanic.GameObjects
             position = new Vector2(50, ((PodPanic)(this.Game)).getYChannel(currChannel));
             currRot = 0.0f;
             animationPointer = 0;
+
+            Random rnd = new Random();
+
+
+            bobber_lead = new Fish_Bobber((float)rnd.NextDouble(), 1f, BOB_RATE, OFFY_AMOUNT);
+            bobber_top = new Fish_Bobber((float)rnd.NextDouble(), -1f, BOB_RATE, OFFY_AMOUNT);
+            bobber_bottom = new Fish_Bobber((float)rnd.NextDouble(), -1f, BOB_RATE, OFFY_AMOUNT);
+            bobber_rear = new Fish_Bobber((float)rnd.NextDouble(), 1f, BOB_RATE, OFFY_AMOUNT);
+
         }
 
 
@@ -237,19 +258,28 @@ namespace PodPanic.GameObjects
 
             timeCounter = timeCounter % ANIMATE_SPEED;
 
+            bobber_lead.Update();
+            bobber_bottom.Update();
+            bobber_rear.Update();
+            bobber_top.Update();
+
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
+            source = new Rectangle(SPRITE_WIDTH * animationPointer, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Lead Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_LEADWHALE.X), (int)(position.Y + OFFSET_LEADWHALE.Y), (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_LEADWHALE.X), (int)(position.Y + OFFSET_LEADWHALE.Y + bobber_lead.getOff()), (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            source = new Rectangle(SPRITE_WIDTH * ((animationPointer+1) % FRAMES), 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Rear Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_REARWHALE.X), (int)(position.Y + OFFSET_REARWHALE.Y), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_REARWHALE.X), (int)(position.Y + OFFSET_REARWHALE.Y + bobber_rear.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            source = new Rectangle(SPRITE_WIDTH * ((animationPointer + 2) % FRAMES), 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Top Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X), (int)(position.Y + OFFSET_TOPWHALE.Y), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X), (int)(position.Y + OFFSET_TOPWHALE.Y + bobber_top.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            source = new Rectangle(SPRITE_WIDTH * ((animationPointer + 3) % FRAMES), 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Bottom Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X), (int)(position.Y + OFFSET_BOTWHALE.Y), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
         }
     }
 }

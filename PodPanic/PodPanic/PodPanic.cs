@@ -83,7 +83,7 @@ namespace PodPanic
             AlphaBlinker = new global::PodPanic.GameState.AlphaBlinker();
             backTemp = new global::PodPanic.GameObjects.Background(this);
             Objects = new List<global::PodPanic.GameObjects.GameObject>();
-            doOnce = false;
+            //doOnce = false;
             lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
             CurrentLevel = 0;
             GameObjects.Player.Speed = 1;
@@ -228,10 +228,12 @@ namespace PodPanic
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
                     secondsSinceStart += (int)gameTime.ElapsedRealTime.Milliseconds;
+                    //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedRealTime.Milliseconds);
                     if (keyManager.KeyPressed(Keys.Space))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
+                        
                     }
                     if (secondsSinceStart >= 2500)
                     {

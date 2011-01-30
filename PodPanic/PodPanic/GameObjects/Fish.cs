@@ -23,10 +23,11 @@ namespace PodPanic.GameObjects
         private Rectangle source;
         private Boolean first = true;
 
-        private const int OFFY_AMOUNT = 15;
+        
         private const float SLOWEST_SPEED = 2.25f;
         private const float FASTEST_SPEED = 4.0f;
         private const float BOB_RATE = 0.02f;
+        private const int OFFY_AMOUNT = 15;
         private const int ANIMATE_SPEED = 700;// in milliseconds
         private const float FISH_LENGTH = 60.0f;
         private const int SPRITE_HEIGHT = 70;
