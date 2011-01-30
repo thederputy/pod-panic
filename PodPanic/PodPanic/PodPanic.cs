@@ -359,7 +359,9 @@ namespace PodPanic
                         else
                         {
                             BonusTexture = BonusTexturesArray[thePlayer.whatVictory()];
-                            CurrentLevel = 0;
+
+                            Reset();
+
                             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
                             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
                         }
@@ -455,6 +457,13 @@ namespace PodPanic
 
             base.Update(gameTime);
         }
+
+        private void Reset()
+        {
+            CurrentLevel = 0;
+            thePlayer.reset();
+        }
+
         #endregion
 
         #region Draw

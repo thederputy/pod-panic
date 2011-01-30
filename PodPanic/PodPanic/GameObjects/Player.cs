@@ -85,7 +85,13 @@ namespace PodPanic.GameObjects
             get { return currHP; }
         }
 
-        
+        public void reset()
+        {
+            Speed = 1;
+            currHP = MAX_HP;
+            livesOwned = MAX_LIVES;
+
+        }
 
         private bool alive;
 
