@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+# Visual C# Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PodPanic", "PodPanic\PodPanic.csproj", "{4FB3A703-1CD0-48A6-93B1-BEA709D4EB03}"
 EndProject
 Global
