@@ -194,8 +194,9 @@ namespace PodPanic.GameObjects
                 livesOwned -= 1;
                 currHP = MAX_HP;
                 if (livesOwned <= 0)
-                    //gameOver
-                    ;
+                {
+
+                }
             }
         }
 
