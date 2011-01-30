@@ -152,7 +152,7 @@ namespace PodPanic.GameObjects
             livesOwned = MAX_LIVES;
             currHP = MAX_HP;
             blinker = new AlphaBlinker();
-            rect.Width = 50;
+            rect.Width = 45;
             rect.Height = 40;
         }
 
