@@ -48,6 +48,14 @@ namespace PodPanic
         int secondsSinceStart;
         int distanceCovered;
 
+        #region Sound Effects
+        SoundEffect ambientWavesEngine;
+        SoundEffect finSplashEngine;
+
+        SoundEffectInstance ambientWavesInstance;
+        SoundEffectInstance finSplashInstance;
+        #endregion
+
         public PodPanic()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -124,6 +132,14 @@ namespace PodPanic
             Levels[0] = level1;
             Levels[1] = level2;
             //Loading Logic - GameFormat
+
+            #region Sound effect loading
+            ambientWavesEngine = Content.Load<SoundEffect>("Sounds/ambientWaves");
+            ambientWavesInstance = ambientWavesEngine.CreateInstance();
+
+            finSplashEngine = Content.Load<SoundEffect>("Sounds/finSplash");
+            finSplashInstance = finSplashEngine.CreateInstance();
+            #endregion
         }
 
         /// <summary>
@@ -188,6 +204,18 @@ namespace PodPanic
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
+                #region Sound Playing
+                if (ambientWavesInstance.State == SoundState.Stopped)
+                {
+                    ambientWavesInstance.Volume = 0.75f;
+                    ambientWavesInstance.IsLooped = true;
+                    ambientWavesInstance.Play();
+                }
+                else
+                {
+                    ambientWavesInstance.Resume();
+                }
+                #endregion
                 //Do Key Detection
                 
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
@@ -225,12 +253,15 @@ namespace PodPanic
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
+                    if (ambientWavesInstance.State == SoundState.Playing)
+                        ambientWavesInstance.Pause();
+
+
                     if (keyManager.KeyPressed(Keys.Space))
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
                         if (!(CurrentLevel + 1 >= Levels.Length))
                             CurrentLevel += 1;
-                        else ;
                         //else ;
                             //Signal End Game
                     }
