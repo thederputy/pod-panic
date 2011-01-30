@@ -28,8 +28,8 @@ namespace PodPanic.GameObjects
         protected System.Timers.Timer deadCounter;
         
 
-        private const int SPRITESIZEX = 150;
-        private const int SPRITESIZEY = 150;
+        private const int SPRITESIZEX = 100;
+        private const int SPRITESIZEY = 100;
 
         protected GameState.AlphaBlinker blinker;
 
@@ -102,7 +102,7 @@ namespace PodPanic.GameObjects
         {
             Color finDrawColor = drawColor;
             if (isDead) finDrawColor.A = (byte)blinker.AlphaVal;
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, SPRITESIZEX, SPRITESIZEY), finDrawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X -50, (int)position.Y- 25, SPRITESIZEX, SPRITESIZEY), finDrawColor);
             base.Draw(gameTime);
         }
 

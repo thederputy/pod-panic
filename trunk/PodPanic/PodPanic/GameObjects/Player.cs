@@ -347,7 +347,7 @@ namespace PodPanic.GameObjects
             
             source = new Rectangle(SPRITE_WIDTH * animationPointer2 , 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Rear Whale
-            if (livesOwned < 37 && left2 < 500)
+            if (livesOwned < MAX_LIVES * 0.50 && left2 < 500)
             {
                 left2++;
             }
@@ -357,7 +357,7 @@ namespace PodPanic.GameObjects
             
             source = new Rectangle(SPRITE_WIDTH * animationPointer3, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Top Whale
-            if (livesOwned < 57 && left1 < 500)
+            if (livesOwned < MAX_LIVES*0.75 && left1 < 500)
             {
                 left1++;
             }
@@ -366,7 +366,7 @@ namespace PodPanic.GameObjects
             
             source = new Rectangle(SPRITE_WIDTH * animationPointer4, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Bottom Whale
-            if (livesOwned < 17 && left3 < 500)
+            if (livesOwned < MAX_LIVES*0.25 && left3 < 500)
             {
                 left3++;
             }

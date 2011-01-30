@@ -352,6 +352,7 @@ namespace PodPanic
                         else
                         {
                             BonusTexture = BonusTexturesArray[thePlayer.whatVictory()];
+                            CurrentLevel = 0;
                             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
                             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
                         }
@@ -396,7 +397,7 @@ namespace PodPanic
                             {
                                 if (fish.isSick())
                                 {
-                                    thePlayer.reduceHP((int)(fish.FoodValue * 0.5));
+                                    thePlayer.reduceHP((int)(fish.FoodValue * 3));
                                 }
                                 else
                                 {

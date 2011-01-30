@@ -37,7 +37,7 @@ namespace PodPanic.GameObjects
         private const int FISHDISTANCEX = 30;
         private const int FISHDISTANCEY = 10;
         private const float FISHSIZEVARIATION = 10;
-        private const int foodValue = 3;
+        private const int foodValue = 1;
 
         public int FoodValue
         {
