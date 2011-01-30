@@ -493,7 +493,7 @@ namespace PodPanic
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
                     string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
-                    string line1 = "\"" + Levels[CurrentLevel].LevelName.ToLower() + "\"";
+                    string line1 = "\"" + Levels[CurrentLevel].LevelName + "\"";
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).X / 2), Color.White);
                     spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
                 }
