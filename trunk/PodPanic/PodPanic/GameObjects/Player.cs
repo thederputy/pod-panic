@@ -39,8 +39,8 @@ namespace PodPanic.GameObjects
         private const int OFFY_AMOUNT = 15;
 
         private const int ANIMATE_SPEED = 75;
-        private const int SPRITE_HEIGHT = 28;
-        private const int SPRITE_WIDTH = 78;
+        private const int SPRITE_HEIGHT = 84;
+        private const int SPRITE_WIDTH = 234;
         private const int FRAMES = 4;
         private int timeCounter;
         private int animationPointer;
