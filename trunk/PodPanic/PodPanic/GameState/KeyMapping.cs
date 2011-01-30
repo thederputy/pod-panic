@@ -42,4 +42,8 @@ namespace PodPanic.GameState
             return new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.B };
         }
     }
+    enum KeyMapEnum
+    {
+        MoveUp, MoveDown, MoveRight, ActionKey, ExitKey
+    }
 }

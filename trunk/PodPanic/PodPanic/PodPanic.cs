@@ -24,7 +24,7 @@ namespace PodPanic
         public const int TOPCHANNEL_Y = 150;
         public const int MIDCHANNEL_Y = 300;
         public const int BOTCHANNEL_Y = 450;
-        GameState.KeyboardManager keyManager;
+        GameState.InputManager keyManager;
         GameState.KeyMapping KeyMapping;
         GameState.ButtonMapping ButtonMapping;
         GraphicsDeviceManager graphics;
@@ -105,10 +105,10 @@ namespace PodPanic
         {
             this.graphics.PreferredBackBufferHeight = (int)SCREEN_SIZE.Y;
             this.graphics.PreferredBackBufferWidth = (int)SCREEN_SIZE.X;
-            //this.graphics.IsFullScreen = true;
+            this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             Window.Title = "Pod-Panic";
-            keyManager = new global::PodPanic.GameState.KeyboardManager(this);
+            keyManager = new global::PodPanic.GameState.InputManager(this);
             keyManager.Initialize();
             curState = global::PodPanic.GameState.GameStateEnum.Menu;
             AlphaShader = new global::PodPanic.GameState.AlphaShader();

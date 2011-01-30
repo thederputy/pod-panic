@@ -93,7 +93,7 @@
     <Compile Include="GameObjects\Player.cs" />
     <Compile Include="GameState\AlphaShader.cs" />
     <Compile Include="GameState\GameStateEnum.cs" />
-    <Compile Include="GameState\KeyboardManager.cs" />
+    <Compile Include="GameState\InputManager.cs" />
     <Compile Include="GameState\KeyMapping.cs" />
     <Compile Include="GameState\LoadingManager.cs" />
     <Compile Include="LevelObjects\LevelLogic.cs" />

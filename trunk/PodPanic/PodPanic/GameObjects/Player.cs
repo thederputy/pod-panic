@@ -252,7 +252,7 @@ namespace PodPanic.GameObjects
         {
             position.X += 5;
             if (position.X >= 350)
-                position.X -= 2;
+                position.X -= 5;
         }
 
         public override void Update(GameTime gameTime)
