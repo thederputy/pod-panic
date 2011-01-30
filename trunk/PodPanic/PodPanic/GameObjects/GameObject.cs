@@ -29,7 +29,7 @@ namespace PodPanic.GameObjects
 
         private int SPRITE_WIDTH;
         private int SPRITE_HEIGHT;
-        private Rectangle rect;
+        protected Rectangle rect;
         /// <summary>
         /// Used for collision detection
         /// </summary>

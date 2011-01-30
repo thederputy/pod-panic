@@ -152,11 +152,12 @@ namespace PodPanic.GameObjects
             livesOwned = MAX_LIVES;
             currHP = MAX_HP;
             blinker = new AlphaBlinker();
+            rect.Width = 150;
         }
 
         public int getHealthPercent()
         {
-            return (int)( (float)livesOwned / (float)MAX_LIVES * 100.0f); 
+            return (int)( (float)livesOwned / (float)MAX_LIVES * 100.0f);
         }
 
         /// <summary>
@@ -180,7 +181,6 @@ namespace PodPanic.GameObjects
         /// <param name="bonusAmount">the amount to increase the HP by</param>
         public void increaseHP(float bonusAmount)
         {
-            //currHP += 10;
             currHP += (int)bonusAmount;
             if (currHP > MAX_HP)
             {
@@ -256,6 +256,7 @@ namespace PodPanic.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             blinker.Update(gameTime);
             updateAlive();
             if (position.Y > ((PodPanic)(this.Game)).getYChannel(currChannel))
@@ -353,8 +354,8 @@ namespace PodPanic.GameObjects
             {
                 currRot = -0.54f;
             }
-
-            base.Update(gameTime);
+            rect.X = (int)position.X + 50;
+            rect.Y = (int)position.Y + 50;
         }
 
         public override void Draw(GameTime gameTime)
@@ -391,7 +392,6 @@ namespace PodPanic.GameObjects
 
             ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_REARWHALE.X - left2), (int)(position.Y + OFFSET_REARWHALE.Y + bobber_rear.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             
-            
             source = new Rectangle(SPRITE_WIDTH * animationPointer3, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Top Whale
             if (livesOwned < MAX_LIVES*0.75 && left1 < 500)
@@ -411,8 +411,6 @@ namespace PodPanic.GameObjects
             
             //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
             //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned);
-
-        
         }
 
         //  - (((animationPointer+1)/3)*((animationPointer+1)%3))
