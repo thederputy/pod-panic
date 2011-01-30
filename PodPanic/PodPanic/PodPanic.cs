@@ -52,12 +52,14 @@ namespace PodPanic
 
         #region Sound Effects
         SoundEffect ambientWavesEngine;
+        SoundEffect barrelHitEngine;
         SoundEffect chompEngine;
         SoundEffect entrySplashEngine;
         SoundEffect finSplashEngine;
         SoundEffect gameStartEngine;
 
         SoundEffectInstance ambientWavesInstance;
+        SoundEffectInstance barrelHitInstance;
         SoundEffectInstance chompInstance;
         SoundEffectInstance entrySplashInstance;
         SoundEffectInstance finSplashInstance;
@@ -150,6 +152,9 @@ namespace PodPanic
             #region Sound effect loading
             ambientWavesEngine = Content.Load<SoundEffect>("Sounds/ambientWaves");
             ambientWavesInstance = ambientWavesEngine.CreateInstance();
+
+            barrelHitEngine = Content.Load<SoundEffect>("Sounds/barrelHit");
+            barrelHitInstance = barrelHitEngine.CreateInstance();
 
             chompEngine = Content.Load<SoundEffect>("Sounds/chomp");
             chompInstance = chompEngine.CreateInstance();
