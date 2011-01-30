@@ -44,6 +44,7 @@ namespace PodPanic
         Random rand;
         GameObjects.Score score;
         LevelObjects.LevelLogic[] Levels;
+        const int numberOfLevels = 4;
         int CurrentLevel;
         GameState.LevelProgress lvlProgress;
         int secondsSinceStart;
@@ -156,7 +157,7 @@ namespace PodPanic
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Credits", "Exit" }), test, logo, devFont);
-            Levels = new global::PodPanic.LevelObjects.LevelLogic[4];
+            Levels = new global::PodPanic.LevelObjects.LevelLogic[numberOfLevels];
             score = new GameObjects.Score(new Vector2(600, 5), devFont);
 
             //List<Texture2D> fList = new List<Texture2D>();
@@ -316,19 +317,14 @@ namespace PodPanic
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {
-
-
                     counterFamine += (int)gameTime.ElapsedGameTime.Milliseconds;
                     if (counterFamine >= 3500) //**************************************here
                     {
                         counterFamine = 0;
                         thePlayer.reduceHP(1);
                     }
-                    
-                    
-                    //Event Spawning Logic - dooood, do shit here. No
-                    
-                    
+
+                    //Event Spawning Logic - dooood, do shit here. No       
                     secondsSinceLastEvent += 1;
                     if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
                     {
@@ -514,15 +510,15 @@ namespace PodPanic
                 }
             }
 
-            if (keyManager.KeyPressed(Keys.Z)) //triggers DevMode
-            {
+//            if (keyManager.KeyPressed(Keys.Z)) //triggers DevMode
+//            {
 
-                DevMode = !DevMode;
+//                DevMode = !DevMode;
                 //if (DevMode)
                 //    DevMode = false;
                 //else
                 //    DevMode = true;
-            }
+//            }
 
             AlphaShader.Update(gameTime);
             AlphaBlinker.Update(gameTime);
@@ -533,6 +529,10 @@ namespace PodPanic
 
         private void Reset()
         {
+            for (int i = 0; i < numberOfLevels; i++)
+            {
+                Levels[i].CurrentPosition = 0;
+            }
             CurrentLevel = 0;
             thePlayer.reset();
             score.resetScore();
@@ -725,10 +725,10 @@ namespace PodPanic
         public void endGameFail()
         {
             BonusTexture = BonusTexturesArray[1];
+            Reset();
+            TimesLost++;
             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
-            TimesLost++;
-            Reset();
         }
     }
 }
