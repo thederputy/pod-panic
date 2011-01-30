@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
-  <Level LevelNumber="4" LevelName="Juan de Fuca Straight" LevelLength="25000" PollutionLevel="0.6" ProbabilityFishPollution="0.7" ProbabilityEnemyType="0.8" ProbabilityEnemyFish="0.75" TimeBetweenEvents="30" />
+  <Level LevelNumber="4" LevelName="Juan de Fuca Straight" LevelLength="25000" PollutionLevel="0.6" ProbabilityFishPollution="0.7" ProbabilityEnemyType="0.8" ProbabilityEnemyFish="0.75" TimeBetweenEvents="35" />
 </XnaContent>
