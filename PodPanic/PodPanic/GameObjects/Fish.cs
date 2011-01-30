@@ -11,8 +11,6 @@ using Microsoft.Xna.Framework.Graphics;
 namespace PodPanic.GameObjects
 {
     class Fish : GameObject  {
-
-
         static private float polluted_percent;
         private Boolean isPolluted;
         private float offY;
@@ -164,7 +162,6 @@ namespace PodPanic.GameObjects
                     bobbers[i].Update();
                 }
             }
-
 
             // System.Diagnostics.Trace.WriteLine(" hey : " + gameTime.ElapsedRealTime.Milliseconds);
 

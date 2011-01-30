@@ -420,7 +420,7 @@ namespace PodPanic
                             {
                                 thePlayer.increaseHP(fish.FoodValue);
                                 fish.hasHitPlayer = true;
-                            } 
+                            }
                         }                    
                     }
                     if (obj.getPosition().X < -obj.getTexture().Width)
