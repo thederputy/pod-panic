@@ -56,7 +56,7 @@ namespace PodPanic
         Color overlayColor = new Color(255,100,100,0);
         Color crossColor = new Color(255, 100, 100, 0);
         int targetA = 0;
-        int currentA = 0;
+        
 
         Texture2D overlay;
         Texture2D cross;
