@@ -39,7 +39,7 @@ namespace PodPanic
         Texture2D Fish;
         Texture2D Fish_Sick;
         List<GameObjects.GameObject> Objects;
-        bool DevMode;
+        //bool DevMode;
         GameObjects.Menu mainMenu;
         Random rand;
         GameObjects.Score score;
@@ -220,7 +220,7 @@ namespace PodPanic
 
             BonusTexturesArray = new Texture2D[5];
             //Set the contents of the array
-            BonusTexturesArray[0] = Content.Load<Texture2D>("Slides/HowToPlay");
+            BonusTexturesArray[0] = Content.Load<Texture2D>("About");
             BonusTexturesArray[1] = Content.Load<Texture2D>("Slides/ExtinctScreen");
             BonusTexturesArray[2] = Content.Load<Texture2D>("Slides/gameOver");
             BonusTexturesArray[3] = Content.Load<Texture2D>("Slides/Victory");
@@ -230,8 +230,6 @@ namespace PodPanic
             Player = new VideoPlayer();
             tutorialVideo = this.Content.Load<Video>("Movies/Tutorial");
             Player.Play(tutorialVideo);
-            
-            
         }
 
         /// <summary>
@@ -271,7 +269,7 @@ namespace PodPanic
                         Player.Play(tutorialVideo);
                         Player.IsLooped = false;
                     }
-                    else if (firstChar == 'H')
+                    else if (firstChar == 'A')
                     {
                         BonusTexture = BonusTexturesArray[0];
                         prevState = curState;
@@ -576,8 +574,8 @@ namespace PodPanic
             if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 backTemp.Draw(gameTime);
-                if (DevMode)
-                    spriteBatch.DrawString(devFont, "Menu State", Vector2.Zero, Color.White);
+                //if (DevMode)
+                //    spriteBatch.DrawString(devFont, "Menu State", Vector2.Zero, Color.White);
                 mainMenu.draw(spriteBatch);
                 //drawCredits(spriteBatch,25,250); // /// creadits
             }
@@ -640,13 +638,13 @@ namespace PodPanic
                 }
                 score.draw(spriteBatch);
 
-                if (DevMode)
-                {
-                    spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, Vector2.Zero, Color.White);
-                    spriteBatch.DrawString(devFont, "Level: " + Levels[CurrentLevel].LevelNumber, new Vector2(0, 20), Color.White);
-                    spriteBatch.DrawString(devFont, "times won: " + TimesWon, new Vector2(0,60), Color.White);
-                    spriteBatch.DrawString(devFont, "times lost: " + TimesLost, new Vector2(0,80), Color.White);
-                } 
+                //if (DevMode)
+                //{
+                //    spriteBatch.DrawString(devFont, "Running Player HP: " + thePlayer.CurrHP, Vector2.Zero, Color.White);
+                //    spriteBatch.DrawString(devFont, "Level: " + Levels[CurrentLevel].LevelNumber, new Vector2(0, 20), Color.White);
+                //    spriteBatch.DrawString(devFont, "times won: " + TimesWon, new Vector2(0,60), Color.White);
+                //    spriteBatch.DrawString(devFont, "times lost: " + TimesLost, new Vector2(0,80), Color.White);
+                //} 
                 
                 //Draw background
                 //Draw player
@@ -657,10 +655,10 @@ namespace PodPanic
             {
                 helpDraw(gameTime);
             
-                if (DevMode)
-                {
-                    spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, Vector2.Zero, Color.White);
-                }
+                //if (DevMode)
+                //{
+                //    spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, Vector2.Zero, Color.White);
+                //}
                 spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(SCREEN_SIZE.X / 2, SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 //Update text of pause state
@@ -677,8 +675,8 @@ namespace PodPanic
 
             //score.draw(spriteBatch);
 
-            if (DevMode)
-                spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
+            //if (DevMode)
+            //    spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
 
             drawOverLay(spriteBatch);
             spriteBatch.End();

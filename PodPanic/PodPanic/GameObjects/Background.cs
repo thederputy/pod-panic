@@ -34,7 +34,6 @@ namespace PodPanic.GameObjects
         private int alphaRight;
         private int leftRight;
         private bool isRightPosit;
-        private int leftWave;
         public Background(Game game)
             : base(game)
         {
