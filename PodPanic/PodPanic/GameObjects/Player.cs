@@ -147,6 +147,7 @@ namespace PodPanic.GameObjects
 
         public int getHealthPercent(){
             return (int)( (float)livesOwned / (float)MAX_LIVES * 100.0f); 
+    }
 
             //livesOwned / MAX_LIVES * 100.0f
             //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
