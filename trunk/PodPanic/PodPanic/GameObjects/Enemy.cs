@@ -11,7 +11,6 @@ namespace PodPanic.GameObjects
 {
     class Enemy : GameObject
     {
-
         private int damage;
         private float offY;
         private float dir;
@@ -58,7 +57,7 @@ namespace PodPanic.GameObjects
             
             damage = dam;
 
-            deathTimer = new Timer(1000);
+            deathTimer = new Timer(2000);
             deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
         
@@ -87,12 +86,12 @@ namespace PodPanic.GameObjects
                     deathTimer.Enabled = true;
                 }
             }
-
             if (!isDead)
             {
                 position.X -= velocity;
                 position.Y = baseY + (OFFY_AMOUNT * offY);
-            }            
+            }
+            blinker.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -105,14 +104,10 @@ namespace PodPanic.GameObjects
             return damage;
         }
 
-        // Specify what you want to happen when the Elapsed event is 
-        // raised.
+        // Specify what you want to happen when the Elapsed event is raised.
         private void OnDeathEvent(object source, ElapsedEventArgs e)
         {
-//            if (!(this.signalRemoval))
-//            {
-                this.signalRemoval = true;
-//            }
+            this.signalRemoval = true;
         }
     }
 }

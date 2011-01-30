@@ -39,6 +39,13 @@ namespace PodPanic.GameObjects
         private const int FISHDISTANCEX = 50;
         private const int FISHDISTANCEY = 20;
         private const float FISHSIZEVARIATION = 30;
+        private const int foodValue = 3;
+
+        public int FoodValue
+        {
+            get { return foodValue; }
+        } 
+
 
         static private Random rnd;
         
@@ -100,7 +107,8 @@ namespace PodPanic.GameObjects
                 //spriteAnimations = normFish;    
                 sprite = normFish;
             }
-
+            deathTimer = new Timer(2000);
+            deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
 
 
@@ -136,16 +144,25 @@ namespace PodPanic.GameObjects
                 dir = 1;
             }
              */
-            for (int i = 0; i < bobbers.Count; i++)
-            {
-                bobbers[i].Update();
-            }
 
+            if (hasHitPlayer)
+            {
+                isDead = true;
+                if (!deathTimer.Enabled)
+                {
+                    deathTimer.Enabled = true;
+                }
+            }
             if (!isDead)
             {
                 position.X -= velocity;
                 //position.Y = baseY + (OFFY_AMOUNT * offY);
                 position.Y = baseY;
+
+                for (int i = 0; i < bobbers.Count; i++)
+                {
+                    bobbers[i].Update();
+                }
             }
 
 
@@ -163,11 +180,10 @@ namespace PodPanic.GameObjects
             }
 
             timeCounter = timeCounter % ANIMATE_SPEED;
-            blinker.Update(gameTime);
             //System.Diagnostics.Trace.WriteLine(" hey2 : " + timeCounter);
             //System.Diagnostics.Trace.WriteLine(" hey3 : " + (float)(timeCounter)/1000);
             //System.Diagnostics.Trace.WriteLine("???:" + velocity);
-
+            blinker.Update(gameTime);
             base.Update(gameTime);
         }
 
@@ -208,6 +224,10 @@ namespace PodPanic.GameObjects
         }
 
 
-
+        // Specify what you want to happen when the Elapsed event is raised.
+        private void OnDeathEvent(object source, ElapsedEventArgs e)
+        {
+            this.signalRemoval = true;
+        }
     }
 }
