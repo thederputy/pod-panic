@@ -388,7 +388,7 @@ namespace PodPanic
                                 thePlayer.reduceHP(enemy.getDamage());
                                 enemy.hasHitPlayer = true;
 
-                                // play the appropriate sounds
+                                // play the appropriate sounds for the enemy
                                 switch (enemy.type)
                                 {
                                     case GameState.EnemyType.Net:
