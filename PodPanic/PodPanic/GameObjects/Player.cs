@@ -137,7 +137,7 @@ namespace PodPanic.GameObjects
             bobber_top = new Fish_Bobber((float)rnd.NextDouble(), -1f, BOB_RATE, OFFY_AMOUNT);
             bobber_bottom = new Fish_Bobber((float)rnd.NextDouble(), -1f, BOB_RATE, OFFY_AMOUNT);
             bobber_rear = new Fish_Bobber((float)rnd.NextDouble(), 1f, BOB_RATE, OFFY_AMOUNT);
-            livesOwned = 77;
+            livesOwned = MAX_LIVES;
             currHP = MAX_HP;
         }
 
