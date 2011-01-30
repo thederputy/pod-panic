@@ -145,15 +145,14 @@ namespace PodPanic.GameObjects
 
 
 
-        public int getHealthPercent(){
+        public int getHealthPercent()
+        {
             return (int)( (float)livesOwned / (float)MAX_LIVES * 100.0f); 
-    }
+        }
 
             //livesOwned / MAX_LIVES * 100.0f
             //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
             //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned );
-
-             }
 
         /// <summary>
         /// Reduces the player's health. If it is 0, they will be marked as not alive.
