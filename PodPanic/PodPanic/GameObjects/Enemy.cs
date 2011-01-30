@@ -58,7 +58,7 @@ namespace PodPanic.GameObjects
             
             damage = dam;
 
-            deathTimer = new Timer(2000);
+            deathTimer = new Timer(1000);
             deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
         
@@ -79,13 +79,6 @@ namespace PodPanic.GameObjects
                 offY = -1;
                 dir = 1;
             }
-            
-            if (!isDead)
-            {
-                position.X -= velocity;
-                position.Y = baseY + (OFFY_AMOUNT * offY);
-            }            
-
             if (hasHitPlayer)
             {
                 isDead = true;
@@ -94,6 +87,12 @@ namespace PodPanic.GameObjects
                     deathTimer.Enabled = true;
                 }
             }
+
+            if (!isDead)
+            {
+                position.X -= velocity;
+                position.Y = baseY + (OFFY_AMOUNT * offY);
+            }            
             base.Update(gameTime);
         }
 
@@ -110,10 +109,10 @@ namespace PodPanic.GameObjects
         // raised.
         private void OnDeathEvent(object source, ElapsedEventArgs e)
         {
-            if (!(this.signalRemoval))
-            {
+//            if (!(this.signalRemoval))
+//            {
                 this.signalRemoval = true;
-            }
+//            }
         }
     }
 }

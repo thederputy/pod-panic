@@ -31,7 +31,7 @@ namespace PodPanic.GameObjects
         private const int SPRITESIZEX = 150;
         private const int SPRITESIZEY = 150;
 
-        static protected GameState.AlphaBlinker blinker;
+        protected GameState.AlphaBlinker blinker;
 
         #endregion
 

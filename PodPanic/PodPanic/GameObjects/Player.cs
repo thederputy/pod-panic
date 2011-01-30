@@ -89,7 +89,7 @@ namespace PodPanic.GameObjects
             get
             {
                 updateAlive();
-                return alive; 
+                return alive;
             }
         }
 
