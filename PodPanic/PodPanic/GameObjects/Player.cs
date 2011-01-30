@@ -22,6 +22,8 @@ namespace PodPanic.GameObjects
         public const float ROT_SPEED = 0.02f;
         public const int THRESHOLD = 75;
         public const int YSPEED = 5;
+        public const int MAX_HP = 10;
+        public const int MAX_LIVES = 77;
         public const float MAX_ROT = (float)Math.PI / 6;
         public Vector2 SIZE_OF_LEAD_WHALE = new Vector2(133, 48);// 100, 36
         public Vector2 SIZE_OF_WHALE = new Vector2(80, 35); // 80, 29
@@ -30,7 +32,8 @@ namespace PodPanic.GameObjects
         public Vector2 OFFSET_REARWHALE = new Vector2(125, 38); // 125, 38
         public Vector2 OFFSET_TOPWHALE = new Vector2(175, 0); // 175, 0
         public Vector2 OFFSET_BOTWHALE = new Vector2(175, 86); // 175, 86
-        private float currHP;
+        private int currHP;
+        private int livesOwned;
         private float currRot;
         public static int Speed { get; set; }
 
@@ -73,10 +76,7 @@ namespace PodPanic.GameObjects
             get { return currHP; }
         }
 
-        /// <summary>
-        /// Stores the total health of the player.
-        /// </summary>
-        public static float TotalHP = 100;
+        
 
         private bool alive;
 
@@ -132,7 +132,8 @@ namespace PodPanic.GameObjects
             bobber_top = new Fish_Bobber((float)rnd.NextDouble(), -1f, BOB_RATE, OFFY_AMOUNT);
             bobber_bottom = new Fish_Bobber((float)rnd.NextDouble(), -1f, BOB_RATE, OFFY_AMOUNT);
             bobber_rear = new Fish_Bobber((float)rnd.NextDouble(), 1f, BOB_RATE, OFFY_AMOUNT);
-
+            livesOwned = 77;
+            currHP = MAX_HP;
         }
 
 
@@ -145,12 +146,13 @@ namespace PodPanic.GameObjects
         /// Reduces the player's health. If it is 0, they will be marked as not alive.
         /// </summary>
         /// <param name="damageAmount">the amount to decrease the HP by</param>
-        public void reduceHP(float damageAmount)
+        public void reduceHP(int damageAmount)
         {
             currHP -= damageAmount;
             if (currHP < 0)
             {
                 currHP = 0;
+                updateAlive();
             }
         }
 
@@ -161,9 +163,9 @@ namespace PodPanic.GameObjects
         public void increaseHP(float bonusAmount)
         {
             currHP += 10;
-            if (currHP > TotalHP)
+            if (currHP > MAX_HP)
             {
-                currHP = TotalHP;
+                currHP = MAX_HP;
             }
         }
 
@@ -178,7 +180,11 @@ namespace PodPanic.GameObjects
             }
             else
             {
-                alive = false;
+                livesOwned -= 1;
+                currHP = MAX_HP;
+                if (livesOwned <= 0)
+                    //gameOver
+                    ;
             }
         }
 
@@ -353,5 +359,15 @@ namespace PodPanic.GameObjects
 
         //  - (((animationPointer+1)/3)*((animationPointer+1)%3))
 
+
+        public int whatVictory()
+        {
+            if (livesOwned >= 60)
+                return 3;
+            else if (livesOwned < 60 && livesOwned >= 10)
+                return 2;
+            else
+                return 1;
+        }
     }
 }

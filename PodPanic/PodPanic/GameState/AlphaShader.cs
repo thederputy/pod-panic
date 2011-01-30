@@ -55,17 +55,19 @@ namespace PodPanic.GameState
     {
         public const int MAX_ALPHA = 255;
         public const int MIN_ALPHA = 0;
-        public const int NUM_MILLISECONDS = 500;
+        public const int NUM_MILLISECONDS = 1000;
         public int AlphaVal { get; set; }
         int milliCovered;
+        public int numBlinks { get; set; }
         public AlphaBlinker()
         {
             AlphaVal = MAX_ALPHA;
             milliCovered = 0;
+            numBlinks = 0;
         }
         public void Update(GameTime curTime)
         {
-            milliCovered += curTime.ElapsedRealTime.Milliseconds;
+            milliCovered += curTime.ElapsedGameTime.Milliseconds;
             if (milliCovered >= NUM_MILLISECONDS)
             {
                 if (AlphaVal == MIN_ALPHA)
@@ -73,6 +75,7 @@ namespace PodPanic.GameState
                 else
                     AlphaVal = MIN_ALPHA;
                 milliCovered = 0;
+                numBlinks += 1;
             }
         }
     }

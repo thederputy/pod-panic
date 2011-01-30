@@ -18,8 +18,8 @@ namespace PodPanic.GameObjects
         private int baseY;
 
         private const int OFFY_AMOUNT = 10;
-        private const float SLOWEST_SPEED = 1.3f;
-        private const float FASTEST_SPEED = 2.2f;
+        private const float SLOWEST_SPEED = 2.2f;
+        private const float FASTEST_SPEED = 4.4f;
         private const float BOB_RATE = 0.01f;
 
         private Timer deathTimer;

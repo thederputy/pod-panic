@@ -68,28 +68,28 @@ namespace PodPanic.LevelObjects
         {
             String value;
             value = node.Attributes.GetNamedItem("ProbabilityEnemyType").InnerText;
-            ProbabilityEnemyType = Convert.ToSingle(value);
+            ProbabilityEnemyType = (float)Convert.ToDouble(value);
         }
         
         private void setProbabilityFishPollutionXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("ProbabilityFishPollution").InnerText;
-            ProbabilityFishPollution = Convert.ToSingle(value);
+            ProbabilityFishPollution = (float)Convert.ToDouble(value);
         } 
 
         private void setProbabilityEnemyTypeXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("ProbabilityEnemyType").InnerText;
-            ProbabilityEnemyType = Convert.ToSingle(value);
+            ProbabilityEnemyType = (float)Convert.ToDouble(value);
         }
 
         private void setProbabilityEnemyFishXML(XmlNode node)
         {
             String value;
             value = node.Attributes.GetNamedItem("ProbabilityEnemyFish").InnerText;
-            ProbabilityEnemyFish = Convert.ToSingle(value);
+            ProbabilityEnemyFish = (float)Convert.ToDouble(value);
         }
 
         private void setTimeBetweenEventsXML(XmlNode node)
