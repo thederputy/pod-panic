@@ -172,7 +172,8 @@ namespace PodPanic.GameObjects
         /// <param name="bonusAmount">the amount to increase the HP by</param>
         public void increaseHP(float bonusAmount)
         {
-            currHP += 10;
+            //currHP += 10;
+            currHP += (int)bonusAmount;
             if (currHP > MAX_HP)
             {
                 currHP = MAX_HP;
