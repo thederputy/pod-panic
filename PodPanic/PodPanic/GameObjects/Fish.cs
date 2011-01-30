@@ -105,7 +105,7 @@ namespace PodPanic.GameObjects
                 //spriteAnimations = normFish;    
                 sprite = normFish;
             }
-            deathTimer = new Timer(2000);
+            deathTimer = new Timer(100);
             deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
 
