@@ -137,9 +137,9 @@ namespace PodPanic
             LevelObjects.LevelLogic level2 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level3 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level4 = new LevelObjects.LevelLogic();
-            Levels[0] = level1;
-            Levels[1] = level2;
-            Levels[2] = level3;
+            Levels[0] = level4;
+            Levels[1] = level4;
+            Levels[2] = level4;
             Levels[3] = level4;
 
             // to get to the levels
@@ -380,6 +380,7 @@ namespace PodPanic
                                 switch (enemy.type)
                                 {
                                     case GameState.EnemyType.Net:
+                                        //SoundManager.playSound(netHitInstance, 0.6f);
                                         break;
                                     case GameState.EnemyType.Barrel:
                                         SoundManager.playSound(barrelHitInstance, 0.6f);
@@ -391,17 +392,19 @@ namespace PodPanic
                         }
                         else // we've collided with some fish
                         {
+                            GameObjects.Fish fish = obj as GameObjects.Fish;
+                            SoundManager.playSound(chompInstance, 0.6f);
                             //if (((GameObjects.Enemy)(obj)).hasHitPlayer == false)
                             //{
                             //    thePlayer.reduceHP(((GameObjects.Enemy)(obj)).getDamage());
                             //    ((GameObjects.Enemy)(obj)).hasHitPlayer = true;
-                            //} 
-                        }
-                        if (obj.getPosition().X < -obj.getTexture().Width)
-                            Objects.Remove(obj);
-                        if (obj.signalRemoval)
-                            Objects.Remove(obj);                       
+                            //}
+                        }                    
                     }
+                    if (obj.getPosition().X < -obj.getTexture().Width)
+                        Objects.Remove(obj);
+                    if (obj.signalRemoval)
+                        Objects.Remove(obj);   
                 }
                 //Update Player Position
                 thePlayer.Update(gameTime);
