@@ -13,7 +13,7 @@ namespace PodPanic.GameObjects
         SpriteFont scoreFont;
         int levelScore;
         int totalScore;
-        String str;
+        int currentScore;
         private const int SPEED = 3;
 
         public Boolean isVisible;
@@ -28,19 +28,27 @@ namespace PodPanic.GameObjects
             scoreFont = font;
             levelScore = 0;
             totalScore = 0;
+            currentScore = 0;
             hitDuringLevel = false;
             updatedEndOfLevel = false;
         }
 
         public void Update()
         {
-            str = "Score: " + totalScore + levelScore;
+            if (updatedEndOfLevel)
+            {
+                currentScore = totalScore;
+            }
+            else
+            {
+                currentScore = totalScore + levelScore;
+            }
         }
 
         public void draw(SpriteBatch spriteBatch)
         {
             if (isVisible)
-                spriteBatch.DrawString(scoreFont, str, position, Color.White);
+                spriteBatch.DrawString(scoreFont, "Score: " + currentScore, position, Color.White);
         }
 
         /// <summary>
@@ -69,15 +77,28 @@ namespace PodPanic.GameObjects
         public void beginLevel()
         {
             levelScore = 0;
+            hitDuringLevel = false;
+            updatedEndOfLevel = false;
         }
 
         /// <summary>
         /// Ends the score keeping for the level.
         /// </summary>
         /// <param name="thePlayer">the player of the game, to get the lives and stuff from.</param>
-        public void endLevel(Player thePlayer)
+        public void endLevel(Player thePlayer, int levelNumber)
         {
+            levelScore += thePlayer.LivesOwned * 1000;
+            levelScore += (int)thePlayer.CurrHP * 100;
+            if (!hitDuringLevel)
+            {
+                levelScore += 2500;
+            }
+            levelScore += levelNumber * 1000;
+
             totalScore += levelScore;
+            currentScore = totalScore;
+
+            updatedEndOfLevel = true;
         }
 
         public void Hide()
