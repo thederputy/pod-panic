@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
-  <Level LevelNumber="4" LevelName="San Juan Straight" LevelLength="14000" PollutionLevel="0.4" ProbabilityFishPollution="0.4" ProbabilityEnemyType="0.3" ProbabilityEnemyFish="0.9" TimeBetweenEvents="100" />
+  <Level LevelNumber="4" LevelName="San Juan Straight" LevelLength="14000" PollutionLevel="0.6" ProbabilityFishPollution="0.7" ProbabilityEnemyType="0.8" ProbabilityEnemyFish="0.9" TimeBetweenEvents="80" />
 </XnaContent>
