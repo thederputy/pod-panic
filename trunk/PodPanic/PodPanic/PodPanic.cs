@@ -40,7 +40,6 @@ namespace PodPanic
         List<GameObjects.GameObject> Objects;
         bool DevMode;
         GameObjects.Menu mainMenu;
-        Texture2D fishTest;
         Random rand;
         GameObjects.Score score;
         LevelObjects.LevelLogic[] Levels;
@@ -92,7 +91,6 @@ namespace PodPanic
             AlphaBlinker = new global::PodPanic.GameState.AlphaBlinker();
             backTemp = new global::PodPanic.GameObjects.Background(this);
             Objects = new List<global::PodPanic.GameObjects.GameObject>();
-            //doOnce = false;
             lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
             CurrentLevel = 0;
             GameObjects.Player.Speed = 1;
@@ -109,7 +107,9 @@ namespace PodPanic
         protected override void LoadContent()
         {
             thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaFinal2"), this);
-            backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/Background_2");
+            backTemp.ForegroundTexture = this.Content.Load<Texture2D>("Background/Water_Final");
+            backTemp.MidegroundTexture = this.Content.Load<Texture2D>("Background/MidGround");
+            backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/SkyandDepth");
             BadGuy1 = this.Content.Load<Texture2D>("Enemies/Net_Test");
             BadGuy2 = this.Content.Load<Texture2D>("Enemies/Oil_Test");
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -123,7 +123,7 @@ namespace PodPanic
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
             //List<Texture2D> fList = new List<Texture2D>();
-            fishTest = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
+            Fish = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
 
 
             //Loading Logic - Graphics
@@ -258,20 +258,29 @@ namespace PodPanic
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {
-                    //Event Spawning Logic
+                    //Event Spawning Logic - dooood, do shit here. Now.
                     secondsSinceLastEvent += 1;
                     if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
                     {
+                        int position = rand.Next(0, 9)/3;
+                        GameState.Channel newChannel = global::PodPanic.GameState.Channel.Middle;
+                        if(position == 0)
+                            newChannel = global::PodPanic.GameState.Channel.Top;
+                        else if(position == 1)
+                            newChannel = global::PodPanic.GameState.Channel.Middle;
+                        else if(position == 2)
+                            newChannel = global::PodPanic.GameState.Channel.Bottom;
                         secondsSinceLastEvent = 0;
-                        float chance = rand.Next(0, 20) / 20;
+                        float chance = rand.Next(0, 20) / 20.0f;
                         if (chance < Levels[CurrentLevel].ProbabilityEnemyFish)
                         {
-                            //Enemy Spawn
+                            GameObjects.Enemy newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), BadGuy1, 1, this);
+                            Objects.Add(newEnemy);
                         }
                         else
                         {
-                            //GameObjects.Fish  = new global::PodPanic.GameObjects.Fish(SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Middle), Fish, Fish, this);
-                            //Objects.Add(
+                            GameObjects.Fish newFish = new global::PodPanic.GameObjects.Fish((int)SCREEN_SIZE.X, getYChannel(newChannel), Fish, Fish, this);
+                            Objects.Add(newFish);
                         }
                     }
                     distanceCovered += GameObjects.Player.Speed;
@@ -344,8 +353,9 @@ namespace PodPanic
                 //    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Bottom), fishTest, fishTest, this));
                 //    //end testing fish
                 //}
-                foreach (GameObjects.GameObject obj in Objects)
+                for ( int i = 0; i < Objects.Count; i++)
                 {
+                    GameObjects.GameObject obj = Objects[i];
                     obj.Update(gameTime);
                     //Collision Detection
                     if(new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100).Intersects(new Rectangle((int)thePlayer.getPosition().X, (int)getYChannel(thePlayer.currChannel), 200, 150)))
@@ -361,11 +371,16 @@ namespace PodPanic
                         }
                         else
                         {
-
+                            //if (((GameObjects.Enemy)(obj)).hasHitPlayer == false)
+                            //{
+                            //    thePlayer.reduceHP(((GameObjects.Enemy)(obj)).getDamage());
+                            //    ((GameObjects.Enemy)(obj)).hasHitPlayer = true;
+                            //} 
                         }
                         if (obj.getPosition().X < -obj.getTexture().Width)
                             Objects.Remove(obj);
-                        
+                        if (obj.signalRemoval)
+                            Objects.Remove(obj);                       
                     }
                 }
                 //Update Player Position
@@ -489,6 +504,7 @@ namespace PodPanic
             if (curState == global::PodPanic.GameState.GameStateEnum.GamePause || lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel) drawColor = Color.Gray;
             backTemp.drawColor = drawColor;
             backTemp.Draw(gameTime);
+            backTemp.DrawForeground(gameTime);
             thePlayer.drawColor = drawColor;
             thePlayer.Draw(gameTime);
             foreach (GameObjects.GameObject obj in Objects)
@@ -496,6 +512,7 @@ namespace PodPanic
                 obj.drawColor = drawColor;
                 obj.Draw(gameTime);
             }
+            
         }
 
         public int getYChannel(global::PodPanic.GameState.Channel arg0)
