@@ -72,8 +72,11 @@ namespace PodPanic.GameObjects
         Fish_Bobber bobber_top;
         Fish_Bobber bobber_bottom;
         Fish_Bobber bobber_rear;
+
         private Texture2D dmg_sprite;
-        private Texture2D norm_sprite;
+        private bool isInDamagedState;
+        private int numBlinks;
+        private bool doOnceBlinkCount;
 
         /// <summary>
         /// Stores the current HP of the unit.
@@ -121,8 +124,8 @@ namespace PodPanic.GameObjects
         public Player(Texture2D loadedTexture, Texture2D dmgTexture, Game game)
             :base(loadedTexture, game)
         {
+            isInDamagedState = false;
             dmg_sprite = dmgTexture;
-            norm_sprite = loadedTexture;
             source = new Rectangle(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             position = new Vector2(50, ((PodPanic)(this.Game)).getYChannel(currChannel));
             currRot = 0.0f;
@@ -145,6 +148,7 @@ namespace PodPanic.GameObjects
             bobber_rear = new Fish_Bobber((float)rnd.NextDouble(), 1f, BOB_RATE, OFFY_AMOUNT);
             livesOwned = MAX_LIVES;
             currHP = MAX_HP;
+            blinker = new AlphaBlinker();
         }
 
         public int getHealthPercent()
@@ -164,6 +168,7 @@ namespace PodPanic.GameObjects
                 currHP = 0;
                 updateAlive();
             }
+            isInDamagedState = true;
         }
 
         /// <summary>
@@ -195,7 +200,7 @@ namespace PodPanic.GameObjects
                 currHP = MAX_HP;
                 if (livesOwned <= 0)
                 {
-
+                    ((PodPanic)this.Game).endGameFail();
                 }
             }
         }
@@ -248,6 +253,7 @@ namespace PodPanic.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            blinker.Update(gameTime);
             updateAlive();
             if (position.Y > ((PodPanic)(this.Game)).getYChannel(currChannel))
             {
@@ -350,12 +356,27 @@ namespace PodPanic.GameObjects
 
         public override void Draw(GameTime gameTime)
         {
-
+            Texture2D drawnTex;
+            if (isInDamagedState && blinker.AlphaVal == 255)
+            {
+                drawnTex = dmg_sprite;
+                if(!doOnceBlinkCount)
+                    numBlinks += 1;
+            }
+            else
+            {
+                doOnceBlinkCount = false;
+                drawnTex = sprite;
+                if (numBlinks >= 3)
+                {
+                    isInDamagedState = false;
+                }
+            }
             //livesOwned--;
 
             source = new Rectangle(SPRITE_WIDTH * animationPointer1, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Lead Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_LEADWHALE.X ), (int)(position.Y + OFFSET_LEADWHALE.Y + bobber_lead.getOff()), (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_LEADWHALE.X), (int)(position.Y + OFFSET_LEADWHALE.Y + bobber_lead.getOff()), (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             
             
             source = new Rectangle(SPRITE_WIDTH * animationPointer2 , 0, SPRITE_WIDTH, SPRITE_HEIGHT);
@@ -364,8 +385,8 @@ namespace PodPanic.GameObjects
             {
                 left2++;
             }
-            
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_REARWHALE.X - left2), (int)(position.Y + OFFSET_REARWHALE.Y + bobber_rear.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+
+            ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_REARWHALE.X - left2), (int)(position.Y + OFFSET_REARWHALE.Y + bobber_rear.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             
             
             source = new Rectangle(SPRITE_WIDTH * animationPointer3, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
@@ -374,7 +395,7 @@ namespace PodPanic.GameObjects
             {
                 left1++;
             }
-                ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X - left1), (int)(position.Y + OFFSET_TOPWHALE.Y + bobber_top.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X - left1), (int)(position.Y + OFFSET_TOPWHALE.Y + bobber_top.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             
             
             source = new Rectangle(SPRITE_WIDTH * animationPointer4, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
@@ -383,7 +404,7 @@ namespace PodPanic.GameObjects
             {
                 left3++;
             }
-                ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X - left3), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X - left3), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             
             //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
             //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned);

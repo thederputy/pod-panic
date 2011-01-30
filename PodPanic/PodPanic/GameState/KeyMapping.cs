@@ -39,7 +39,7 @@ namespace PodPanic.GameState
 
         public static ButtonMapping GetDefaultButtonMap()
         {
-            return new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.Back };
+            return new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.B };
         }
     }
 }
