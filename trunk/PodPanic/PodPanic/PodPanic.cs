@@ -258,7 +258,7 @@ namespace PodPanic
                     secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
                     //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedRealTime.Milliseconds);
                     SoundManager.playSound(entrySplashInstance, 0.5f);
-                    if (keyManager.KeyPressed(KeyMapping.ExitKey))
+                    if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         SoundManager.pauseSound(ambientWavesInstance);
@@ -322,7 +322,7 @@ namespace PodPanic
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.modeDown();
                     }
-                    if (keyManager.isKeyDown(KeyMapping.MoveRight) || keyManager.ButtonPressed(ButtonMapping.MoveRight))
+                    if (keyManager.isKeyDown(KeyMapping.MoveRight) || keyManager.isButtonDown(ButtonMapping.MoveRight))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveRight();
@@ -350,9 +350,6 @@ namespace PodPanic
                             //Signal End Game
                     }
                 }
-
-                if (keyManager.KeyPressed(Keys.Q))
-                    thePlayer.reduceHP(10);
                 backTemp.Update(gameTime);
                 //Update Enemy Position
 
@@ -428,18 +425,18 @@ namespace PodPanic
 
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
-                if (keyManager.KeyPressed(KeyMapping.ActionKey))
+                if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
                 }
 
-                if (keyManager.KeyPressed(KeyMapping.ExitKey))
+                if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
                     this.Exit();
                 //Update text of pause state
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
             {
-                if (keyManager.KeyPressed(KeyMapping.ActionKey))
+                if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
                 {
                     curState = prevState;
                 }
