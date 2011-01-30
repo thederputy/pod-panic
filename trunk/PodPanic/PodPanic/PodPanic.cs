@@ -220,7 +220,7 @@ namespace PodPanic
 
             BonusTexturesArray = new Texture2D[5];
             //Set the contents of the array
-            BonusTexturesArray[0] = Content.Load<Texture2D>("About");
+            BonusTexturesArray[0] = Content.Load<Texture2D>("Slides/About");
             BonusTexturesArray[1] = Content.Load<Texture2D>("Slides/ExtinctScreen");
             BonusTexturesArray[2] = Content.Load<Texture2D>("Slides/gameOver");
             BonusTexturesArray[3] = Content.Load<Texture2D>("Slides/Victory");
