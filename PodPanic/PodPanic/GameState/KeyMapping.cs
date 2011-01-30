@@ -29,6 +29,16 @@ namespace PodPanic.GameState
         {
             return new KeyMapping() { MoveUp = Keys.W, MoveDown = Keys.S, MoveRight = Keys.D, ActionKey = Keys.Space, ExitKey = Keys.Escape };
         }
+
+        public static void setKeyMappingAsArrows()
+        {
+            CurrentKeyMap = new KeyMapping() { MoveUp = Keys.Up, MoveDown = Keys.Down, MoveRight = Keys.Right, ActionKey = Keys.Enter, ExitKey = Keys.Escape };
+        }
+
+        public static void setKeyMappingAsWASD()
+        {
+            CurrentKeyMap = new KeyMapping() { MoveUp = Keys.W, MoveDown = Keys.S, MoveRight = Keys.D, ActionKey = Keys.Space, ExitKey = Keys.Escape };
+        }
     }
     class ButtonMapping
     {
@@ -41,7 +51,17 @@ namespace PodPanic.GameState
 
         public static ButtonMapping GetDefaultButtonMap()
         {
-            return new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.B };
+            return new ButtonMapping() { MoveUp = Buttons.DPadUp, MoveDown = Buttons.DPadDown, MoveRight = Buttons.DPadRight, ActionKey = Buttons.A, ExitKey = Buttons.Start };
+        }
+
+        public static void setButtonMappingAsControlStick()
+        {
+            CurrentButtonMap = new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.Start };
+        }
+
+        public static void setButtonMappingAsDPad()
+        {
+            CurrentButtonMap = new ButtonMapping() { MoveUp = Buttons.DPadUp, MoveDown = Buttons.DPadDown, MoveRight = Buttons.DPadRight, ActionKey = Buttons.A, ExitKey = Buttons.Start };
         }
     }
     public enum KeyMapEnum
