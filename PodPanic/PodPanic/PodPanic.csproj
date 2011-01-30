@@ -88,6 +88,7 @@
     <Compile Include="Audio\SoundManager.cs" />
     <Compile Include="GameObjects\Background.cs" />
     <Compile Include="GameObjects\Fish_Bobber.cs" />
+    <Compile Include="GameObjects\HowToMenu.cs" />
     <Compile Include="GameObjects\Score.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Menu.cs" />
