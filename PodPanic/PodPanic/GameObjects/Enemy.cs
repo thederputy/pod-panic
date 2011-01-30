@@ -23,7 +23,7 @@ namespace PodPanic.GameObjects
         private const float BOB_RATE = 0.01f;
 
         private Timer deathTimer;
-
+        public GameState.EnemyType type;
 
         /// <summary>
         /// creates an enemy at x,y that looks like the texture and moves with a velocity from left to right.
@@ -32,11 +32,13 @@ namespace PodPanic.GameObjects
         /// <param name="y">starting y</param>
         /// <param name="loadedTexture">the texture it draws</param>
         /// <param name="dam">how much damage it does</param>
-        /// 
-        public Enemy(int x, int y, Texture2D loadedTexture, int dam, Game game)
-            : base(loadedTexture,game)
+        /// <param name="game">the game</param>
+        /// <param name="type">the enemy type, net or oil barrel</param>
+        public Enemy(int x, int y, Texture2D loadedTexture, int dam, Game game, GameState.EnemyType enemyType)
+            : base(loadedTexture, game)
         {
             Random rnd = new Random();
+            type = enemyType;
 
             velocity = SLOWEST_SPEED + (FASTEST_SPEED - SLOWEST_SPEED * (float)rnd.NextDouble());
 
@@ -84,14 +86,6 @@ namespace PodPanic.GameObjects
                 position.Y = baseY + (OFFY_AMOUNT * offY);
             }            
 
-            //System.Diagnostics.Trace.WriteLine(position.X);
-            //System.Diagnostics.Trace.WriteLine(position.Y);
-            //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedGameTime.Milliseconds);
-            //System.Diagnostics.Trace.WriteLine("******");
-
-            //System.Diagnostics.Trace.WriteLine("******");
-            //System.Diagnostics.Trace.WriteLine(velocity);
-            //System.Diagnostics.Trace.WriteLine("******");
             if (hasHitPlayer)
             {
                 isDead = true;

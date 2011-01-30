@@ -22,4 +22,9 @@ namespace PodPanic.GameState
     {
         StartingLevel, RunningLevel, FinishedLevel
     }
+
+    enum EnemyType
+    {
+        Barrel, Net
+    }
 }
