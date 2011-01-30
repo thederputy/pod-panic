@@ -117,7 +117,7 @@ namespace PodPanic.GameObjects
             animationPointer3 = 2;
             animationPointer4 = 3;
 
-            currHP = TotalHP;
+            currHP = MAX_HP;
 
             //currHP = 50;
             //currHP = 40;
@@ -139,8 +139,13 @@ namespace PodPanic.GameObjects
 
 
         public int getHealthPercent(){
-            return (int)(currHP / TotalHP * 100.0f); 
-    }
+            return (int)( (float)livesOwned / (float)MAX_LIVES * 100.0f); 
+
+            //livesOwned / MAX_LIVES * 100.0f
+            //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
+            //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned );
+
+             }
 
         /// <summary>
         /// Reduces the player's health. If it is 0, they will be marked as not alive.
@@ -343,18 +348,34 @@ namespace PodPanic.GameObjects
 
         public override void Draw(GameTime gameTime)
         {
+            livesOwned--;
+
             source = new Rectangle(SPRITE_WIDTH * animationPointer1, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Lead Whale
             ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_LEADWHALE.X ), (int)(position.Y + OFFSET_LEADWHALE.Y + bobber_lead.getOff()), (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            
+            
             source = new Rectangle(SPRITE_WIDTH * animationPointer2 , 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Rear Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_REARWHALE.X ), (int)(position.Y + OFFSET_REARWHALE.Y + bobber_rear.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            if (livesOwned > 37)
+                ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_REARWHALE.X ), (int)(position.Y + OFFSET_REARWHALE.Y + bobber_rear.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            
+            
             source = new Rectangle(SPRITE_WIDTH * animationPointer3, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Top Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X ), (int)(position.Y + OFFSET_TOPWHALE.Y + bobber_top.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            if (livesOwned > 57)
+                ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X ), (int)(position.Y + OFFSET_TOPWHALE.Y + bobber_top.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            
+            
             source = new Rectangle(SPRITE_WIDTH * animationPointer4, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Bottom Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X ), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            if(livesOwned > 17)
+                ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X ), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            
+            //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
+            //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned);
+
+        
         }
 
         //  - (((animationPointer+1)/3)*((animationPointer+1)%3))
