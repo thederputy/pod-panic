@@ -362,8 +362,7 @@ namespace PodPanic
                         if (!(CurrentLevel + 1 >= Levels.Length))
                         {
                             CurrentLevel += 1;
-                            GameObjects.Player.Speed += 3;
-                            
+                            //GameObjects.Player.Speed += 3;
                         }
                         else
                         {
@@ -382,7 +381,9 @@ namespace PodPanic
                     GameObjects.GameObject obj = Objects[i];
                     obj.Update(gameTime);
                     //Collision Detection
-                    if(new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100).Intersects(new Rectangle((int)thePlayer.getPosition().X, (int)getYChannel(thePlayer.currChannel), 200, 150)))
+                    Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
+                    //if(objRect.Intersects(new Rectangle((int)thePlayer.getPosition().X, (int)getYChannel(thePlayer.currChannel), 200, 150)))
+                    if (thePlayer.Rect.Intersects(objRect))
                     {
                         //has collided with object - friend or foe?
                         if(obj.GetType() == typeof(GameObjects.Enemy))
