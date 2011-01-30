@@ -243,7 +243,7 @@ namespace PodPanic
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            System.Diagnostics.Trace.WriteLine("this :" + lvlProgress);
+            //System.Diagnostics.Trace.WriteLine("this :" + lvlProgress);
 
             keyManager.Update(gameTime);
             updateOverLay();
