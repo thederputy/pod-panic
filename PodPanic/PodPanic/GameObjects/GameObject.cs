@@ -26,10 +26,13 @@ namespace PodPanic.GameObjects
         public bool hasHitPlayer { get; set; }
         public bool signalRemoval { get; set; }
         protected System.Timers.Timer deadCounter;
-
+        static private Random rnds;
         private int SPRITE_WIDTH;
         private int SPRITE_HEIGHT;
         protected Rectangle rect;
+        static private Boolean firsts = true;
+        private const float SIZEVARIATION = 0.2f; 
+
         /// <summary>
         /// Used for collision detection
         /// </summary>
@@ -52,8 +55,15 @@ namespace PodPanic.GameObjects
         public GameObject(Texture2D loadedTexture, Game game)
             : base(game)
         {
-            SPRITE_WIDTH = loadedTexture.Width;
-            SPRITE_HEIGHT = loadedTexture.Height;
+            if (firsts)
+            {
+                rnds = new Random();
+                firsts = false;
+            }
+
+            float reduction = 1f - (SIZEVARIATION * (float)rnds.NextDouble());
+            SPRITE_WIDTH = (int)((float)loadedTexture.Width * reduction);
+            SPRITE_HEIGHT = (int)((float)loadedTexture.Height * reduction);
             signalRemoval = false;
             blinker = new global::PodPanic.GameState.AlphaBlinker();
             drawColor = Color.White;

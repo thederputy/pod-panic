@@ -39,14 +39,14 @@ namespace PodPanic.GameObjects
         private const float FISHSIZEVARIATION = 10;
         private const float FISHLESS_PER_XLEVELS = 1;
         private const int foodValue = 1;
-
+        static private Random rnd;
         public int FoodValue
         {
             get { return foodValue; }
         } 
 
 
-        static private Random rnd;
+        
         
         /// <summary>
         /// create a fish that moves from right to left

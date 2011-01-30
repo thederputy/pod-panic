@@ -53,15 +53,15 @@ namespace PodPanic
         /// </summary>
         int distanceCovered;
         Color overlayColor = new Color(120,50,50,0);
-        Color crossColor = new Color(120, 50, 50, 0);
-        int targetA = 0;
+        //Color crossColor = new Color(120, 50, 50, 0);
+        //int targetA = 0;
         int counterFamine;
 
         int TimesWon;
         int TimesLost;
 
         Texture2D overlay;
-        Texture2D cross;
+        //Texture2D cross;
         Texture2D[] BonusTexturesArray;
         Texture2D BonusTexture;
         
@@ -163,7 +163,7 @@ namespace PodPanic
             Fish = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
             Fish_Sick = this.Content.Load<Texture2D>("Food/Salmon_Sprite_Sick");
             overlay = this.Content.Load<Texture2D>("Background/OverLay");
-            cross = this.Content.Load<Texture2D>("WhaleSkull");
+            //cross = this.Content.Load<Texture2D>("WhaleSkull");
             //Loading Logic - Graphics
             //Loading Logic - Levels
             LevelObjects.LevelLogic level1 = new LevelObjects.LevelLogic();
@@ -644,24 +644,24 @@ namespace PodPanic
 
         private void updateOverLay()
         {
-            if (thePlayer.getHealthPercent() < 25)
-            {
-                if (thePlayer.getHealthPercent() > 12)
-                    targetA = (byte)((25 - thePlayer.getHealthPercent()) * 4);
-                else
-                    targetA = (byte)(50);
+            //if (thePlayer.getHealthPercent() < 25)
+            //{
+             //   if (thePlayer.getHealthPercent() > 12)
+             //       targetA = (byte)((25 - thePlayer.getHealthPercent()) * 4);
+             //   else
+             //       targetA = (byte)(50);
+            //
+             //   if (crossColor.A < targetA)
+             //   {
+             //       crossColor.A++;
+             //   }
 
-                if (crossColor.A < targetA)
-                {
-                    crossColor.A++;
-                }
+            //}
 
-            }
-
-            else
-            {
-                crossColor.A = 0;
-            }
+            //else
+            //{
+             //   crossColor.A = 0;
+            //}
 
             if (thePlayer.getHealthPercent() < 60)
             {
@@ -679,13 +679,13 @@ namespace PodPanic
         private void drawOverLay(SpriteBatch spriteBatch)
         {
             overlayColor.R = thePlayer.drawColor.R;
-            crossColor.R = thePlayer.drawColor.R;
+            //crossColor.R = thePlayer.drawColor.R;
             //crossColor.A = 255;
             //crossColor.B = 100;
 
 
             spriteBatch.Draw(overlay, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), overlayColor);//overlayColor
-            spriteBatch.Draw(cross, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), crossColor); //thePlayer.drawColor
+            //spriteBatch.Draw(cross, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), crossColor); //thePlayer.drawColor
             //spriteBatch.
             
         }
