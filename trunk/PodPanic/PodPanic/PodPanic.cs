@@ -572,11 +572,17 @@ namespace PodPanic
             if (thePlayer.getHealthPercent() < 25)
             {
                 if (thePlayer.getHealthPercent() > 12)
-                    crossColor.A = (byte)((25 - thePlayer.getHealthPercent()) * 20);
+                    targetA = (byte)((25 - thePlayer.getHealthPercent()) * 20);
                 else
-                    crossColor.A = (byte)(240);
-                
+                    targetA = (byte)(240);
+
+                if (crossColor.A < targetA)
+                {
+                    crossColor.A++;
+                }
+
             }
+
             else
             {
                 crossColor.A = 0;
