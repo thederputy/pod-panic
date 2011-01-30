@@ -621,7 +621,21 @@ namespace PodPanic
                     }
                     // get the strings from the score class, then draw them
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).Y / 2), Color.White);
-                    spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
+                    Vector2 completed = new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2);
+                    spriteBatch.DrawString(PausedFont, line1, completed, Color.White);
+                    string thisLevel = "" + score.levelScore + " points earned this level";
+                    Vector2 drawAt = new Vector2(completed.X, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(thisLevel).Y / 2);
+                    drawAt.Y += 80;
+                    spriteBatch.DrawString(devFont, thisLevel, drawAt, Color.White);
+                    if (!score.hitDuringLevel)
+                    {
+                        string bonusPoints = "2500 bonus points! No obstacles hit!";
+                        drawAt.Y += 25;
+                        spriteBatch.DrawString(devFont, bonusPoints, drawAt, Color.White);
+                    }
+                    string totalPoints = "Total: " + score.totalScore + " points earned so far. Keep it up!";
+                    drawAt.Y += 25;
+                    spriteBatch.DrawString(devFont, totalPoints, drawAt, Color.White);
                 }
                 score.draw(spriteBatch);
 
