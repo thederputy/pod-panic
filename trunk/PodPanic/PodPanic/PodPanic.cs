@@ -48,6 +48,9 @@ namespace PodPanic
         GameState.LevelProgress lvlProgress;
         int secondsSinceStart;
         int secondsSinceLastEvent;
+        /// <summary>
+        /// The current position in the level
+        /// </summary>
         int distanceCovered;
         Color overlayColor = new Color(255,100,100,0);
         Color crossColor = new Color(255, 100, 100, 0);
@@ -142,7 +145,7 @@ namespace PodPanic
             LevelObjects.LevelLogic level2 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level3 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level4 = new LevelObjects.LevelLogic();
-            Levels[0] = level1;
+            Levels[0] = level4;
             Levels[1] = level2;
             Levels[2] = level3;
             Levels[3] = level4;
@@ -292,7 +295,7 @@ namespace PodPanic
                             if (chance < Levels[CurrentLevel].ProbabilityEnemyType)
                                 newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 5, this, GameState.EnemyType.Net);
                             else
-                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilBarrel, 5, this, GameState.EnemyType.Net);
+                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilBarrel, 5, this, GameState.EnemyType.Barrel);
                             Objects.Add(newEnemy);
                         }
                         else
@@ -389,8 +392,8 @@ namespace PodPanic
                                 thePlayer.increaseHP(fish.FoodValue);
                                 fish.hasHitPlayer = true;
                             }
-                        }                    
-                    }
+                        }
+                    } // end collision detection
                     if (obj.getPosition().X < -obj.getTexture().Width)
                         Objects.Remove(obj);
                     if (obj.signalRemoval)
@@ -398,7 +401,6 @@ namespace PodPanic
                 }
                 //Update Player Position
                 thePlayer.Update(gameTime);
-                //Collision Detection
             }
 
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)

@@ -62,7 +62,6 @@ namespace PodPanic.GameObjects
 
         private Rectangle source;
 
-
         Fish_Bobber bobber_lead;
         Fish_Bobber bobber_top;
         Fish_Bobber bobber_bottom;
@@ -119,14 +118,7 @@ namespace PodPanic.GameObjects
 
             currHP = MAX_HP;
 
-            //currHP = 50;
-            //currHP = 40;
-            //currHP = 30;
-            //currHP = 20;
-            //currHP = 10;
-            //currHP = 1;
             Random rnd = new Random();
-
 
             left1 = 0;
             left2 = 0;
@@ -140,18 +132,10 @@ namespace PodPanic.GameObjects
             currHP = MAX_HP;
         }
 
-
-
         public int getHealthPercent()
         {
             return (int)( (float)livesOwned / (float)MAX_LIVES * 100.0f); 
         }
-
-            //livesOwned / MAX_LIVES * 100.0f
-            //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
-            //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned );
-
-             //}
 
         /// <summary>
         /// Reduces the player's health. If it is 0, they will be marked as not alive.
@@ -279,9 +263,6 @@ namespace PodPanic.GameObjects
                     currRot -= ROT_SPEED;
                 else if (currRot < -ROT_SPEED * 2)
                     currRot += ROT_SPEED;
-                
-                    
-                
             }
             if (position.X >= 50)
                 position.X -= 2;
@@ -347,8 +328,6 @@ namespace PodPanic.GameObjects
             {
                 currRot = -0.54f;
             }
-
-
 
             base.Update(gameTime);
         }
