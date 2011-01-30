@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Xna.Framework.Net;
 using Microsoft.Xna.Framework.Storage;
+using PodPanic.Audio;
 
 namespace PodPanic
 {
@@ -51,10 +52,14 @@ namespace PodPanic
 
         #region Sound Effects
         SoundEffect ambientWavesEngine;
+        SoundEffect entrySplashEngine;
         SoundEffect finSplashEngine;
+        SoundEffect gameStartEngine;
 
         SoundEffectInstance ambientWavesInstance;
+        SoundEffectInstance entrySplashInstance;
         SoundEffectInstance finSplashInstance;
+        SoundEffectInstance gameStartInstance;
         #endregion
 
         public PodPanic()
@@ -144,8 +149,14 @@ namespace PodPanic
             ambientWavesEngine = Content.Load<SoundEffect>("Sounds/ambientWaves");
             ambientWavesInstance = ambientWavesEngine.CreateInstance();
 
+            entrySplashEngine = Content.Load<SoundEffect>("Sounds/entrySplash");
+            entrySplashInstance = entrySplashEngine.CreateInstance();
+
             finSplashEngine = Content.Load<SoundEffect>("Sounds/finSplash");
             finSplashInstance = finSplashEngine.CreateInstance();
+
+            gameStartEngine = Content.Load<SoundEffect>("Sounds/gameStart");
+            gameStartInstance = gameStartEngine.CreateInstance();
             #endregion
         }
 
@@ -181,6 +192,7 @@ namespace PodPanic
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
+                SoundManager.playSound(gameStartInstance, 0.2f);
                 if (keyManager.KeyPressed(Keys.Space))
                 {
                     char firstChar = mainMenu.getItem().ToCharArray()[0];
@@ -212,28 +224,20 @@ namespace PodPanic
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 #region Sound Playing
-                if (ambientWavesInstance.State == SoundState.Stopped)
-                {
-                    ambientWavesInstance.Volume = 0.75f;
-                    ambientWavesInstance.IsLooped = true;
-                    ambientWavesInstance.Play();
-                }
-                else
-                {
-                    ambientWavesInstance.Resume();
-                }
+                SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
                 #endregion
                 //Do Key Detection
                 
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
-                    secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
+                    secondsSinceStart += (int)gameTime.ElapsedRealTime.Milliseconds;
                     //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedRealTime.Milliseconds);
+                    SoundManager.playSound(entrySplashInstance, 0.5f);
                     if (keyManager.KeyPressed(Keys.Space))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
-                        
+                        SoundManager.pauseSound(ambientWavesInstance);
                     }
                     if (secondsSinceStart >= 1250) //**************************************here
                     {
@@ -269,18 +273,27 @@ namespace PodPanic
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
+                        SoundManager.pauseSound(ambientWavesInstance);
                     }
                     if (keyManager.KeyPressed(Keys.W))
+                    {
+                        SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveUp();
+                    }
                     else if (keyManager.KeyPressed(Keys.S))
+                    {
+                        SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.modeDown();
+                    }
                     if (keyManager.isKeyDown(Keys.D))
+                    {
+                        SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveRight();
+                    }
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
-                    if (ambientWavesInstance.State == SoundState.Playing)
-                        ambientWavesInstance.Pause();
+                    SoundManager.pauseSound(ambientWavesInstance);
 
 
                     if (keyManager.KeyPressed(Keys.Space))
