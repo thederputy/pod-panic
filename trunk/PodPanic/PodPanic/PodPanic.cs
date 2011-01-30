@@ -25,6 +25,8 @@ namespace PodPanic
         public const int MIDCHANNEL_Y = 300;
         public const int BOTCHANNEL_Y = 450;
         GameState.KeyboardManager keyManager;
+        GameState.KeyMapping KeyMapping;
+        GameState.ButtonMapping ButtonMapping;
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
         GameState.GameStateEnum curState;
@@ -52,6 +54,9 @@ namespace PodPanic
         Color crossColor = new Color(255, 100, 100, 0);
         Texture2D overlay;
         Texture2D cross;
+        Texture2D[] BonusTexturesArray;
+        Texture2D BonusTexture;
+        GameState.GameStateEnum prevState;
 
 
         #region Sound Effects
@@ -91,7 +96,7 @@ namespace PodPanic
             Window.Title = "Pod-Panic";
             keyManager = new global::PodPanic.GameState.KeyboardManager(this);
             keyManager.Initialize();
-            curState = global::PodPanic.GameState.GameStateEnum.Loading;
+            curState = global::PodPanic.GameState.GameStateEnum.Menu;
             AlphaShader = new global::PodPanic.GameState.AlphaShader();
             AlphaBlinker = new global::PodPanic.GameState.AlphaBlinker();
             backTemp = new global::PodPanic.GameObjects.Background(this);
@@ -102,6 +107,8 @@ namespace PodPanic
             secondsSinceStart = 0;
             secondsSinceLastEvent = 0;
             rand = new Random();
+            KeyMapping = GameState.KeyMapping.GetDefaultKeyMap();
+            ButtonMapping = GameState.ButtonMapping.GetDefaultButtonMap();
             base.Initialize();
         }
 
@@ -123,7 +130,7 @@ namespace PodPanic
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
-            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
+            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Credits", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[4];
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
@@ -173,6 +180,15 @@ namespace PodPanic
             gameStartEngine = Content.Load<SoundEffect>("Sounds/gameStart");
             gameStartInstance = gameStartEngine.CreateInstance();
             #endregion
+
+            BonusTexturesArray = new Texture2D[5];
+            //Set the contents of the array
+            BonusTexturesArray[0] = Content.Load<Texture2D>("Slides/HowToPlay");
+            BonusTexturesArray[1] = Content.Load<Texture2D>("Slides/epicFAIL");
+            BonusTexturesArray[2] = Content.Load<Texture2D>("Slides/gameOver");
+            BonusTexturesArray[3] = Content.Load<Texture2D>("Slides/Victory");
+            BonusTexturesArray[4] = Content.Load<Texture2D>("Slides/Credits");
+            BonusTexture = null;
         }
 
         /// <summary>
@@ -194,22 +210,10 @@ namespace PodPanic
             keyManager.Update(gameTime);
             updateOverLay();
             
-            if (curState == global::PodPanic.GameState.GameStateEnum.Loading)
-            {
-                //Temporary Loading Simulator
-                if (keyManager.KeyPressed(Keys.Space))
-                    curState = global::PodPanic.GameState.GameStateEnum.Menu;
-            
-
-                //Check Load State - if loaded:
-                // -- Move to Menu State
-                //if not loaded:
-                //Continue loading - bypass
-            }
-            else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
+            if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 SoundManager.playSound(gameStartInstance, 0.2f);
-                if (keyManager.KeyPressed(Keys.Space))
+                if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
                 {
                     char firstChar = mainMenu.getItem().ToCharArray()[0];
                     if (firstChar == 'S')
@@ -220,16 +224,24 @@ namespace PodPanic
                     }
                     else if (firstChar == 'H')
                     {
-                        //How to logic
+                        BonusTexture = BonusTexturesArray[0];
+                        prevState = curState;
+                        curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
+                    }
+                    else if (firstChar == 'C')
+                    {
+                        BonusTexture = BonusTexturesArray[4];
+                        prevState = curState;
+                        curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
                     }
                     else if (firstChar == 'E')
                     {
                         this.Exit();
                     }
                 }
-                if (keyManager.KeyPressed(Keys.W))
+                if (keyManager.KeyPressed(KeyMapping.MoveUp) || keyManager.ButtonPressed(ButtonMapping.MoveUp))
                     mainMenu.moveUp();
-                if (keyManager.KeyPressed(Keys.S))
+                if (keyManager.KeyPressed(KeyMapping.MoveDown) || keyManager.ButtonPressed(ButtonMapping.MoveDown))
                     mainMenu.moveDown();
 
 
@@ -250,7 +262,7 @@ namespace PodPanic
                     secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
                     //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedRealTime.Milliseconds);
                     SoundManager.playSound(entrySplashInstance, 0.5f);
-                    if (keyManager.KeyPressed(Keys.Space))
+                    if (keyManager.KeyPressed(KeyMapping.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
@@ -296,23 +308,23 @@ namespace PodPanic
                         lvlProgress = global::PodPanic.GameState.LevelProgress.FinishedLevel;
                         distanceCovered = 0;
                     }
-                    if (keyManager.KeyPressed(Keys.Space))
+                    if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
                         SoundManager.pauseSound(ambientWavesInstance);
                     }
-                    if (keyManager.KeyPressed(Keys.W))
+                    if (keyManager.KeyPressed(KeyMapping.MoveUp) || keyManager.ButtonPressed(ButtonMapping.MoveUp))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveUp();
                     }
-                    else if (keyManager.KeyPressed(Keys.S))
+                    else if (keyManager.KeyPressed(KeyMapping.MoveDown) || keyManager.ButtonPressed(ButtonMapping.MoveDown))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.modeDown();
                     }
-                    if (keyManager.isKeyDown(Keys.D))
+                    if (keyManager.isKeyDown(KeyMapping.MoveRight) || keyManager.ButtonPressed(ButtonMapping.MoveRight))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveRight();
@@ -323,21 +335,26 @@ namespace PodPanic
                     SoundManager.pauseSound(ambientWavesInstance);
 
 
-                    if (keyManager.KeyPressed(Keys.Space))
+                    if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
                         if (!(CurrentLevel + 1 >= Levels.Length))
                         {
                             CurrentLevel += 1;
-                            GameObjects.Player.Speed += 1;
+                            GameObjects.Player.Speed += 3;
                         }
-                        else ;
+                        else
+                        {
+                            BonusTexture = BonusTexturesArray[thePlayer.whatVictory()];
+                            prevState = global::PodPanic.GameState.GameStateEnum.Menu;
+                            curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
+                        }
                             //Signal End Game
                     }
                 }
 
                 if (keyManager.KeyPressed(Keys.Q))
-                    thePlayer.increaseHP(10);
+                    thePlayer.reduceHP(10);
                 backTemp.Update(gameTime);
                 //Update Enemy Position
 
@@ -413,15 +430,22 @@ namespace PodPanic
 
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
-                if (keyManager.KeyPressed(Keys.Space))
+                if (keyManager.KeyPressed(KeyMapping.ActionKey))
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
                     score.Start();
                 }
 
-                if (keyManager.KeyPressed(Keys.Escape))
+                if (keyManager.KeyPressed(KeyMapping.ExitKey))
                     this.Exit();
                 //Update text of pause state
+            }
+            else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
+            {
+                if (keyManager.KeyPressed(KeyMapping.ActionKey))
+                {
+                    curState = prevState;
+                }
             }
 
             if (keyManager.KeyPressed(Keys.Z)) //triggers DevMode
@@ -448,12 +472,7 @@ namespace PodPanic
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             spriteBatch.Begin();
-            if (curState == global::PodPanic.GameState.GameStateEnum.Loading)
-            {
-                if (DevMode)
-                    spriteBatch.DrawString(devFont, "Loading", Vector2.Zero, Color.White);
-            }
-            else if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
+            if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 backTemp.Draw(gameTime);
                 if (DevMode)
@@ -507,6 +526,10 @@ namespace PodPanic
                 spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 //Update text of pause state
                 
+            }
+            else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
+            {
+                spriteBatch.Draw(BonusTexture, Vector2.Zero, Color.White);
             }
 
             score.draw(spriteBatch);

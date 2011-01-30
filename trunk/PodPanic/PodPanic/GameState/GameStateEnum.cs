@@ -10,7 +10,7 @@ namespace PodPanic.GameState
     /// </summary>
     enum GameStateEnum
     {
-        Loading, Menu, GameRun, GamePause
+        Menu, GameRun, GamePause, DisplayTexture
     }
 
     public enum Channel
