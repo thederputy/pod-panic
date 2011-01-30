@@ -152,7 +152,8 @@ namespace PodPanic.GameObjects
             livesOwned = MAX_LIVES;
             currHP = MAX_HP;
             blinker = new AlphaBlinker();
-            rect.Width = 120;
+            rect.Width = 50;
+            rect.Height = 40;
         }
 
         public int getHealthPercent()
@@ -249,7 +250,7 @@ namespace PodPanic.GameObjects
         }
         public void moveRight()
         {
-            position.X += 4;
+            position.X += 5;
             if (position.X >= 350)
                 position.X -= 2;
         }
@@ -354,8 +355,8 @@ namespace PodPanic.GameObjects
             {
                 currRot = -0.54f;
             }
-            rect.X = (int)position.X + 50;
-            rect.Y = (int)position.Y + 50;
+            rect.X = (int)position.X + 130;
+            rect.Y = (int)position.Y + 80;
         }
 
         public override void Draw(GameTime gameTime)
