@@ -96,7 +96,6 @@
     <Compile Include="GameState\InputManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameState\KeyboardManager.cs" />
     <Compile Include="GameState\KeyMapping.cs" />
     <Compile Include="GameState\LoadingManager.cs" />
     <Compile Include="GameState\Score.cs" />

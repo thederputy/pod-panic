@@ -107,7 +107,7 @@ namespace PodPanic
         {
             this.graphics.PreferredBackBufferHeight = (int)SCREEN_SIZE.Y;
             this.graphics.PreferredBackBufferWidth = (int)SCREEN_SIZE.X;
-            this.graphics.IsFullScreen = true;
+            //this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             Window.Title = "Pod-Panic";
             keyManager = new global::PodPanic.GameState.InputManager(this);
@@ -218,7 +218,7 @@ namespace PodPanic
             BonusTexturesArray = new Texture2D[5];
             //Set the contents of the array
             BonusTexturesArray[0] = Content.Load<Texture2D>("Slides/HowToPlay");
-            BonusTexturesArray[1] = Content.Load<Texture2D>("Slides/epicFAIL");
+            BonusTexturesArray[1] = Content.Load<Texture2D>("Slides/ExtinctScreen");
             BonusTexturesArray[2] = Content.Load<Texture2D>("Slides/gameOver");
             BonusTexturesArray[3] = Content.Load<Texture2D>("Slides/Victory");
             BonusTexturesArray[4] = Content.Load<Texture2D>("Slides/Credits");
@@ -624,7 +624,7 @@ namespace PodPanic
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
             {
-                spriteBatch.Draw(BonusTexture, Vector2.Zero, Color.White);
+                spriteBatch.Draw(BonusTexture, new Rectangle(0,0,(int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), Color.White);
             }
             score.draw(spriteBatch);
 
