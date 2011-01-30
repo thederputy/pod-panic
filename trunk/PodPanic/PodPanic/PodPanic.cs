@@ -65,6 +65,8 @@ namespace PodPanic
         //Texture2D cross;
         Texture2D[] BonusTexturesArray;
         Texture2D BonusTexture;
+        VideoPlayer Player;
+        Video tutorialVideo;
         
 
         GameState.GameStateEnum prevState;
@@ -156,7 +158,7 @@ namespace PodPanic
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
-            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Credits", "Exit" }), test, logo, devFont);
+            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "About", "Credits", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[numberOfLevels];
             score = new GameObjects.Score(new Vector2(600, 5), devFont);
 
@@ -224,6 +226,12 @@ namespace PodPanic
             BonusTexturesArray[3] = Content.Load<Texture2D>("Slides/Victory");
             BonusTexturesArray[4] = Content.Load<Texture2D>("Slides/Credits");
             BonusTexture = null;
+
+            Player = new VideoPlayer();
+            tutorialVideo = this.Content.Load<Video>("Movies/Tutorial");
+            Player.Play(tutorialVideo);
+            
+            
         }
 
         /// <summary>
@@ -259,10 +267,9 @@ namespace PodPanic
                     char firstChar = mainMenu.getItem().ToCharArray()[0];
                     if (firstChar == 'S')
                     {
-                        
-                        curState = global::PodPanic.GameState.GameStateEnum.GameRun;
-                        score.Show();
-                        score.Start();
+                        curState = global::PodPanic.GameState.GameStateEnum.Tutorial;
+                        Player.Play(tutorialVideo);
+                        Player.IsLooped = false;
                     }
                     else if (firstChar == 'H')
                     {
@@ -291,6 +298,15 @@ namespace PodPanic
                 //Check player cursor position
                 //Highlight menu options
             }
+            else if (curState == global::PodPanic.GameState.GameStateEnum.Tutorial)
+            {
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey) || Player.State == MediaState.Stopped)
+                {
+                    curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                    score.Show();
+                    score.Start();
+                }
+            }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
                 #region Sound Playing
@@ -298,9 +314,9 @@ namespace PodPanic
                 SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
                 #endregion
                 //Do Key Detection
-                
 
                 
+
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
                     secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
@@ -328,17 +344,20 @@ namespace PodPanic
                         thePlayer.reduceHP(1);
                     }
 
-                    //Event Spawning Logic - dooood, do shit here. No       
+
+                    //Event Spawning Logic - dooood, do shit here. No
+
+
                     secondsSinceLastEvent += 1;
                     if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
                     {
-                        int position = rand.Next(0, 9)/3;
+                        int position = rand.Next(0, 9) / 3;
                         GameState.Channel newChannel = global::PodPanic.GameState.Channel.Middle;
-                        if(position == 0)
+                        if (position == 0)
                             newChannel = global::PodPanic.GameState.Channel.Top;
-                        else if(position == 1)
+                        else if (position == 1)
                             newChannel = global::PodPanic.GameState.Channel.Middle;
-                        else if(position == 2)
+                        else if (position == 2)
                             newChannel = global::PodPanic.GameState.Channel.Bottom;
                         secondsSinceLastEvent = 0;
                         float chance = rand.Next(0, 20) / 20.0f;
@@ -349,7 +368,7 @@ namespace PodPanic
                             if (chance < Levels[CurrentLevel].ProbabilityEnemyType)
                                 newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 5, this, GameState.EnemyType.Net);
                             else
-                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilSlicks[rand.Next(0,3)], 5, this, GameState.EnemyType.Barrel);
+                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilSlicks[rand.Next(0, 3)], 5, this, GameState.EnemyType.Barrel);
                             Objects.Add(newEnemy);
                         }
                         else
@@ -513,7 +532,6 @@ namespace PodPanic
                     curState = prevState;
                 }
             }
-
 //            if (keyManager.KeyPressed(Keys.Z)) //triggers DevMode
 //            {
 
@@ -637,6 +655,11 @@ namespace PodPanic
             {
                 spriteBatch.Draw(BonusTexture, new Rectangle(0,0,(int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), Color.White);
             }
+            else if (curState == global::PodPanic.GameState.GameStateEnum.Tutorial)
+            {
+                spriteBatch.Draw(Player.GetTexture(), new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), Color.White);
+            }
+
             //score.draw(spriteBatch);
 
             if (DevMode)
