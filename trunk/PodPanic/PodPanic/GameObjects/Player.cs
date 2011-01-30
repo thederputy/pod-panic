@@ -421,12 +421,12 @@ namespace PodPanic.GameObjects
         /// <returns>A code indicating the screen to display</returns>
         public int whatVictory()
         {
-            if (livesOwned >= ((int)MAX_LIVES * 0.66))
-                return 3;
-            else if (livesOwned >= ((int)MAX_LIVES * 0.33))
-                return 2;
-            else
-                return 1;
+            //if (livesOwned >= ((int)MAX_LIVES * 0.66))
+            return 3;
+            //else if (livesOwned >= ((int)MAX_LIVES * 0.33))
+            //    return 2;
+            //else
+            //    return 1;
         }
     }
 }
