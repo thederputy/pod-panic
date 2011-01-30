@@ -21,7 +21,7 @@ namespace PodPanic.GameObjects
         private int animationPointer;
         private List<Fish_Bobber> bobbers;
         private Rectangle source;
-
+        private Boolean first = true;
 
         private const int OFFY_AMOUNT = 15;
         private const float SLOWEST_SPEED = 2.25f;
@@ -39,7 +39,7 @@ namespace PodPanic.GameObjects
 
 
 
-        private Random rnd;
+        static private Random rnd;
 
         
         
@@ -54,8 +54,8 @@ namespace PodPanic.GameObjects
         /// <param name="sickFish">image for sick fish</param>
         /// 
 
-        public Fish(int x, int y,Texture2D normFish, Texture2D sickFish, Game game)
-            : base(null,game)
+        public Fish(int x, int y, Texture2D normFish, Texture2D sickFish, Game game)
+            : base(null, game)
         {
 
 
@@ -64,13 +64,19 @@ namespace PodPanic.GameObjects
 
             position.X = x;
             position.Y = y;
-            rnd = new Random();
+
+            if (first)
+            {
+                rnd = new Random();
+                first = false;
+            }
+
             baseY = y;
             velocity = SLOWEST_SPEED + (FASTEST_SPEED - SLOWEST_SPEED * (float)rnd.NextDouble());
             animationPointer = 0;
-            System.Diagnostics.Trace.WriteLine("");
+            //System.Diagnostics.Trace.WriteLine("");
 
-            
+
             bobbers = new List<Fish_Bobber>();
 
             for (int i = 0; i < FISHNUM; i++)
@@ -82,12 +88,12 @@ namespace PodPanic.GameObjects
                 else
                     dir = -1;
 
-                bobbers.Add(new Fish_Bobber(offY, dir, BOB_RATE, OFFY_AMOUNT, FISHSIZEVARIATION));
+                bobbers.Add(new Fish_Bobber(offY, dir, BOB_RATE, OFFY_AMOUNT, FISHSIZEVARIATION, rnd));
             }
 
 
             //bobbers.Add(new Fish_Bobber());
-            
+
 
             if (rnd.NextDouble() <= polluted_percent)
             {
@@ -103,17 +109,18 @@ namespace PodPanic.GameObjects
 
         }
 
-       
+
 
         /// <summary>
         /// sets the percent chance of a fish being sick
         /// </summary>
         /// <param name="percent"> a float between 0 and 1 that represent a percentage</param>
-        static public void setPollutionPercent(float percent){
-            polluted_percent = percent;       
+        static public void setPollutionPercent(float percent)
+        {
+            polluted_percent = percent;
         }
 
-        
+
 
 
         /// <summary>
@@ -137,7 +144,7 @@ namespace PodPanic.GameObjects
              */
             for (int i = 0; i < bobbers.Count; i++)
             {
-               bobbers[i].Update();
+                bobbers[i].Update();
             }
 
             position.X -= velocity;
@@ -145,15 +152,16 @@ namespace PodPanic.GameObjects
             position.Y = baseY;
 
 
-           // System.Diagnostics.Trace.WriteLine(" hey : " + gameTime.ElapsedRealTime.Milliseconds);
+            // System.Diagnostics.Trace.WriteLine(" hey : " + gameTime.ElapsedRealTime.Milliseconds);
 
             timeCounter += gameTime.ElapsedGameTime.Milliseconds;
 
-            if(timeCounter/ANIMATE_SPEED > 0){
+            if (timeCounter / ANIMATE_SPEED > 0)
+            {
                 animationPointer++;
-                animationPointer = animationPointer %FRAMES;
+                animationPointer = animationPointer % FRAMES;
                 source = new Rectangle(SPRITE_WIDTH * animationPointer, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
-                
+
                 //sprite = spriteAnimations[animationPointer];
             }
 
@@ -178,26 +186,27 @@ namespace PodPanic.GameObjects
         }
 
 
-        public override void  Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            if(!isDead){
+            if (!isDead)
+            {
 
-                
+
 
                 for (int i = 0; i < bobbers.Count; i++)
                 {
                     //float variation = FISHSIZEVARIATION * (float)rnd.NextDouble() - FISHSIZEVARIATION/2; // FISHSIZEVARIATION * variation
                     //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (int)(200 * rnd.NextDouble()), (int)position.Y + (int)(150 * rnd.NextDouble()), (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);       
-                    ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (FISHDISTANCEX * (i % 3)), (int)position.Y + (int)bobbers[i].getOff() + (FISHDISTANCEY * (i / 3)), (int)(FISH_LENGTH + bobbers[i].getAddSize()), (int)((FISH_LENGTH + bobbers[i].getAddSize()) * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);
-                    System.Diagnostics.Trace.WriteLine("this :" + i + " : " + bobbers[i].getAddSize());
+                    ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (FISHDISTANCEX * (i % 2)), (int)position.Y + (int)bobbers[i].getOff() + (FISHDISTANCEY * (i / 2)), (int)(FISH_LENGTH + bobbers[i].getAddSize()), (int)((FISH_LENGTH + bobbers[i].getAddSize()) * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);
+                    //System.Diagnostics.Trace.WriteLine("this :" + i + " : " + bobbers[i].getAddSize());
                 }
 
                 //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width/FRAMES)))), source, drawColor);
-            
+
 
             }
         }
-        
+
 
 
     }

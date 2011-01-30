@@ -23,20 +23,23 @@ namespace PodPanic.GameObjects
         public const int THRESHOLD = 75;
         public const int YSPEED = 5;
         public const float MAX_ROT = (float)Math.PI / 6;
-        public Vector2 SIZE_OF_LEAD_WHALE = new Vector2(111, 83);
-        public Vector2 SIZE_OF_WHALE = new Vector2(99, 75);
-        public Vector2 OFFSET_LEADWHALE = new Vector2(99,33);
-        public Vector2 OFFSET_REARWHALE = new Vector2(0,38);
-        public Vector2 OFFSET_TOPWHALE = new Vector2(50, 0);
-        public Vector2 OFFSET_BOTWHALE = new Vector2(50, 86);
+        public Vector2 SIZE_OF_LEAD_WHALE = new Vector2(100, 60);// 111, 83
+        public Vector2 SIZE_OF_WHALE = new Vector2(80, 50); // 99, 75
+
+        public Vector2 OFFSET_LEADWHALE = new Vector2(250, 45); // 99,33
+        public Vector2 OFFSET_REARWHALE = new Vector2(125, 38); // 0,38
+        public Vector2 OFFSET_TOPWHALE = new Vector2(175, 0); // 50,0
+        public Vector2 OFFSET_BOTWHALE = new Vector2(175, 86); // 50,86 
         private float currHP;
         private float currRot;
 
-        private const int ANIMATE_SPEED = 100;// in milliseconds
-        private const int SPRITE_HEIGHT = 70;
-        private const int SPRITE_WIDTH = 190;//380
-
-
+        private const int ANIMATE_SPEED = 75;
+        private const int SPRITE_HEIGHT = 280;
+        private const int SPRITE_WIDTH = 780;
+        private const int FRAMES = 4;
+        private int timeCounter;
+        private int animationPointer;
+        private Rectangle source;
         /// <summary>
         /// Stores the current HP of the unit.
         /// Read-only method. The actual HP change will happen in the <code>recuceHP</code>
@@ -83,8 +86,10 @@ namespace PodPanic.GameObjects
         public Player(Texture2D loadedTexture, Game game)
             :base(loadedTexture, game)
         {
+            source = new Rectangle(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             position = new Vector2(50, ((PodPanic)(this.Game)).getYChannel(currChannel));
             currRot = 0.0f;
+            animationPointer = 0;
         }
 
 
@@ -201,24 +206,43 @@ namespace PodPanic.GameObjects
             }
             else
             {
-                if (currRot > 0.0f)
+                if (currRot > -ROT_SPEED && currRot < ROT_SPEED)
+                    currRot = 0;
+                else if (currRot > ROT_SPEED)
                     currRot -= ROT_SPEED;
-                else if (currRot < 0.0f)
+                else if (currRot < ROT_SPEED)
                     currRot += ROT_SPEED;
+                
+                    
+                
             }
+
+            timeCounter += gameTime.ElapsedGameTime.Milliseconds;
+
+            if (timeCounter / ANIMATE_SPEED > 0)
+            {
+                animationPointer++;
+                animationPointer = animationPointer % FRAMES;
+                source = new Rectangle(SPRITE_WIDTH * animationPointer, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
+
+
+            }
+
+            timeCounter = timeCounter % ANIMATE_SPEED;
+
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             //Draw the Lead Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 99, (int)position.Y + 33, (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), null, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_LEADWHALE.X), (int)(position.Y + OFFSET_LEADWHALE.Y), (int)SIZE_OF_LEAD_WHALE.X, (int)SIZE_OF_LEAD_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             //Draw the Rear Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y + 38, (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), null, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_REARWHALE.X), (int)(position.Y + OFFSET_REARWHALE.Y), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             //Draw the Top Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, (int)position.Y, (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), null, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_TOPWHALE.X), (int)(position.Y + OFFSET_TOPWHALE.Y), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
             //Draw the Bottom Whale
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + 50, (int)position.Y + 86, (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), null, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X), (int)(position.Y + OFFSET_BOTWHALE.Y), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
         }
     }
 }
