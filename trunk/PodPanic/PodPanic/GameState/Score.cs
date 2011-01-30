@@ -58,6 +58,7 @@ namespace PodPanic.GameObjects
         {
             levelScore = 0;
             totalScore = 0;
+            currentScore = 0;
             isActive = false;
             isVisible = false;
             hitDuringLevel = false;
