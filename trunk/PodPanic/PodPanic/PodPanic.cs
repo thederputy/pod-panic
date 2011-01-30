@@ -388,61 +388,77 @@ namespace PodPanic
                     }
                 } //end FinishedLevel
                 backTemp.Update(gameTime);
-                //begin collision detection
-                for ( int i = 0; i < Objects.Count; i++)
-                {
-                    GameObjects.GameObject obj = Objects[i];
-                    obj.Update(gameTime);
-                    //Collision Detection
-                    Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
-                    if (thePlayer.Rect.Intersects(objRect))
-                    {
-                        //has collided with object - friend or foe?
-                        if(obj.GetType() == typeof(GameObjects.Enemy))
-                        {
-                            GameObjects.Enemy enemy = obj as GameObjects.Enemy;
-                            if (enemy.hasHitPlayer == false)
-                            {
-                                thePlayer.reduceHP(enemy.getDamage());
-                                enemy.hasHitPlayer = true;
 
-                                // play the appropriate sounds for the enemy
-                                switch (enemy.type)
-                                {
-                                    case GameState.EnemyType.Net:
-                                        SoundManager.playSound(netCaughtInstance, 0.6f);
-                                        break;
-                                    case GameState.EnemyType.Barrel:
-                                        SoundManager.playSound(barrelHitInstance, 0.6f);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            } 
-                        }
-                        else // we've collided with some fish
+                if (!(lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel))
+                {
+                    //begin collision detection
+                    for (int i = 0; i < Objects.Count; i++)
+                    {
+                        GameObjects.GameObject obj = Objects[i];
+                        obj.Update(gameTime);
+                        //Collision Detection
+                        Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
+                        if (thePlayer.Rect.Intersects(objRect))
                         {
-                            SoundManager.playSound(chompInstance, 0.6f);
-                            GameObjects.Fish fish = obj as GameObjects.Fish;
-                            if (fish.hasHitPlayer == false)
+                            //has collided with object - friend or foe?
+                            if (obj.GetType() == typeof(GameObjects.Enemy))
                             {
-                                if (fish.isSick())
+                                GameObjects.Enemy enemy = obj as GameObjects.Enemy;
+                                if (enemy.hasHitPlayer == false)
                                 {
-                                    thePlayer.reduceHP((int)(fish.FoodValue * 3));
+                                    thePlayer.reduceHP(enemy.getDamage());
+                                    enemy.hasHitPlayer = true;
+
+                                    // play the appropriate sounds for the enemy
+                                    switch (enemy.type)
+                                    {
+                                        case GameState.EnemyType.Net:
+                                            SoundManager.playSound(netCaughtInstance, 0.6f);
+                                            break;
+                                        case GameState.EnemyType.Barrel:
+                                            SoundManager.playSound(barrelHitInstance, 0.6f);
+                                            break;
+                                        default:
+                                            break;
+                                    }
                                 }
-                                else
-                                {
-                                    thePlayer.increaseHP(fish.FoodValue);
-                                }
-                                fish.hasHitPlayer = true;
                             }
+                            else // we've collided with some fish
+                            {
+                                SoundManager.playSound(chompInstance, 0.6f);
+                                GameObjects.Fish fish = obj as GameObjects.Fish;
+                                if (fish.hasHitPlayer == false)
+                                {
+                                    if (fish.isSick())
+                                    {
+                                        thePlayer.reduceHP((int)(fish.FoodValue * 3));
+                                    }
+                                    else
+                                    {
+                                        thePlayer.increaseHP(fish.FoodValue);
+                                    }
+                                    fish.hasHitPlayer = true;
+                                }
+                            }
+                        } //end intersection checking
+                        if (obj.getPosition().X < -obj.getTexture().Width)
+                            Objects.Remove(obj);
+                        if (obj.signalRemoval)
+                            Objects.Remove(obj);
+                    }//end collision detection
+                }
+                else  // we're at the end of the level, so remove all the enemies and fish
+                {
+                    for (int i = 0; i < Objects.Count; i++)
+                    {
+                        GameObjects.GameObject obj = Objects[i];
+                        obj.Update(gameTime);
+                        if ((obj is GameObjects.Enemy) || (obj is GameObjects.Fish))
+                        {
+                            Objects.Remove(obj);
                         }
-                    } //end intersection checking
-                    if (obj.getPosition().X < -obj.getTexture().Width)
-                        Objects.Remove(obj);
-                    if (obj.signalRemoval)
-                        Objects.Remove(obj);
-                }//end collision detection
+                    }
+                }
                 //Update Player Position
                 thePlayer.Update(gameTime);
             }

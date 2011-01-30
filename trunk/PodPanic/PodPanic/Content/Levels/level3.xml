@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
-  <Level LevelNumber="3" LevelName="Georgia Gateway" LevelLength="12000" PollutionLevel="0.3" ProbabilityFishPollution="0.3" ProbabilityEnemyType="0.7" ProbabilityEnemyFish="0.7" TimeBetweenEvents="100" />
+  <Level LevelNumber="3" LevelName="Georgia Gateway" LevelLength="15000" PollutionLevel="0.3" ProbabilityFishPollution="0.3" ProbabilityEnemyType="0.7" ProbabilityEnemyFish="0.6" TimeBetweenEvents="35" />
 </XnaContent>

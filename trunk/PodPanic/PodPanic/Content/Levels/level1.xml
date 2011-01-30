@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
-  <Level LevelNumber="1" LevelName="Bay Beginning" LevelLength="2000" PollutionLevel="0" ProbabilityFishPollution="0.5" ProbabilityEnemyType="0" ProbabilityEnemyFish="0.1" TimeBetweenEvents="50" />
+  <Level LevelNumber="1" LevelName="Burrard Inlet" LevelLength="2000" PollutionLevel="0" ProbabilityFishPollution="0.5" ProbabilityEnemyType="0" ProbabilityEnemyFish="0.1" TimeBetweenEvents="50" />
 </XnaContent>
