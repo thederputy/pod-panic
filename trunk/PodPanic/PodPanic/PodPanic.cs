@@ -20,7 +20,7 @@ namespace PodPanic
     /// </summary>
     public class PodPanic : Microsoft.Xna.Framework.Game
     {
-        public Vector2 SCREEN_SIZE = new Vector2(800, 600);
+        public static Vector2 SCREEN_SIZE = new Vector2(800, 600);
         public const int TOPCHANNEL_Y = 150;
         public const int MIDCHANNEL_Y = 300;
         public const int BOTCHANNEL_Y = 450;
@@ -37,7 +37,7 @@ namespace PodPanic
         GameState.AlphaBlinker AlphaBlinker;
         GameObjects.Background backTemp;
         Texture2D Net;
-        Texture2D OilBarrel;
+        Texture2D[] OilSlicks;
         Texture2D Fish;
         Texture2D Fish_Sick;
         List<GameObjects.GameObject> Objects;
@@ -134,8 +134,15 @@ namespace PodPanic
             backTemp.ForegroundTexture = this.Content.Load<Texture2D>("Background/Water_Final");
             backTemp.MidegroundTexture = this.Content.Load<Texture2D>("Background/MidGround");
             backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/SkyandDepth");
-            Net = this.Content.Load<Texture2D>("Enemies/Net_Test");
-            OilBarrel = this.Content.Load<Texture2D>("Enemies/OilBarrel");
+            backTemp.LightareasTexture = this.Content.Load<Texture2D>("Background/WaterLights");
+            backTemp.WaveArea = this.Content.Load<Texture2D>("Background/Wave");
+            Net = this.Content.Load<Texture2D>("Enemies/Net_Final");
+            OilSlicks = new Texture2D[]
+            {
+                this.Content.Load<Texture2D>("Enemies/OilSpill"),
+                this.Content.Load<Texture2D>("Enemies/OilSpill2"),
+                this.Content.Load<Texture2D>("Enemies/OilSpill3"),
+            };
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             devFont = this.Content.Load<SpriteFont>("DevFont");
@@ -314,7 +321,7 @@ namespace PodPanic
                             if (chance < Levels[CurrentLevel].ProbabilityEnemyType)
                                 newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 5, this, GameState.EnemyType.Net);
                             else
-                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilBarrel, 5, this, GameState.EnemyType.Barrel);
+                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilSlicks[rand.Next(0,3)], 5, this, GameState.EnemyType.Barrel);
                             Objects.Add(newEnemy);
                         }
                         else
@@ -625,7 +632,7 @@ namespace PodPanic
             if (curState == global::PodPanic.GameState.GameStateEnum.GamePause || lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel) drawColor = Color.Gray;
             backTemp.drawColor = drawColor;
             backTemp.Draw(gameTime);
-            backTemp.DrawForeground(gameTime);
+            
             thePlayer.drawColor = drawColor;
             thePlayer.Draw(gameTime);
             foreach (GameObjects.GameObject obj in Objects)
@@ -633,7 +640,7 @@ namespace PodPanic
                 obj.drawColor = drawColor;
                 obj.Draw(gameTime);
             }
-            
+            backTemp.DrawLights(gameTime);
         }
 
         public int getYChannel(global::PodPanic.GameState.Channel arg0)
