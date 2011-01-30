@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
-	<Level LevelNumber='1' LevelName='Bay Beginning' LevelLength='1000' PollutionLevel='1' ProbabilityFishPollution='1' ProbabilityEnemyType='1' ProbabilityEnemyFish='1' TimeBetweenEvents='1'/>
+  <Level LevelNumber="1" LevelName="Bay Beginning" LevelLength="1500" PollutionLevel="0" ProbabilityFishPollution="0" ProbabilityEnemyType="0" ProbabilityEnemyFish="0" TimeBetweenEvents="100" />
 </XnaContent>

@@ -32,6 +32,7 @@ namespace PodPanic.GameObjects
         public Vector2 OFFSET_BOTWHALE = new Vector2(175, 86); // 50,86 
         private float currHP;
         private float currRot;
+        public static int Speed { get; set; }
 
         private const int ANIMATE_SPEED = 75;
         private const int SPRITE_HEIGHT = 280;
@@ -176,6 +177,12 @@ namespace PodPanic.GameObjects
                     break;
             }
         }
+        public void moveRight()
+        {
+            position.X += 4;
+            if (position.X >= 350)
+                position.X -= 2;
+        }
 
         public override void Update(GameTime gameTime)
         {
@@ -206,16 +213,16 @@ namespace PodPanic.GameObjects
             }
             else
             {
-                if (currRot > -ROT_SPEED && currRot < ROT_SPEED)
-                    currRot = 0;
-                else if (currRot > ROT_SPEED)
+                if (currRot > ROT_SPEED*2)
                     currRot -= ROT_SPEED;
-                else if (currRot < ROT_SPEED)
+                else if (currRot < -ROT_SPEED * 2)
                     currRot += ROT_SPEED;
                 
                     
                 
             }
+            if (position.X >= 50)
+                position.X -= 2;
 
             timeCounter += gameTime.ElapsedGameTime.Milliseconds;
 

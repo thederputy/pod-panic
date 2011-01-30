@@ -45,7 +45,7 @@ namespace PodPanic.GameObjects
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            curXPos += 1;
+            curXPos += Player.Speed;
             if (curXPos >= BackgroundTexture.Width)
                 curXPos = 0;
             base.Update(gameTime);
