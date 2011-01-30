@@ -58,7 +58,7 @@ namespace PodPanic.GameObjects
         /// 
 
         public Fish(int x, int y, Texture2D normFish, Texture2D sickFish, Game game)
-            : base(null, game)
+            : base(normFish, game)
         {
             source = new Rectangle(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
 
