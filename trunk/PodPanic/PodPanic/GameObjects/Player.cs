@@ -23,7 +23,7 @@ namespace PodPanic.GameObjects
         public const int THRESHOLD = 75;
         public const int YSPEED = 5;
         public const int MAX_HP = 10;
-        public const int MAX_LIVES = 77;
+        public const int MAX_LIVES = 24;
         public const float MAX_ROT = (float)Math.PI / 6;
         public Vector2 SIZE_OF_LEAD_WHALE = new Vector2(133, 48);// 100, 36
         public Vector2 SIZE_OF_WHALE = new Vector2(80, 35); // 80, 29
@@ -34,6 +34,12 @@ namespace PodPanic.GameObjects
         public Vector2 OFFSET_BOTWHALE = new Vector2(175, 86); // 175, 86
         private int currHP;
         private int livesOwned;
+
+        public int LivesOwned
+        {
+            get { return livesOwned; }
+            set { livesOwned = value; }
+        }
         private float currRot;
         public static int Speed { get; set; }
 

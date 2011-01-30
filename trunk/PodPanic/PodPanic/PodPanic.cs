@@ -70,6 +70,7 @@ namespace PodPanic
         SoundEffect entrySplashEngine;
         SoundEffect finSplashEngine;
         SoundEffect gameStartEngine;
+        SoundEffect orcaWhineEngine;
 
         SoundEffectInstance ambientWavesInstance;
         SoundEffectInstance barrelHitInstance;
@@ -77,6 +78,7 @@ namespace PodPanic
         SoundEffectInstance entrySplashInstance;
         SoundEffectInstance finSplashInstance;
         SoundEffectInstance gameStartInstance;
+        SoundEffectInstance orcaWhineInstance;
 
         
         #endregion
@@ -167,6 +169,7 @@ namespace PodPanic
             //Loading Logic - GameFormat
 
             #region Sound effect loading
+            //***************************************************
             ambientWavesEngine = Content.Load<SoundEffect>("Sounds/ambientWaves");
             ambientWavesInstance = ambientWavesEngine.CreateInstance();
 
@@ -184,6 +187,10 @@ namespace PodPanic
 
             gameStartEngine = Content.Load<SoundEffect>("Sounds/gameStart");
             gameStartInstance = gameStartEngine.CreateInstance();
+
+            orcaWhineEngine = Content.Load<SoundEffect>("Sounds/orcaWhine");
+            orcaWhineInstance = orcaWhineEngine.CreateInstance();
+            //*******************************************************
             #endregion
 
             BonusTexturesArray = new Texture2D[5];
@@ -479,11 +486,22 @@ namespace PodPanic
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {
-                    //draw special running things...?
+                    //draw special running things...
+                    //drawing level progress
+                    float fontHeight = devFont.LineSpacing;
+                    float fontY = 5;
                     float progressPercent = ((float)distanceCovered / Levels[CurrentLevel].LevelLength) * 100;
                     string percentString = "Level " + Levels[CurrentLevel].LevelNumber;
                     percentString += ": " + (int)progressPercent + "%";
-                    spriteBatch.DrawString(devFont, percentString, new Vector2(5, 5), Color.White);
+                    spriteBatch.DrawString(devFont, percentString, new Vector2(5, fontY), Color.White);
+
+                    //draw lives
+                    fontY += fontHeight;
+                    spriteBatch.DrawString(devFont, "Lives: " + thePlayer.LivesOwned, new Vector2(5, fontY), Color.White);
+
+                    //draw HP
+                    fontY += fontHeight;
+                    spriteBatch.DrawString(devFont, "Current HP: " + thePlayer.CurrHP, new Vector2(5, fontY), Color.White);
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
