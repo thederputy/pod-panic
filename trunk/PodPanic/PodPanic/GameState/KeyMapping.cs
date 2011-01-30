@@ -32,7 +32,7 @@ namespace PodPanic.GameState
     }
     class ButtonMapping
     {
-        public static ButtonMapping CurrentButtonMap {get;set;}
+        public static ButtonMapping CurrentButtonMap {get; set;}
         public Buttons MoveUp { get; set; }
         public Buttons MoveDown { get; set; }
         public Buttons MoveRight { get; set; }

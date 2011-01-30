@@ -11,9 +11,9 @@ namespace PodPanic.GameObjects
     {
         Vector2 position;
         SpriteFont scoreFont;
-        int levelScore;
-        int totalScore;
-        int currentScore;
+        public int levelScore;
+        public int totalScore;
+        public int currentScore;
         private const int SPEED = 3;
 
         public Boolean isVisible;
