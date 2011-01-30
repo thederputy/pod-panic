@@ -193,6 +193,25 @@ namespace PodPanic.GameObjects
                 //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (int)(200 * rnd.NextDouble()), (int)position.Y + (int)(150 * rnd.NextDouble()), (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);       
                 ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (FISHDISTANCEX * (i % 2)), (int)position.Y + (int)bobbers[i].getOff() + (FISHDISTANCEY * (i / 2)), (int)(FISH_LENGTH + bobbers[i].getAddSize()), (int)((FISH_LENGTH + bobbers[i].getAddSize()) * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, finDrawColor);
                 //System.Diagnostics.Trace.WriteLine("this :" + i + " : " + bobbers[i].getAddSize());
+
+
+
+                for (int i = 0; i < bobbers.Count; i++)
+                {
+                    //float variation = FISHSIZEVARIATION * (float)rnd.NextDouble() - FISHSIZEVARIATION/2; // FISHSIZEVARIATION * variation
+                    //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (int)(200 * rnd.NextDouble()), (int)position.Y + (int)(150 * rnd.NextDouble()), (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);       
+
+                    if (isPolluted)
+                        ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (FISHDISTANCEX * (i % 2)), (int)position.Y + (int)bobbers[i].getOff() + (FISHDISTANCEY * (i / 2)), (int)(FISH_LENGTH + bobbers[i].getAddSize()), (int)((FISH_LENGTH + bobbers[i].getAddSize()) * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);
+                    else
+                        ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (FISHDISTANCEX * (i % 2)), (int)position.Y + (int)bobbers[i].getOff() + (FISHDISTANCEY * (i / 2)), (int)(FISH_LENGTH + bobbers[i].getAddSize()), (int)((FISH_LENGTH + bobbers[i].getAddSize()) * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);
+                    
+                    //System.Diagnostics.Trace.WriteLine("this :" + i + " : " + bobbers[i].getAddSize());
+                }
+
+                //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width/FRAMES)))), source, drawColor);
+
+
             }
 
             //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width/FRAMES)))), source, drawColor);
