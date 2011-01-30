@@ -44,6 +44,7 @@ namespace PodPanic
         bool DevMode;
         GameObjects.Menu mainMenu;
         Random rand;
+        GameObjects.Score score;
         LevelObjects.LevelLogic[] Levels;
         int CurrentLevel;
         GameState.LevelProgress lvlProgress;
@@ -153,6 +154,7 @@ namespace PodPanic
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Credits", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[4];
+            score = new GameObjects.Score(new Vector2(675, 5), devFont);
 
             //List<Texture2D> fList = new List<Texture2D>();
             Fish = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
@@ -251,6 +253,8 @@ namespace PodPanic
                     if (firstChar == 'S')
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                        score.Show();
+                        score.Start();
                     }
                     else if (firstChar == 'H')
                     {
@@ -295,12 +299,14 @@ namespace PodPanic
                     if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
+                        score.Stop();
                         SoundManager.pauseSound(ambientWavesInstance);
                     }
                     if (secondsSinceStart >= 1250) //**************************************here
                     {
                         secondsSinceStart = 0;
                         lvlProgress = global::PodPanic.GameState.LevelProgress.RunningLevel;
+                        score.Start();
                     }
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
@@ -345,6 +351,7 @@ namespace PodPanic
                     if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
+                        score.Stop();
                         SoundManager.pauseSound(ambientWavesInstance);
                     }
                     if (keyManager.KeyPressed(KeyMapping.MoveUp) || keyManager.ButtonPressed(ButtonMapping.MoveUp))
@@ -408,15 +415,19 @@ namespace PodPanic
                                 {
                                     thePlayer.reduceHP(enemy.getDamage());
                                     enemy.hasHitPlayer = true;
+                                    score.hitDuringLevel = true;
 
                                     // play the appropriate sounds for the enemy
+                                    // update the score acordingly
                                     switch (enemy.type)
                                     {
                                         case GameState.EnemyType.Net:
                                             SoundManager.playSound(netCaughtInstance, 0.6f);
+                                            score.modify(-50);
                                             break;
                                         case GameState.EnemyType.Barrel:
                                             SoundManager.playSound(barrelHitInstance, 0.6f);
+                                            score.modify(-30);
                                             break;
                                         default:
                                             break;
@@ -432,10 +443,13 @@ namespace PodPanic
                                     if (fish.isSick())
                                     {
                                         thePlayer.reduceHP((int)(fish.FoodValue * 3));
+                                        score.modify(-20);
+                                        score.hitDuringLevel = true;
                                     }
                                     else
                                     {
                                         thePlayer.increaseHP(fish.FoodValue);
+                                        score.modify(100);
                                     }
                                     fish.hasHitPlayer = true;
                                 }
@@ -468,6 +482,7 @@ namespace PodPanic
                 if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                    score.Start();
                 }
 
                 if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
@@ -492,6 +507,7 @@ namespace PodPanic
 
             AlphaShader.Update(gameTime);
             AlphaBlinker.Update(gameTime);
+            score.Update();
 
             base.Update(gameTime);
         }
@@ -554,6 +570,9 @@ namespace PodPanic
                 {
                     string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
                     string line1 = "COMPLETE";
+                    score.Stop();
+                    score.endLevel(thePlayer);
+                    // get the strings from the score class, then draw them
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).Y / 2), Color.White);
                     spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
                 }
@@ -586,6 +605,7 @@ namespace PodPanic
             {
                 spriteBatch.Draw(BonusTexture, Vector2.Zero, Color.White);
             }
+            score.draw(spriteBatch);
 
             if (DevMode)
                 spriteBatch.DrawString(devFont, "Completed: " + Levels[CurrentLevel].PercentCompleted() + "%", new Vector2(0, 40), Color.White);
