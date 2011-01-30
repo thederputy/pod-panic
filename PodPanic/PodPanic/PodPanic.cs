@@ -556,6 +556,7 @@ namespace PodPanic
                 Levels[i].CurrentPosition = 0;
             }
             CurrentLevel = 0;
+            lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
             distanceCovered = 0;
             thePlayer.reset();
             score.resetScore();
