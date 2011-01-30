@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <XnaContent>
-  <Level LevelNumber="2" LevelName="Salish Swim" LevelLength="5000" PollutionLevel="0.2" ProbabilityFishPollution="0.2" ProbabilityEnemyType="0.5" ProbabilityEnemyFish="0.5" TimeBetweenEvents="50" />
+  <Level LevelNumber="2" LevelName="Salish Swim" LevelLength="7000" PollutionLevel="0.2" ProbabilityFishPollution="0.2" ProbabilityEnemyType="0.5" ProbabilityEnemyFish="0.4" TimeBetweenEvents="45" />
 </XnaContent>
