@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Timers;
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,6 +21,8 @@ namespace PodPanic.GameObjects
         private const float SLOWEST_SPEED = 1.3f;
         private const float FASTEST_SPEED = 2.2f;
         private const float BOB_RATE = 0.01f;
+
+        private Timer deathTimer;
 
 
         /// <summary>
@@ -52,12 +55,10 @@ namespace PodPanic.GameObjects
             baseY = y;
             
             damage = dam;
-            
+
+            deathTimer = new Timer(2000);
+            deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
-
-        
-
-
         
         /// <summary>
         /// update moves the position forward
@@ -76,9 +77,6 @@ namespace PodPanic.GameObjects
                 offY = -1;
                 dir = 1;
             }
-
-
-
             
             if (!isDead)
             {
@@ -97,6 +95,10 @@ namespace PodPanic.GameObjects
             if (hasHitPlayer)
             {
                 isDead = true;
+                if (!deathTimer.Enabled)
+                {
+                    deathTimer.Enabled = true;
+                }
             }
             base.Update(gameTime);
         }
@@ -108,6 +110,16 @@ namespace PodPanic.GameObjects
         public int getDamage()
         {
             return damage;
+        }
+
+        // Specify what you want to happen when the Elapsed event is 
+        // raised.
+        private void OnDeathEvent(object source, ElapsedEventArgs e)
+        {
+            if (!(this.signalRemoval))
+            {
+                this.signalRemoval = true;
+            }
         }
     }
 }
