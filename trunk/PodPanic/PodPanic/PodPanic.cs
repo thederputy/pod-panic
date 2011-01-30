@@ -390,7 +390,7 @@ namespace PodPanic
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
                     SoundManager.pauseSound(ambientWavesInstance);
-                    SoundManager.playSound(orcaWhineInstance, 0.6f);
+                    SoundManager.playSound(orcaWhineInstance, 0.3f);
 
                     if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                     {

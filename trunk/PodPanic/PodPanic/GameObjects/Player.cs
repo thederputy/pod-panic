@@ -248,6 +248,10 @@ namespace PodPanic.GameObjects
                     break;
             }
         }
+
+        /// <summary>
+        /// Move the character to the right.
+        /// </summary>
         public void moveRight()
         {
             position.X += 5;
@@ -331,9 +335,7 @@ namespace PodPanic.GameObjects
                 else
                     animationPointer4++;
                 animationPointer4 = animationPointer4 % FRAMES;
-                
             }
-
 
             timeCounter = timeCounter % ANIMATE_SPEED;
 
@@ -377,7 +379,6 @@ namespace PodPanic.GameObjects
                     isInDamagedState = false;
                 }
             }
-            //livesOwned--;
 
             source = new Rectangle(SPRITE_WIDTH * animationPointer1, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             //Draw the Lead Whale
@@ -414,9 +415,10 @@ namespace PodPanic.GameObjects
             //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned);
         }
 
-        //  - (((animationPointer+1)/3)*((animationPointer+1)%3))
-
-
+        /// <summary>
+        /// Chooses what end game screen gets displayed based on how many lives you have at the end.
+        /// </summary>
+        /// <returns>A code indicating the screen to display</returns>
         public int whatVictory()
         {
             if (livesOwned >= ((int)MAX_LIVES * 0.66))
