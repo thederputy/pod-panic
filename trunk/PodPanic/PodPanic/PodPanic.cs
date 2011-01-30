@@ -25,8 +25,6 @@ namespace PodPanic
         public const int MIDCHANNEL_Y = 300;
         public const int BOTCHANNEL_Y = 450;
         GameState.InputManager keyManager;
-        GameState.KeyMapping KeyMapping;
-        GameState.ButtonMapping ButtonMapping;
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
         GameState.GameStateEnum curState;
@@ -122,8 +120,8 @@ namespace PodPanic
             secondsSinceStart = 0;
             secondsSinceLastEvent = 0;
             rand = new Random();
-            KeyMapping = GameState.KeyMapping.GetDefaultKeyMap();
-            ButtonMapping = GameState.ButtonMapping.GetDefaultButtonMap();
+            GameState.KeyMapping.CurrentKeyMap = GameState.KeyMapping.GetDefaultKeyMap();
+            GameState.ButtonMapping.CurrentButtonMap = GameState.ButtonMapping.GetDefaultButtonMap();
             base.Initialize();
         }
 
@@ -247,7 +245,7 @@ namespace PodPanic
             if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
                 SoundManager.playSound(gameStartInstance, 0.2f);
-                if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                 {
                     char firstChar = mainMenu.getItem().ToCharArray()[0];
                     if (firstChar == 'S')
@@ -273,9 +271,9 @@ namespace PodPanic
                         this.Exit();
                     }
                 }
-                if (keyManager.KeyPressed(KeyMapping.MoveUp) || keyManager.ButtonPressed(ButtonMapping.MoveUp))
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.MoveUp))
                     mainMenu.moveUp();
-                if (keyManager.KeyPressed(KeyMapping.MoveDown) || keyManager.ButtonPressed(ButtonMapping.MoveDown))
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.MoveDown))
                     mainMenu.moveDown();
 
 
@@ -303,7 +301,7 @@ namespace PodPanic
                     secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
                     //System.Diagnostics.Trace.WriteLine(gameTime.ElapsedRealTime.Milliseconds);
                     SoundManager.playSound(entrySplashInstance, 0.5f);
-                    if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
+                    if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
@@ -355,23 +353,23 @@ namespace PodPanic
                         lvlProgress = global::PodPanic.GameState.LevelProgress.FinishedLevel;
                         distanceCovered = 0;
                     }
-                    if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
+                    if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
                         SoundManager.pauseSound(ambientWavesInstance);
                     }
-                    if (keyManager.KeyPressed(KeyMapping.MoveUp) || keyManager.ButtonPressed(ButtonMapping.MoveUp))
+                    if (keyManager.isCommandPressed(GameState.KeyMapEnum.MoveUp))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveUp();
                     }
-                    else if (keyManager.KeyPressed(KeyMapping.MoveDown) || keyManager.ButtonPressed(ButtonMapping.MoveDown))
+                    else if (keyManager.isCommandPressed(GameState.KeyMapEnum.MoveDown))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.modeDown();
                     }
-                    if (keyManager.isKeyDown(KeyMapping.MoveRight) || keyManager.isButtonDown(ButtonMapping.MoveRight))
+                    if (keyManager.isCommandDown(GameState.KeyMapEnum.MoveRight))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
                         thePlayer.moveRight();
@@ -382,7 +380,7 @@ namespace PodPanic
                     SoundManager.pauseSound(ambientWavesInstance);
                     SoundManager.playSound(orcaWhineInstance, 0.6f);
 
-                    if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
+                    if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
                         if (!(CurrentLevel + 1 >= Levels.Length))
@@ -486,19 +484,19 @@ namespace PodPanic
 
             else if (curState == global::PodPanic.GameState.GameStateEnum.GamePause)
             {
-                if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.GameRun;
                     score.Start();
                 }
 
-                if (keyManager.KeyPressed(KeyMapping.ExitKey) || keyManager.ButtonPressed(ButtonMapping.ExitKey))
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
                     this.Exit();
                 //Update text of pause state
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
             {
-                if (keyManager.KeyPressed(KeyMapping.ActionKey) || keyManager.ButtonPressed(ButtonMapping.ActionKey))
+                if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                 {
                     curState = prevState;
                 }

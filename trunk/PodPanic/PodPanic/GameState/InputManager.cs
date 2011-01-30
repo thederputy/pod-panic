@@ -19,14 +19,8 @@ namespace PodPanic.GameState
     /// </summary>
     public class InputManager : Microsoft.Xna.Framework.GameComponent
     {
-        private KeyboardState prev4KeyState;
-        private KeyboardState prev3KeyState;
-        private KeyboardState prev2KeyState;
         private KeyboardState prevKeyState;
         private KeyboardState curKeyState;
-        private GamePadState prev4PadState;
-        private GamePadState prev3PadState;
-        private GamePadState prev2PadState;
         private GamePadState prevPadState;
         private GamePadState curPadState;
 
@@ -41,8 +35,8 @@ namespace PodPanic.GameState
         /// </summary>
         public override void Initialize()
         {
-            curKeyState = prevKeyState = prev2KeyState = prev3KeyState = prev4KeyState = Keyboard.GetState();
-            curPadState = prevPadState = prev2PadState = prev3PadState = prev4PadState = GamePad.GetState(PlayerIndex.One);
+            curKeyState = prevKeyState = Keyboard.GetState();
+            curPadState = prevPadState = GamePad.GetState(PlayerIndex.One);
             base.Initialize();
         }
 
@@ -84,6 +78,35 @@ namespace PodPanic.GameState
                 return true;
             return false;
         }
-            
+        public bool isCommandPressed(KeyMapEnum Command)
+        {
+            if (Command == KeyMapEnum.ActionKey)
+                return KeyPressed(KeyMapping.CurrentKeyMap.ActionKey) || ButtonPressed(ButtonMapping.CurrentButtonMap.ActionKey);
+            else if (Command == KeyMapEnum.ExitKey)
+                return KeyPressed(KeyMapping.CurrentKeyMap.ExitKey) || ButtonPressed(ButtonMapping.CurrentButtonMap.ExitKey);
+            else if (Command == KeyMapEnum.MoveDown)
+                return KeyPressed(KeyMapping.CurrentKeyMap.MoveDown) || ButtonPressed(ButtonMapping.CurrentButtonMap.MoveDown);
+            else if (Command == KeyMapEnum.MoveUp)
+                return KeyPressed(KeyMapping.CurrentKeyMap.MoveUp) || ButtonPressed(ButtonMapping.CurrentButtonMap.MoveUp);
+            else if (Command == KeyMapEnum.MoveRight)
+                return KeyPressed(KeyMapping.CurrentKeyMap.MoveRight) || ButtonPressed(ButtonMapping.CurrentButtonMap.MoveRight);
+            else
+                return false;
+        }
+        public bool isCommandDown(KeyMapEnum Command)
+        {
+            if (Command == KeyMapEnum.ActionKey)
+                return isKeyDown(KeyMapping.CurrentKeyMap.ActionKey) || isButtonDown(ButtonMapping.CurrentButtonMap.ActionKey);
+            else if (Command == KeyMapEnum.ExitKey)
+                return isKeyDown(KeyMapping.CurrentKeyMap.ExitKey) || isButtonDown(ButtonMapping.CurrentButtonMap.ExitKey);
+            else if (Command == KeyMapEnum.MoveDown)
+                return isKeyDown(KeyMapping.CurrentKeyMap.MoveDown) || isButtonDown(ButtonMapping.CurrentButtonMap.MoveDown);
+            else if (Command == KeyMapEnum.MoveUp)
+                return isKeyDown(KeyMapping.CurrentKeyMap.MoveUp) || isButtonDown(ButtonMapping.CurrentButtonMap.MoveUp);
+            else if (Command == KeyMapEnum.MoveRight)
+                return isKeyDown(KeyMapping.CurrentKeyMap.MoveRight) || isButtonDown(ButtonMapping.CurrentButtonMap.MoveRight);
+            else
+                return false;
+        }
     }
 }

@@ -18,6 +18,7 @@ namespace PodPanic.GameState
 {
     class KeyMapping
     {
+        public static KeyMapping CurrentKeyMap { get;set;}
         public Keys MoveUp { get; set; }
         public Keys MoveDown { get; set; }
         public Keys MoveRight { get; set; }
@@ -31,6 +32,7 @@ namespace PodPanic.GameState
     }
     class ButtonMapping
     {
+        public static ButtonMapping CurrentButtonMap {get;set;}
         public Buttons MoveUp { get; set; }
         public Buttons MoveDown { get; set; }
         public Buttons MoveRight { get; set; }
@@ -42,7 +44,7 @@ namespace PodPanic.GameState
             return new ButtonMapping() { MoveUp = Buttons.LeftThumbstickUp, MoveDown = Buttons.LeftThumbstickDown, MoveRight = Buttons.LeftThumbstickRight, ActionKey = Buttons.A, ExitKey = Buttons.B };
         }
     }
-    enum KeyMapEnum
+    public enum KeyMapEnum
     {
         MoveUp, MoveDown, MoveRight, ActionKey, ExitKey
     }
