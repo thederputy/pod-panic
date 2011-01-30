@@ -535,6 +535,7 @@ namespace PodPanic
         {
             CurrentLevel = 0;
             thePlayer.reset();
+            score.resetScore();
         }
 
         #endregion
@@ -720,9 +721,6 @@ namespace PodPanic
             }
             return 0;
         }
-
-
-        
 
         public void endGameFail()
         {
