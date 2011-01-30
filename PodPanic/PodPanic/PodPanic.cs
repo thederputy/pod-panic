@@ -39,6 +39,7 @@ namespace PodPanic
         Texture2D Net;
         Texture2D OilBarrel;
         Texture2D Fish;
+        Texture2D Fish_Sick;
         List<GameObjects.GameObject> Objects;
         bool DevMode;
         GameObjects.Menu mainMenu;
@@ -59,6 +60,7 @@ namespace PodPanic
         Texture2D[] BonusTexturesArray;
         Texture2D BonusTexture;
         GameState.GameStateEnum prevState;
+        
 
 
         #region Sound Effects
@@ -81,6 +83,7 @@ namespace PodPanic
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            //GameObjects.Fish.setPollutionPercent(0.5f);
         }
 
         /// <summary>
@@ -137,6 +140,7 @@ namespace PodPanic
 
             //List<Texture2D> fList = new List<Texture2D>();
             Fish = this.Content.Load<Texture2D>("Food/Salmon_Sprite");
+            Fish_Sick = this.Content.Load<Texture2D>("Food/Salmon_Sprite_Sick");
             overlay = this.Content.Load<Texture2D>("Background/OverLay");
             cross = this.Content.Load<Texture2D>("WhaleSkull");
             //Loading Logic - Graphics
@@ -301,7 +305,7 @@ namespace PodPanic
                         }
                         else
                         {
-                            GameObjects.Fish newFish = new global::PodPanic.GameObjects.Fish((int)SCREEN_SIZE.X, getYChannel(newChannel), Fish, Fish, this);
+                            GameObjects.Fish newFish = new global::PodPanic.GameObjects.Fish((int)SCREEN_SIZE.X, getYChannel(newChannel), Fish, Fish_Sick, this);
                             Objects.Add(newFish);
                         }
                     }

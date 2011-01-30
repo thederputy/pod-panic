@@ -225,13 +225,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Food\Salmon_Sprite_Sick.png">
-      <Name>Salmon_Sprite_Sick</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sounds\barrelHit.wav">
       <Name>barrelHit</Name>
       <Importer>WavImporter</Importer>
