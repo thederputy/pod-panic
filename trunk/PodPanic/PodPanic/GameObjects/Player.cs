@@ -93,6 +93,9 @@ namespace PodPanic.GameObjects
             Speed = 1;
             currHP = MAX_HP;
             livesOwned = MAX_LIVES;
+            left1 = 0;
+            left2 = 0;
+            left3 = 0;
 
         }
 
