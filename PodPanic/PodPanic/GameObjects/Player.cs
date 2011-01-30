@@ -23,7 +23,7 @@ namespace PodPanic.GameObjects
         public const int THRESHOLD = 75;
         public const int YSPEED = 5;
         public const int MAX_HP = 10;
-        public const int MAX_LIVES = 24;
+        public const int MAX_LIVES = 6;
         public const float MAX_ROT = (float)Math.PI / 6;
         public Vector2 SIZE_OF_LEAD_WHALE = new Vector2(133, 48);// 100, 36
         public Vector2 SIZE_OF_WHALE = new Vector2(80, 35); // 80, 29
@@ -417,9 +417,9 @@ namespace PodPanic.GameObjects
 
         public int whatVictory()
         {
-            if (livesOwned >= 60)
+            if (livesOwned >= ((int)MAX_LIVES * 0.66))
                 return 3;
-            else if (livesOwned < 60 && livesOwned >= 10)
+            else if (livesOwned >= ((int)MAX_LIVES * 0.33))
                 return 2;
             else
                 return 1;
