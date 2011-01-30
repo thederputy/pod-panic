@@ -632,22 +632,6 @@ namespace PodPanic
         }
 
 
-        public void drawCredits(SpriteBatch spriteBatch, int x, int y)
-        {
-            spriteBatch.DrawString(devFont, "Designer:", new Vector2(x, y + 40 ), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 60 ), Color.White);
-
-            spriteBatch.DrawString(devFont, "Art:", new Vector2(x, y + 100 ), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 120), Color.White);
-
-            spriteBatch.DrawString(devFont, "Sound:", new Vector2(x, y + 160), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 180), Color.White);
-
-            spriteBatch.DrawString(devFont, "Programing:", new Vector2(x, y + 220), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 240), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 260), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 280), Color.White);
-            spriteBatch.DrawString(devFont, "NAME", new Vector2(x + 20, y + 300), Color.White);
-        }
+        
     }
 }
