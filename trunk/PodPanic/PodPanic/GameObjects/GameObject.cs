@@ -26,10 +26,18 @@ namespace PodPanic.GameObjects
         public bool hasHitPlayer { get; set; }
         public bool signalRemoval { get; set; }
         protected System.Timers.Timer deadCounter;
-        
 
-        private const int SPRITESIZEX = 100;
-        private const int SPRITESIZEY = 100;
+        private int SPRITE_WIDTH;
+        private int SPRITE_HEIGHT;
+        private Rectangle rect;
+        /// <summary>
+        /// Used for collision detection
+        /// </summary>
+        public Rectangle Rect
+        {
+            get { return rect; }
+            set { rect = value; }
+        }
 
         protected GameState.AlphaBlinker blinker;
 
@@ -44,6 +52,8 @@ namespace PodPanic.GameObjects
         public GameObject(Texture2D loadedTexture, Game game)
             : base(game)
         {
+            SPRITE_WIDTH = loadedTexture.Width;
+            SPRITE_HEIGHT = loadedTexture.Height;
             signalRemoval = false;
             blinker = new global::PodPanic.GameState.AlphaBlinker();
             drawColor = Color.White;
@@ -51,6 +61,9 @@ namespace PodPanic.GameObjects
             position = Vector2.Zero;
             sprite = loadedTexture;
             deadCounter = new System.Timers.Timer();
+            rect = new Rectangle();
+            rect.Width = SPRITE_WIDTH;
+            rect.Height = SPRITE_HEIGHT;
         }
 
         /// <summary>
@@ -71,8 +84,9 @@ namespace PodPanic.GameObjects
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-
             base.Update(gameTime);
+            rect.X = (int)position.X;
+            rect.Y = (int)position.Y;
         }
 
         /// <summary>
@@ -102,7 +116,7 @@ namespace PodPanic.GameObjects
         {
             Color finDrawColor = drawColor;
             if (isDead) finDrawColor.A = (byte)blinker.AlphaVal;
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X -50, (int)position.Y- 25, SPRITESIZEX, SPRITESIZEY), finDrawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X -50, (int)position.Y- 25, SPRITE_WIDTH, SPRITE_HEIGHT), finDrawColor);
             base.Draw(gameTime);
         }
 
