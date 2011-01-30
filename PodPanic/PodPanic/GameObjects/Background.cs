@@ -20,8 +20,12 @@ namespace PodPanic.GameObjects
     public class Background : Microsoft.Xna.Framework.DrawableGameComponent
     {
         public Texture2D BackgroundTexture { get; set; }
+        public Texture2D MidegroundTexture { get; set; }
+        public Texture2D ForegroundTexture { get; set; }
         public Color drawColor { get; set; } 
-        private int curXPos;
+        private float curXPosBack;
+        private float curXPosMide;
+        private float curXPosFore;
         public Background(Game game)
             : base(game)
         {
@@ -45,16 +49,33 @@ namespace PodPanic.GameObjects
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            curXPos += Player.Speed;
-            if (curXPos >= BackgroundTexture.Width)
-                curXPos = 0;
+            curXPosFore += Player.Speed;
+            if (curXPosFore >= ForegroundTexture.Width)
+                curXPosFore = 0;
+            curXPosMide += (float)(Player.Speed) * 2 / 3;
+            if (curXPosMide >= BackgroundTexture.Width)
+                curXPosMide = 0;
+            curXPosBack += (float)(Player.Speed) * 1 / 3;
+            if (curXPosBack >= BackgroundTexture.Width)
+                curXPosBack = 0;
             base.Update(gameTime);
+        }
+
+        public void DrawForeground(GameTime gameTime)
+        {
+            
         }
 
         public override void Draw(GameTime gameTime)
         {
-            ((PodPanic)(this.Game)).spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPos, -75), drawColor);
-            ((PodPanic)(this.Game)).spriteBatch.Draw(BackgroundTexture, new Vector2(BackgroundTexture.Width - curXPos, -75), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPosBack, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(MidegroundTexture, new Vector2(-curXPosMide, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(ForegroundTexture, new Vector2(-curXPosFore, -35), drawColor);
+            ((PodPanic)(this.Game)).spriteBatch.Draw(ForegroundTexture, new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawColor);
             base.Draw(gameTime);
         }
     }

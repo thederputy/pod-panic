@@ -15,7 +15,6 @@ namespace PodPanic.GameObjects
         private float offY;
         private float dir;
         private int baseY;
-        public bool hasHitPlayer { get; set; }
 
         private const int OFFY_AMOUNT = 10;
         private const float SLOWEST_SPEED = 1.3f;
@@ -78,11 +77,14 @@ namespace PodPanic.GameObjects
                 dir = 1;
             }
 
+
+
             
-
-
-            position.X -= velocity;
-            position.Y = baseY + (OFFY_AMOUNT * offY);
+            if (!isDead)
+            {
+                position.X -= velocity;
+                position.Y = baseY + (OFFY_AMOUNT * offY);
+            }            
 
             //System.Diagnostics.Trace.WriteLine(position.X);
             //System.Diagnostics.Trace.WriteLine(position.Y);
@@ -92,7 +94,10 @@ namespace PodPanic.GameObjects
             //System.Diagnostics.Trace.WriteLine("******");
             //System.Diagnostics.Trace.WriteLine(velocity);
             //System.Diagnostics.Trace.WriteLine("******");
-
+            if (hasHitPlayer)
+            {
+                isDead = true;
+            }
             base.Update(gameTime);
         }
 
@@ -104,6 +109,5 @@ namespace PodPanic.GameObjects
         {
             return damage;
         }
-
     }
 }
