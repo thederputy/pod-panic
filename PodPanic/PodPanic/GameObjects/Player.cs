@@ -102,9 +102,6 @@ namespace PodPanic.GameObjects
         /// </summary>
         public Channel currChannel;
 
-
-
-
         /// <summary>
         /// Constructor for the Player.
         /// </summary>
