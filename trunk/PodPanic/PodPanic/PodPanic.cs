@@ -58,6 +58,8 @@ namespace PodPanic
         Texture2D cross;
         Texture2D[] BonusTexturesArray;
         Texture2D BonusTexture;
+        
+
         GameState.GameStateEnum prevState;
 
 
@@ -75,6 +77,8 @@ namespace PodPanic
         SoundEffectInstance entrySplashInstance;
         SoundEffectInstance finSplashInstance;
         SoundEffectInstance gameStartInstance;
+
+        
         #endregion
 
         public PodPanic()
@@ -120,7 +124,7 @@ namespace PodPanic
         /// </summary>
         protected override void LoadContent()
         {
-            thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaFinal2"), this);
+            thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaFinal2"), this.Content.Load<Texture2D>("Orca/OrcaSkeletons"), this);
             backTemp.ForegroundTexture = this.Content.Load<Texture2D>("Background/Water_Final");
             backTemp.MidegroundTexture = this.Content.Load<Texture2D>("Background/MidGround");
             backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/SkyandDepth");

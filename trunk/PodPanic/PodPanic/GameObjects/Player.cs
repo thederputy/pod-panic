@@ -66,7 +66,8 @@ namespace PodPanic.GameObjects
         Fish_Bobber bobber_top;
         Fish_Bobber bobber_bottom;
         Fish_Bobber bobber_rear;
-
+        private Texture2D dmg_sprite;
+        private Texture2D norm_sprite;
 
         /// <summary>
         /// Stores the current HP of the unit.
@@ -105,9 +106,11 @@ namespace PodPanic.GameObjects
         /// Constructor for the Player.
         /// </summary>
         /// <param name="loadedTexture"></param>
-        public Player(Texture2D loadedTexture, Game game)
+        public Player(Texture2D loadedTexture, Texture2D dmgTexture, Game game)
             :base(loadedTexture, game)
         {
+            dmg_sprite = dmgTexture;
+            norm_sprite = loadedTexture;
             source = new Rectangle(0, 0, SPRITE_WIDTH, SPRITE_HEIGHT);
             position = new Vector2(50, ((PodPanic)(this.Game)).getYChannel(currChannel));
             currRot = 0.0f;
