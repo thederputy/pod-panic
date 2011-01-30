@@ -53,10 +53,10 @@ namespace PodPanic
         /// The current position in the level
         /// </summary>
         int distanceCovered;
-        Color overlayColor = new Color(255,100,100,0);
-        Color crossColor = new Color(255, 100, 100, 0);
+        Color overlayColor = new Color(120,50,50,0);
+        Color crossColor = new Color(120, 50, 50, 0);
         int targetA = 0;
-        
+       
 
         Texture2D overlay;
         Texture2D cross;
@@ -580,9 +580,9 @@ namespace PodPanic
             if (thePlayer.getHealthPercent() < 25)
             {
                 if (thePlayer.getHealthPercent() > 12)
-                    targetA = (byte)((25 - thePlayer.getHealthPercent()) * 20);
+                    targetA = (byte)((25 - thePlayer.getHealthPercent()) * 4);
                 else
-                    targetA = (byte)(240);
+                    targetA = (byte)(50);
 
                 if (crossColor.A < targetA)
                 {
@@ -598,7 +598,7 @@ namespace PodPanic
 
             if (thePlayer.getHealthPercent() < 60)
             {
-                overlayColor.A = (byte)((60 - thePlayer.getHealthPercent()) * 4);
+                overlayColor.A = (byte)((60 - thePlayer.getHealthPercent()) * 3);
                 //System.Diagnostics.Trace.WriteLine(overlayColor.A);
             }
             else
@@ -619,7 +619,7 @@ namespace PodPanic
 
             spriteBatch.Draw(overlay, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), overlayColor);//overlayColor
             spriteBatch.Draw(cross, new Rectangle(0, 0, (int)SCREEN_SIZE.X, (int)SCREEN_SIZE.Y), crossColor); //thePlayer.drawColor
-      
+            //spriteBatch.
             
         }
 
