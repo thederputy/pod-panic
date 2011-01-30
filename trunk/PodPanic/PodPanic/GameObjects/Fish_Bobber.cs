@@ -28,6 +28,19 @@ namespace PodPanic.GameObjects
             sizeAdd = sizeVar * (float)rnd.NextDouble() - sizeVar / 2;
         }
 
+        public Fish_Bobber(float offset, float direction, float rate, int amount)
+        {
+            off = offset;
+            dir = direction;
+
+
+            //System.Diagnostics.Trace.WriteLine(rnd.NextDouble());
+            //System.Diagnostics.Trace.WriteLine(rnd.NextDouble());
+            bRate = rate;
+            bAmount = amount;
+            //sizeAdd = sizeVar * (float)rnd.NextDouble() - sizeVar / 2;
+        }
+
 
         public void Update()
         {
