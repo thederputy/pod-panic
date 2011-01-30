@@ -149,7 +149,7 @@ namespace PodPanic
             LevelObjects.LevelLogic level2 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level3 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level4 = new LevelObjects.LevelLogic();
-            Levels[0] = level4;
+            Levels[0] = level1;
             Levels[1] = level2;
             Levels[2] = level3;
             Levels[3] = level4;
@@ -394,7 +394,14 @@ namespace PodPanic
                             GameObjects.Fish fish = obj as GameObjects.Fish;
                             if (fish.hasHitPlayer == false)
                             {
-                                thePlayer.increaseHP(fish.FoodValue);
+                                if (fish.isSick())
+                                {
+                                    thePlayer.reduceHP((int)(fish.FoodValue * 0.5));
+                                }
+                                else
+                                {
+                                    thePlayer.increaseHP(fish.FoodValue);
+                                }
                                 fish.hasHitPlayer = true;
                             }
                         }
@@ -472,6 +479,10 @@ namespace PodPanic
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {
                     //draw special running things...?
+                    float progressPercent = ((float)distanceCovered / Levels[CurrentLevel].LevelLength) * 10;
+                    string percentString = "Level " + Levels[CurrentLevel].LevelNumber;
+                    percentString += ": " + progressPercent + "%";
+                    spriteBatch.DrawString(devFont, percentString, new Vector2(5, 5), Color.White);
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
