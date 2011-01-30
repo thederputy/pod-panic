@@ -363,13 +363,26 @@ namespace PodPanic
                         //has collided with object - friend or foe?
                         if(obj.GetType() == typeof(GameObjects.Enemy))
                         {
-                            if (((GameObjects.Enemy)(obj)).hasHitPlayer == false)
+                            GameObjects.Enemy enemy = obj as GameObjects.Enemy;
+                            if (enemy.hasHitPlayer == false)
                             {
-                                thePlayer.reduceHP(((GameObjects.Enemy)(obj)).getDamage());
-                                ((GameObjects.Enemy)(obj)).hasHitPlayer = true;
+                                thePlayer.reduceHP(enemy.getDamage());
+                                enemy.hasHitPlayer = true;
+
+                                // play the appropriate sounds
+                                switch (enemy.type)
+                                {
+                                    case GameState.EnemyType.Net:
+                                        break;
+                                    case GameState.EnemyType.Barrel:
+                                        SoundManager.playSound(barrelHitInstance, 0.6f);
+                                        break;
+                                    default:
+                                        break;
+                                }
                             } 
                         }
-                        else
+                        else // we've collided with some fish
                         {
                             //if (((GameObjects.Enemy)(obj)).hasHitPlayer == false)
                             //{
