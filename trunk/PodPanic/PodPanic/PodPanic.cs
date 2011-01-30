@@ -57,7 +57,7 @@ namespace PodPanic
         Color overlayColor = new Color(120,50,50,0);
         Color crossColor = new Color(120, 50, 50, 0);
         int targetA = 0;
-       
+        int counterFamine;
 
         Texture2D overlay;
         Texture2D cross;
@@ -290,7 +290,14 @@ namespace PodPanic
                 SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
                 #endregion
                 //Do Key Detection
-                
+                counterFamine += (int)gameTime.ElapsedGameTime.Milliseconds;
+                if (counterFamine >= 4000) //**************************************here
+                {
+                    counterFamine = 0;
+                    thePlayer.reduceHP(1);
+                }
+
+
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
                     secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
