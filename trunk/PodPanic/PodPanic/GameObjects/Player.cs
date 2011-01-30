@@ -152,7 +152,7 @@ namespace PodPanic.GameObjects
             livesOwned = MAX_LIVES;
             currHP = MAX_HP;
             blinker = new AlphaBlinker();
-            rect.Width = 150;
+            rect.Width = 120;
         }
 
         public int getHealthPercent()
