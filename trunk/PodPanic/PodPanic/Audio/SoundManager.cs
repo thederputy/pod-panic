@@ -14,6 +14,10 @@ using Microsoft.Xna.Framework.Storage;
 
 namespace PodPanic.Audio
 {
+    /// <summary>
+    /// Class used to play sound effects.
+    /// For in-game feedback sounds, use playSound.
+    /// </summary>
     static class SoundManager
     {
         /// <summary>
@@ -38,7 +42,8 @@ namespace PodPanic.Audio
         /// Plays a sound effect,(not a song)
         /// </summary>
         /// <param name="sound">The SoundEffectInstance to play</param>
-        /// <param name="volume">The volume of the sound</param>
+        /// <param name="volume">The volume of the sound. 
+        /// 0.01f is the volume of the background sound, 0.6f is in-game effects.</param>
         public static void playSound(SoundEffectInstance sound, float volume)
         {
             if (sound.State == SoundState.Stopped)
