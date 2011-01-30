@@ -293,7 +293,12 @@ namespace PodPanic
                         float chance = rand.Next(0, 20) / 20.0f;
                         if (chance < Levels[CurrentLevel].ProbabilityEnemyFish)
                         {
-                            GameObjects.Enemy newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 1, this, GameState.EnemyType.Net);
+                            chance = rand.Next(0, 20) / 20.0f;
+                            GameObjects.Enemy newEnemy;
+                            if (chance < Levels[CurrentLevel].ProbabilityEnemyType)
+                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 5, this, GameState.EnemyType.Net);
+                            else
+                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilBarrel, 5, this, GameState.EnemyType.Net);
                             Objects.Add(newEnemy);
                         }
                         else
