@@ -243,6 +243,8 @@ namespace PodPanic
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            System.Diagnostics.Trace.WriteLine("this :" + lvlProgress);
+
             keyManager.Update(gameTime);
             updateOverLay();
 
@@ -250,12 +252,14 @@ namespace PodPanic
 
             if (curState == global::PodPanic.GameState.GameStateEnum.Menu)
             {
+                
                 SoundManager.playSound(gameStartInstance, 0.2f);
                 if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                 {
                     char firstChar = mainMenu.getItem().ToCharArray()[0];
                     if (firstChar == 'S')
                     {
+                        
                         curState = global::PodPanic.GameState.GameStateEnum.GameRun;
                         score.Show();
                         score.Start();
@@ -296,7 +300,7 @@ namespace PodPanic
                 //Do Key Detection
                 
 
-
+                
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
                     secondsSinceStart += (int)gameTime.ElapsedGameTime.Milliseconds;
@@ -534,6 +538,7 @@ namespace PodPanic
                 Levels[i].CurrentPosition = 0;
             }
             CurrentLevel = 0;
+            distanceCovered = 0;
             thePlayer.reset();
             score.resetScore();
         }
