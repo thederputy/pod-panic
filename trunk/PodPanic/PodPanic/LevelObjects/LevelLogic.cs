@@ -32,8 +32,6 @@ namespace PodPanic.LevelObjects
 
         public Texture2D Background {get; set;}
 
-        public static TimeSpan ElapsedGameTime; 
-
 
         public LevelLogic()
         {
