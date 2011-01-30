@@ -23,10 +23,15 @@ namespace PodPanic.GameObjects
         protected Vector2 position;
         protected float velocity;
         protected Boolean isDead;
+        public bool hasHitPlayer { get; set; }
+        public bool signalRemoval { get; set; }
+        protected System.Timers.Timer deadCounter;
         
 
         private const int SPRITESIZEX = 150;
         private const int SPRITESIZEY = 150;
+
+        static protected GameState.AlphaBlinker blinker;
 
         #endregion
 
@@ -39,12 +44,13 @@ namespace PodPanic.GameObjects
         public GameObject(Texture2D loadedTexture, Game game)
             : base(game)
         {
+            signalRemoval = false;
+            blinker = new global::PodPanic.GameState.AlphaBlinker();
             drawColor = Color.White;
             velocity = 0.0f;
             position = Vector2.Zero;
             sprite = loadedTexture;
-             
-
+            deadCounter = new System.Timers.Timer();
         }
 
         /// <summary>
@@ -65,7 +71,6 @@ namespace PodPanic.GameObjects
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update code here
 
             base.Update(gameTime);
         }
@@ -95,10 +100,10 @@ namespace PodPanic.GameObjects
 
         public override void  Draw(GameTime gameTime)
         {
-            if(!isDead){
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, SPRITESIZEX, SPRITESIZEY), drawColor);
+            Color finDrawColor = drawColor;
+            if (isDead) finDrawColor.A = (byte)blinker.AlphaVal;
+            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, SPRITESIZEX, SPRITESIZEY), finDrawColor);
             base.Draw(gameTime);
-            }
         }
 
     }
