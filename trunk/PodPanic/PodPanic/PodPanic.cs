@@ -35,17 +35,18 @@ namespace PodPanic
         GameObjects.Background backTemp;
         Texture2D BadGuy1;
         Texture2D BadGuy2;
+        Texture2D Fish;
         List<GameObjects.GameObject> Objects;
-        bool doOnce;
         bool DevMode;
         GameObjects.Menu mainMenu;
         Texture2D fishTest;
-
+        Random rand;
         GameObjects.Score score;
         LevelObjects.LevelLogic[] Levels;
         int CurrentLevel;
         GameState.LevelProgress lvlProgress;
         int secondsSinceStart;
+        int secondsSinceLastEvent;
         int distanceCovered;
 
         #region Sound Effects
@@ -85,7 +86,10 @@ namespace PodPanic
             doOnce = false;
             lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
             CurrentLevel = 0;
+            GameObjects.Player.Speed = 1;
             secondsSinceStart = 0;
+            secondsSinceLastEvent = 0;
+            rand = new Random();
             base.Initialize();
         }
 
@@ -106,12 +110,7 @@ namespace PodPanic
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
             mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "How To Play", "Exit" }), test, logo, devFont);
-            Levels = new global::PodPanic.LevelObjects.LevelLogic[3];
-            Levels[2] = new global::PodPanic.LevelObjects.LevelLogic();
-            Levels[2].LevelLength = 1000;
-            Levels[2].LevelName = "Sneaky Sneaky";
-            Levels[2].LevelNumber = 5;
-
+            Levels = new global::PodPanic.LevelObjects.LevelLogic[4];
             score = new GameObjects.Score(new Vector2(675,0),devFont);
 
             //List<Texture2D> fList = new List<Texture2D>();
@@ -122,15 +121,23 @@ namespace PodPanic
             //Loading Logic - Levels
             LevelObjects.LevelLogic level1 = new LevelObjects.LevelLogic();
             LevelObjects.LevelLogic level2 = new LevelObjects.LevelLogic();
+            LevelObjects.LevelLogic level3 = new LevelObjects.LevelLogic();
+            LevelObjects.LevelLogic level4 = new LevelObjects.LevelLogic();
+            Levels[0] = level1;
+            Levels[1] = level2;
+            Levels[2] = level3;
+            Levels[3] = level4;
 
             // to get to the levels
             XmlNode levelNode1 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level1.xml");
             level1.setDataFromXml(levelNode1);
             XmlNode levelNode2 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level2.xml");
             level2.setDataFromXml(levelNode2);
-
-            Levels[0] = level1;
-            Levels[1] = level2;
+            XmlNode levelNode3 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level3.xml");
+            level3.setDataFromXml(levelNode3);
+            XmlNode levelNode4 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level4.xml");
+            level4.setDataFromXml(levelNode4);
+            
             //Loading Logic - GameFormat
 
             #region Sound effect loading
@@ -226,7 +233,7 @@ namespace PodPanic
                         curState = global::PodPanic.GameState.GameStateEnum.GamePause;
                         score.Stop();
                     }
-                    if (secondsSinceStart >= 1000)
+                    if (secondsSinceStart >= 2500)
                     {
                         secondsSinceStart = 0;
                         lvlProgress = global::PodPanic.GameState.LevelProgress.RunningLevel;
@@ -234,7 +241,23 @@ namespace PodPanic
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {
-                    distanceCovered += 1;
+                    //Event Spawning Logic
+                    secondsSinceLastEvent += 1;
+                    if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
+                    {
+                        secondsSinceLastEvent = 0;
+                        float chance = rand.Next(0, 20) / 20;
+                        if (chance < Levels[CurrentLevel].ProbabilityEnemyFish)
+                        {
+                            //Enemy Spawn
+                        }
+                        else
+                        {
+                            //GameObjects.Fish  = new global::PodPanic.GameObjects.Fish(SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Middle), Fish, Fish, this);
+                            //Objects.Add(
+                        }
+                    }
+                    distanceCovered += GameObjects.Player.Speed;
                     if (distanceCovered >= Levels[CurrentLevel].LevelLength)
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.FinishedLevel;
@@ -249,7 +272,8 @@ namespace PodPanic
                         thePlayer.moveUp();
                     else if (keyManager.KeyPressed(Keys.S))
                         thePlayer.modeDown();
-
+                    if (keyManager.isKeyDown(Keys.D))
+                        thePlayer.moveRight();
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.FinishedLevel)
                 {
@@ -261,8 +285,11 @@ namespace PodPanic
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
                         if (!(CurrentLevel + 1 >= Levels.Length))
+                        {
                             CurrentLevel += 1;
-                        //else ;
+                            GameObjects.Player.Speed += 1;
+                        }
+                        else ;
                             //Signal End Game
                     }
                 }
@@ -276,21 +303,21 @@ namespace PodPanic
                     score.Add(500);
 
 
-                if (!doOnce)
-                {
-                    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
-                    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Middle), fishTest, fishTest, this));
+                //if (!doOnce)
+                //{
+                //    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(global::PodPanic.GameState.Channel.Top), BadGuy1, 1, this));
+                //    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Middle), fishTest, fishTest, this));
                     
-                    doOnce = true;
-                }
-                if (doOnce && Objects.Count < 3)
-                {
-                    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.Y, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
-                    //testing fish
+                //    doOnce = true;
+                //}
+                //if (doOnce && Objects.Count < 3)
+                //{
+                //    Objects.Add(new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.Y, getYChannel(global::PodPanic.GameState.Channel.Middle), BadGuy2, 1, this));
+                //    //testing fish
 
-                    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Bottom), fishTest, fishTest, this));
-                    //end testing fish
-                }
+                //    Objects.Add(new global::PodPanic.GameObjects.Fish(800, getYChannel(global::PodPanic.GameState.Channel.Bottom), fishTest, fishTest, this));
+                //    //end testing fish
+                //}
                 foreach (GameObjects.GameObject obj in Objects)
                 {
                     obj.Update(gameTime);
@@ -310,6 +337,8 @@ namespace PodPanic
                         {
 
                         }
+                        if (obj.getPosition().X < -obj.getTexture().Width)
+                            Objects.Remove(obj);
                         
                     }
                 }
@@ -373,8 +402,9 @@ namespace PodPanic
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
                     string line0 = "Level:" + Levels[CurrentLevel].LevelNumber;
-                    string line1 = "\"" + Levels[CurrentLevel].LevelName + "\"";
+                    string line1 = "\"" + Levels[CurrentLevel].LevelName.ToLower() + "\"";
                     spriteBatch.DrawString(PausedFont, line0, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line0).X / 2, SCREEN_SIZE.Y / 4 - PausedFont.MeasureString(line0).X / 2), Color.White);
+                    spriteBatch.DrawString(PausedFont, line1, new Vector2(SCREEN_SIZE.X / 2 - PausedFont.MeasureString(line1).X / 2, SCREEN_SIZE.Y / 2 - PausedFont.MeasureString(line1).Y / 2), Color.White);
                 }
                 else if (lvlProgress == global::PodPanic.GameState.LevelProgress.RunningLevel)
                 {

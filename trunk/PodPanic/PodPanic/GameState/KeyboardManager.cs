@@ -67,6 +67,18 @@ namespace PodPanic.GameState
                 return true;
             return false;
         }
+        public bool isKeyDown(Keys Key)
+        {
+            if (curKeyState.IsKeyDown(Key))
+                return true;
+            return false;
+        }
+        public bool isButtonDown(Buttons Button)
+        {
+            if (curPadState.IsButtonDown(Button))
+                return true;
+            return false;
+        }
             
     }
 }
