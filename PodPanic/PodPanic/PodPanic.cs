@@ -74,6 +74,7 @@ namespace PodPanic
         SoundEffect entrySplashEngine;
         SoundEffect finSplashEngine;
         SoundEffect gameStartEngine;
+        SoundEffect netCaughtEngine;
         SoundEffect orcaWhineEngine;
 
         SoundEffectInstance ambientWavesInstance;
@@ -82,6 +83,7 @@ namespace PodPanic
         SoundEffectInstance entrySplashInstance;
         SoundEffectInstance finSplashInstance;
         SoundEffectInstance gameStartInstance;
+        SoundEffectInstance netCaughtInstance;
         SoundEffectInstance orcaWhineInstance;
 
         
@@ -199,6 +201,9 @@ namespace PodPanic
 
             gameStartEngine = Content.Load<SoundEffect>("Sounds/gameStart");
             gameStartInstance = gameStartEngine.CreateInstance();
+
+            netCaughtEngine = Content.Load<SoundEffect>("Sounds/netCaught");
+            netCaughtInstance = netCaughtEngine.CreateInstance();
 
             orcaWhineEngine = Content.Load<SoundEffect>("Sounds/orcaWhine");
             orcaWhineInstance = orcaWhineEngine.CreateInstance();
@@ -389,7 +394,6 @@ namespace PodPanic
                     obj.Update(gameTime);
                     //Collision Detection
                     Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
-                    //if(objRect.Intersects(new Rectangle((int)thePlayer.getPosition().X, (int)getYChannel(thePlayer.currChannel), 200, 150)))
                     if (thePlayer.Rect.Intersects(objRect))
                     {
                         //has collided with object - friend or foe?
@@ -405,7 +409,7 @@ namespace PodPanic
                                 switch (enemy.type)
                                 {
                                     case GameState.EnemyType.Net:
-                                        //SoundManager.playSound(netHitInstance, 0.6f);
+                                        SoundManager.playSound(netCaughtInstance, 0.6f);
                                         break;
                                     case GameState.EnemyType.Barrel:
                                         SoundManager.playSound(barrelHitInstance, 0.6f);
