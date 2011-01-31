@@ -178,6 +178,12 @@ namespace PodPanic
             Levels[2] = level3;
             Levels[3] = level4;
 
+            //new XML stuff
+            XmlDocument level1Xml = new XmlDocument();
+            XmlDocument level2Xml = new XmlDocument();
+            XmlDocument level3Xml = new XmlDocument();
+            XmlDocument level4Xml = new XmlDocument();
+
             // to get to the levels
             XmlNode levelNode1 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level1.xml");
             level1.setDataFromXml(levelNode1);
