@@ -112,6 +112,7 @@
     <Compile Include="GameState\KeyMapping.cs" />
     <Compile Include="GameState\LoadingManager.cs" />
     <Compile Include="GameState\Score.cs" />
+    <Compile Include="LevelObjects\Level.cs" />
     <Compile Include="LevelObjects\LevelLogic.cs" />
     <Compile Include="PodPanic.cs" />
     <Compile Include="GameObjects\Enemy.cs" />
