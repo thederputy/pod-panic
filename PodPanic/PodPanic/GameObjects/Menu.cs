@@ -20,7 +20,15 @@ namespace PodPanic.GameObjects
         private Texture2D item;
         private SpriteFont menuFont;
 
-        private const int ADDITIONAL_SPACE_Y = 10;
+        /// <summary>
+        /// Controls spacing between the menu items
+        /// </summary>
+        private const int ADDITIONAL_SPACE_Y = 12;
+
+        /// <summary>
+        /// Adjusts the drawing of the menu items to be closer to the logo
+        /// </summary>
+        private const int LOGO_HEIGHT_ADJUSTMENT = 15;
 
 
         public Menu(int x, int y, List<String> mList, Texture2D menuItem, Texture2D logoImage, SpriteFont font)
@@ -48,11 +56,11 @@ namespace PodPanic.GameObjects
 
                 if(i == pointer)
                     color = Color.Gold;
-                spriteBatch.Draw(item, new Vector2(firstItem.X + logo.Width/2 - item.Width/2, firstItem.Y + logo.Height + item.Height + i * distance), color);
+                spriteBatch.Draw(item, new Vector2(firstItem.X + logo.Width / 2 - item.Width / 2, firstItem.Y + (logo.Height - LOGO_HEIGHT_ADJUSTMENT) + item.Height + i * distance), color);
                 color = Color.White;
                 Vector2 centerOffset = menuFont.MeasureString(menuList[i]);
-                centerOffset = new Vector2(centerOffset.X * 0.5f, centerOffset.Y * 0.5f);
-                spriteBatch.DrawString(menuFont, menuList[i], new Vector2(firstItem.X + logo.Width / 2 - centerOffset.X, firstItem.Y + logo.Height + item.Height + i * distance + centerOffset.Y), color);
+                centerOffset = new Vector2(centerOffset.X * 0.5f, centerOffset.Y * 0.45f);
+                spriteBatch.DrawString(menuFont, menuList[i], new Vector2(firstItem.X + logo.Width / 2 - centerOffset.X, firstItem.Y + (logo.Height - LOGO_HEIGHT_ADJUSTMENT) + item.Height + i * distance + centerOffset.Y), color);
             }
             // 
 
