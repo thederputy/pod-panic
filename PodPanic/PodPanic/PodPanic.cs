@@ -318,6 +318,7 @@ namespace PodPanic
             {
                 if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey) || Player.State == MediaState.Stopped)
                 {
+                    Player.Stop();
                     curState = global::PodPanic.GameState.GameStateEnum.Menu;
                 }
             }
@@ -530,8 +531,10 @@ namespace PodPanic
                 }
 
                 if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
-                    this.Exit();
-                //Update text of pause state
+                {
+                    curState = global::PodPanic.GameState.GameStateEnum.Menu;
+                    Reset();
+                }
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
             {
@@ -670,7 +673,17 @@ namespace PodPanic
                 //    spriteBatch.DrawString(devFont, "AlphaShader value: " + AlphaShader.AlphaVal, Vector2.Zero, Color.White);
                 //}
                 spriteBatch.DrawString(PausedFont, "PAUSED", new Vector2(SCREEN_SIZE.X / 2, SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("PAUSED").X * 0.5f, PausedFont.MeasureString("PAUSED").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
-                spriteBatch.DrawString(PausedFont, "press esc to exit", new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3) - new Vector2(PausedFont.MeasureString("press esc to exit").X * 0.5f, PausedFont.MeasureString("press esc to exit").Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+                Vector2 stringLoc = new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3);
+
+                stringLoc.Y -= 50;
+                string menu = "Press Esc to go to Main Menu";
+                spriteBatch.DrawString(PausedFont, menu,  stringLoc - new Vector2(PausedFont.MeasureString(menu).X * 0.5f, PausedFont.MeasureString(menu).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+
+                stringLoc.Y += 50;
+                string resume = "Press Action to resume";
+                spriteBatch.DrawString(PausedFont, resume, stringLoc - new Vector2(PausedFont.MeasureString(resume).X * 0.5f, PausedFont.MeasureString(resume).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
+                
+                
                 //Update text of pause state
                 
             }
