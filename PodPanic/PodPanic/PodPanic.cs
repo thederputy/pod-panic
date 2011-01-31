@@ -466,7 +466,7 @@ namespace PodPanic
                                             score.modify(-50);
                                             break;
                                         case GameState.EnemyType.Barrel:
-                                            SoundManager.playSound(barrelHitInstance, 0.6f);
+                                            SoundManager.playSound(barrelHitInstance, 0.8f);
                                             score.modify(-30);
                                             break;
                                         default:

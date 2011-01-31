@@ -81,30 +81,66 @@ namespace PodPanic.GameState
         public bool isCommandPressed(KeyMapEnum Command)
         {
             if (Command == KeyMapEnum.ActionKey)
-                return KeyPressed(KeyMapping.CurrentKeyMap.ActionKey) || ButtonPressed(ButtonMapping.CurrentButtonMap.ActionKey);
+            {
+                bool key = KeyPressed(KeyMapping.Arrows.ActionKey) || KeyPressed(KeyMapping.WASD.ActionKey);
+                bool button = ButtonPressed(ButtonMapping.ControlStick.ActionKey) || ButtonPressed(ButtonMapping.DPad.ActionKey);
+                return key || button;
+            }
             else if (Command == KeyMapEnum.ExitKey)
+            {
                 return KeyPressed(KeyMapping.CurrentKeyMap.ExitKey) || ButtonPressed(ButtonMapping.CurrentButtonMap.ExitKey);
+            }
             else if (Command == KeyMapEnum.MoveDown)
-                return KeyPressed(KeyMapping.CurrentKeyMap.MoveDown) || ButtonPressed(ButtonMapping.CurrentButtonMap.MoveDown);
+            {
+                bool key = KeyPressed(KeyMapping.Arrows.MoveDown) || KeyPressed(KeyMapping.WASD.MoveDown);
+                bool button = ButtonPressed(ButtonMapping.ControlStick.MoveDown) || ButtonPressed(ButtonMapping.DPad.MoveDown);
+                return key || button;
+            }
             else if (Command == KeyMapEnum.MoveUp)
-                return KeyPressed(KeyMapping.CurrentKeyMap.MoveUp) || ButtonPressed(ButtonMapping.CurrentButtonMap.MoveUp);
+            {
+                bool key = KeyPressed(KeyMapping.Arrows.MoveUp) || KeyPressed(KeyMapping.WASD.MoveUp);
+                bool button = ButtonPressed(ButtonMapping.ControlStick.MoveUp) || ButtonPressed(ButtonMapping.DPad.MoveUp);
+                return key || button;
+            }
             else if (Command == KeyMapEnum.MoveRight)
-                return KeyPressed(KeyMapping.CurrentKeyMap.MoveRight) || ButtonPressed(ButtonMapping.CurrentButtonMap.MoveRight);
+            {
+                bool key = KeyPressed(KeyMapping.Arrows.MoveRight) || KeyPressed(KeyMapping.WASD.MoveRight);
+                bool button = ButtonPressed(ButtonMapping.ControlStick.MoveRight) || ButtonPressed(ButtonMapping.DPad.MoveRight);
+                return key || button;
+            }
             else
                 return false;
         }
         public bool isCommandDown(KeyMapEnum Command)
         {
             if (Command == KeyMapEnum.ActionKey)
-                return isKeyDown(KeyMapping.CurrentKeyMap.ActionKey) || isButtonDown(ButtonMapping.CurrentButtonMap.ActionKey);
+            {
+                bool key = isKeyDown(KeyMapping.Arrows.ActionKey) || isKeyDown(KeyMapping.WASD.ActionKey);
+                bool button = isButtonDown(ButtonMapping.ControlStick.ActionKey) || isButtonDown(ButtonMapping.DPad.ActionKey);
+                return key || button;
+            }
             else if (Command == KeyMapEnum.ExitKey)
+            {
                 return isKeyDown(KeyMapping.CurrentKeyMap.ExitKey) || isButtonDown(ButtonMapping.CurrentButtonMap.ExitKey);
+            }
             else if (Command == KeyMapEnum.MoveDown)
-                return isKeyDown(KeyMapping.CurrentKeyMap.MoveDown) || isButtonDown(ButtonMapping.CurrentButtonMap.MoveDown);
+            {
+                bool key = isKeyDown(KeyMapping.Arrows.MoveDown) || isKeyDown(KeyMapping.WASD.MoveDown);
+                bool button = isButtonDown(ButtonMapping.ControlStick.MoveDown) || isButtonDown(ButtonMapping.DPad.MoveDown);
+                return key || button;
+            }
             else if (Command == KeyMapEnum.MoveUp)
-                return isKeyDown(KeyMapping.CurrentKeyMap.MoveUp) || isButtonDown(ButtonMapping.CurrentButtonMap.MoveUp);
+            {
+                bool key = isKeyDown(KeyMapping.Arrows.MoveUp) || isKeyDown(KeyMapping.WASD.MoveUp);
+                bool button = isButtonDown(ButtonMapping.ControlStick.MoveUp) || isButtonDown(ButtonMapping.DPad.MoveUp);
+                return key || button;
+            }
             else if (Command == KeyMapEnum.MoveRight)
-                return isKeyDown(KeyMapping.CurrentKeyMap.MoveRight) || isButtonDown(ButtonMapping.CurrentButtonMap.MoveRight);
+            {
+                bool key = isKeyDown(KeyMapping.Arrows.MoveRight) || isKeyDown(KeyMapping.WASD.MoveRight);
+                bool button = isButtonDown(ButtonMapping.ControlStick.MoveRight) || isButtonDown(ButtonMapping.DPad.MoveRight);
+                return key || button;
+            }
             else
                 return false;
         }
