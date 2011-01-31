@@ -158,7 +158,7 @@ namespace PodPanic
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
-            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 5 - logo.Height / 2), new List<string>(new String[] { "Start", "Tutorial",  "About", "Credits", "Exit" }), test, logo, devFont);
+            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 5 - logo.Height / 2), new List<string>(new String[] { "Start", "Tutorial", "High Scores",  "About", "Credits", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[numberOfLevels];
             score = new GameObjects.Score(new Vector2(600, 5), devFont);
 
@@ -269,11 +269,23 @@ namespace PodPanic
                 if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey))
                 {
                     char firstChar = mainMenu.getItem().ToCharArray()[0];
-                    if (firstChar == 'S')
+                    if (firstChar == 'S') //
+                    {
+                        curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                        score.Show();
+                        score.Start();
+                        SoundManager.stopSound(gameStartInstance);
+                        SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
+                    }
+                    else if (firstChar == 'T')
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.Tutorial;
                         Player.Play(tutorialVideo);
                         Player.IsLooped = false;
+                    }
+                    else if (firstChar == 'H')
+                    {
+
                     }
                     else if (firstChar == 'A')
                     {
@@ -306,20 +318,12 @@ namespace PodPanic
             {
                 if (keyManager.isCommandPressed(GameState.KeyMapEnum.ActionKey) || Player.State == MediaState.Stopped)
                 {
-                    curState = global::PodPanic.GameState.GameStateEnum.GameRun;
-                    score.Show();
-                    score.Start();
+                    curState = global::PodPanic.GameState.GameStateEnum.Menu;
                 }
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.GameRun)
             {
-                #region Sound Playing
-                SoundManager.stopSound(gameStartInstance);
-                SoundManager.startLoopedSound(ambientWavesInstance, 0.05f);
-                #endregion
                 //Do Key Detection
-
-                
 
                 if (lvlProgress == global::PodPanic.GameState.LevelProgress.StartingLevel)
                 {
