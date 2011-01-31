@@ -178,20 +178,14 @@ namespace PodPanic
             Levels[2] = level3;
             Levels[3] = level4;
 
-            //new XML stuff
-            XmlDocument level1Xml = new XmlDocument();
-            XmlDocument level2Xml = new XmlDocument();
-            XmlDocument level3Xml = new XmlDocument();
-            XmlDocument level4Xml = new XmlDocument();
-
-            // to get to the levels
-            XmlNode levelNode1 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level1.xml");
+            // to get to the levels (from LevelData class)
+            XmlNode levelNode1 = GameState.LoadingManager.getXmlLevelNodeFromDocument(LevelObjects.LevelData.level1);
             level1.setDataFromXml(levelNode1);
-            XmlNode levelNode2 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level2.xml");
+            XmlNode levelNode2 = GameState.LoadingManager.getXmlLevelNodeFromDocument(LevelObjects.LevelData.level2);
             level2.setDataFromXml(levelNode2);
-            XmlNode levelNode3 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level3.xml");
+            XmlNode levelNode3 = GameState.LoadingManager.getXmlLevelNodeFromDocument(LevelObjects.LevelData.level3);
             level3.setDataFromXml(levelNode3);
-            XmlNode levelNode4 = GameState.LoadingManager.getXmlLevelNodeFromFile(GameState.LoadingManager.pathToLevels + "level4.xml");
+            XmlNode levelNode4 = GameState.LoadingManager.getXmlLevelNodeFromDocument(LevelObjects.LevelData.level4);
             level4.setDataFromXml(levelNode4);
             
             //Loading Logic - GameFormat
@@ -676,11 +670,11 @@ namespace PodPanic
                 Vector2 stringLoc = new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3);
 
                 stringLoc.Y -= 50;
-                string menu = "Press Esc to go to Main Menu";
+                string menu = "Back = Main Menu";
                 spriteBatch.DrawString(PausedFont, menu,  stringLoc - new Vector2(PausedFont.MeasureString(menu).X * 0.5f, PausedFont.MeasureString(menu).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
 
                 stringLoc.Y += 50;
-                string resume = "Press Action to resume";
+                string resume = "Action = Resume";
                 spriteBatch.DrawString(PausedFont, resume, stringLoc - new Vector2(PausedFont.MeasureString(resume).X * 0.5f, PausedFont.MeasureString(resume).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 
                 
