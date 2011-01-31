@@ -20,10 +20,10 @@ namespace PodPanic.GameObjects
         private Texture2D item;
         private SpriteFont menuFont;
 
-        private const int ADDITIONAL_SPACE_Y = 30;
+        private const int ADDITIONAL_SPACE_Y = 10;
 
 
-        public Menu(int x, int y,List<String> mList,Texture2D menuItem, Texture2D logoImage,SpriteFont font)
+        public Menu(int x, int y, List<String> mList, Texture2D menuItem, Texture2D logoImage, SpriteFont font)
         {
             menuList = mList;
             pointer = 0;
@@ -42,7 +42,7 @@ namespace PodPanic.GameObjects
 
         public void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(logo,firstItem,Color.White);
+            spriteBatch.Draw(logo, firstItem, Color.White);
             Color color = Color.White;
             for(int i = 0; i < menuList.Count; i++){
 
