@@ -18,7 +18,7 @@ namespace PodPanic.GameState
 {
     class KeyMapping
     {
-        public static KeyMapping CurrentKeyMap { get; set;}
+        public static KeyMapping CurrentKeyMap { get; set; }
         public Keys MoveUp { get; set; }
         public Keys MoveDown { get; set; }
         public Keys MoveRight { get; set; }
@@ -27,7 +27,7 @@ namespace PodPanic.GameState
 
         public static KeyMapping GetDefaultKeyMap()
         {
-            return new KeyMapping() { MoveUp = Keys.W, MoveDown = Keys.S, MoveRight = Keys.D, ActionKey = Keys.Space, ExitKey = Keys.Escape };
+            return new KeyMapping() { MoveUp = Keys.Up, MoveDown = Keys.Down, MoveRight = Keys.Right, ActionKey = Keys.Enter, ExitKey = Keys.Escape };
         }
 
         public static void setKeyMappingAsArrows()
@@ -42,7 +42,7 @@ namespace PodPanic.GameState
     }
     class ButtonMapping
     {
-        public static ButtonMapping CurrentButtonMap {get; set;}
+        public static ButtonMapping CurrentButtonMap { get; set; }
         public Buttons MoveUp { get; set; }
         public Buttons MoveDown { get; set; }
         public Buttons MoveRight { get; set; }
