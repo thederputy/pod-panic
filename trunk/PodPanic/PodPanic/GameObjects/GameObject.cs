@@ -26,6 +26,14 @@ namespace PodPanic.GameObjects
         public bool hasHitPlayer { get; set; }
         public bool signalRemoval { get; set; }
         protected System.Timers.Timer deadCounter;
+        /// <summary>
+        /// The amount of time the object has been alive for
+        /// </summary>
+        protected double timeAlive;
+        /// <summary>
+        /// The time the object hit the player
+        /// </summary>
+        protected double timeOfDeath;
         static private Random rnds;
         private int SPRITE_WIDTH;
         private int SPRITE_HEIGHT;
@@ -88,13 +96,13 @@ namespace PodPanic.GameObjects
 
 
         /// <summary>
-        /// updates
-        /// 
+        /// Updates the game object 
         /// </summary>
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+            timeAlive += gameTime.ElapsedRealTime.Milliseconds;
             rect.X = (int)position.X;
             rect.Y = (int)position.Y;
         }

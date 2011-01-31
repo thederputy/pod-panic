@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Timers;
-
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -21,7 +19,6 @@ namespace PodPanic.GameObjects
         private List<Fish_Bobber> bobbers;
         private Rectangle source;
         private Boolean first = true;
-        private Timer deathTimer;
         static public int currentLevel;
         
         private const float SLOWEST_SPEED = 2.25f;
@@ -106,11 +103,7 @@ namespace PodPanic.GameObjects
                 //spriteAnimations = normFish;    
                 sprite = normFish;
             }
-            deathTimer = new Timer(100);
-            deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
-
-
 
         /// <summary>
         /// sets the percent chance of a fish being sick
@@ -121,15 +114,13 @@ namespace PodPanic.GameObjects
             polluted_percent = percent;
         }
 
-
-
-
         /// <summary>
         /// update moves the fish forward
         /// </summary>
         /// <param name="gameTime">game time object</param>
         public override void Update(GameTime gameTime)
         {
+            base.Update(gameTime);
             /*
             offY += dir * BOB_RATE;
             if ((dir > 0) && (offY > 1))
@@ -146,11 +137,12 @@ namespace PodPanic.GameObjects
 
             if (hasHitPlayer)
             {
-                isDead = true;
-                if (!deathTimer.Enabled)
+                // only mark the death time when they originally get hit
+                if (!isDead)
                 {
-                    deathTimer.Enabled = true;
+                    timeOfDeath = timeAlive;
                 }
+                isDead = true;
             }
             if (!isDead)
             {
@@ -161,6 +153,13 @@ namespace PodPanic.GameObjects
                 for (int i = 0; i < bobbers.Count; i++)
                 {
                     bobbers[i].Update();
+                }
+            }
+            else // the fish are dead
+            {
+                if (timeAlive - timeOfDeath > 500)
+                {
+                    this.signalRemoval = true;
                 }
             }
 
@@ -182,7 +181,6 @@ namespace PodPanic.GameObjects
             //System.Diagnostics.Trace.WriteLine(" hey3 : " + (float)(timeCounter)/1000);
             //System.Diagnostics.Trace.WriteLine("???:" + velocity);
             blinker.Update(gameTime);
-            base.Update(gameTime);
         }
 
 
@@ -219,13 +217,6 @@ namespace PodPanic.GameObjects
             }
 
             //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width/FRAMES)))), source, drawColor);
-        }
-
-
-        // Specify what you want to happen when the Elapsed event is raised.
-        private void OnDeathEvent(object source, ElapsedEventArgs e)
-        {
-            this.signalRemoval = true;
         }
     }
 }

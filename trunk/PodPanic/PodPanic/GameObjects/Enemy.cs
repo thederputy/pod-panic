@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Timers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -20,7 +19,6 @@ namespace PodPanic.GameObjects
         private const float FASTEST_SPEED = 4.4f;
         private const float BOB_RATE = 0.01f;
 
-        private Timer deathTimer;
         public GameState.EnemyType type;
 
         /// <summary>
@@ -55,9 +53,6 @@ namespace PodPanic.GameObjects
             baseY = y;
             
             damage = dam;
-
-            deathTimer = new Timer(2000);
-            deathTimer.Elapsed += new ElapsedEventHandler(OnDeathEvent);
         }
         
         /// <summary>
@@ -79,16 +74,23 @@ namespace PodPanic.GameObjects
             }
             if (hasHitPlayer)
             {
-                isDead = true;
-                if (!deathTimer.Enabled)
+                if (!isDead)
                 {
-                    deathTimer.Enabled = true;
+                    timeOfDeath = timeAlive;
                 }
+                isDead = true;
             }
             if (!isDead)
             {
                 position.X -= velocity;
                 position.Y = baseY + (OFFY_AMOUNT * offY);
+            }
+            else // the enemy is dead
+            {
+                if (timeAlive - timeOfDeath > 2500)
+                {
+                    this.signalRemoval = true;
+                }
             }
             blinker.Update(gameTime);
             base.Update(gameTime);
@@ -101,12 +103,6 @@ namespace PodPanic.GameObjects
         public int getDamage()
         {
             return damage;
-        }
-
-        // Specify what you want to happen when the Elapsed event is raised.
-        private void OnDeathEvent(object source, ElapsedEventArgs e)
-        {
-            this.signalRemoval = true;
         }
     }
 }
