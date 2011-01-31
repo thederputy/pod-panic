@@ -91,7 +91,6 @@ namespace PodPanic
         SoundEffectInstance netCaughtInstance;
         SoundEffectInstance orcaWhineInstance;
 
-        
         #endregion
 
         public PodPanic()
@@ -112,7 +111,7 @@ namespace PodPanic
             this.graphics.PreferredBackBufferWidth = (int)SCREEN_SIZE.X;
             //this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
-            Window.Title = "Pod-Panic";
+            Window.Title = "Pod Panic";
             keyManager = new global::PodPanic.GameState.InputManager(this);
             keyManager.Initialize();
             curState = global::PodPanic.GameState.GameStateEnum.Menu;
