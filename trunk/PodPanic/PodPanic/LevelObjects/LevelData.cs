@@ -8,13 +8,14 @@ namespace PodPanic.LevelObjects
 {
     public static class LevelData
     {
-        public static XmlDocument level1;
-        public static XmlDocument level2;
-        public static XmlDocument level3;
-        public static XmlDocument level4;
+        public static XmlDocument level1 = initLevel1();
+        public static XmlDocument level2 = initLevel2();
+        public static XmlDocument level3 = initLevel3();
+        public static XmlDocument level4 = initLevel4();
 
-        private static void initLevel1()
+        private static XmlDocument initLevel1()
         {
+            XmlDocument lvl = new XmlDocument();
             string xmlData = "<?xml version='1.0' encoding='utf-8'?>";
             xmlData += "<XnaContent>";
             xmlData += "  <Level";
@@ -27,11 +28,13 @@ namespace PodPanic.LevelObjects
             xmlData += " ProbabilityEnemyFish='0.1'";
             xmlData += " TimeBetweenEvents='50' />";
             xmlData += "</XnaContent>";
-            level1.LoadXml(xmlData);
+            lvl.LoadXml(xmlData);
+            return lvl;
         }
 
-        private static void initLevel2()
+        private static XmlDocument initLevel2()
         {
+            XmlDocument lvl = new XmlDocument();
             string xmlData = "<?xml version='1.0' encoding='utf-8'?>";
             xmlData += "<XnaContent>";
             xmlData += "  <Level";
@@ -44,11 +47,13 @@ namespace PodPanic.LevelObjects
             xmlData += " ProbabilityEnemyFish='0.4'";
             xmlData += " TimeBetweenEvents='40' />";
             xmlData += "</XnaContent>";
-            level1.LoadXml(xmlData);
+            lvl.LoadXml(xmlData);
+            return lvl;
         }
 
-        private static void initLevel3()
+        private static XmlDocument initLevel3()
         {
+            XmlDocument lvl = new XmlDocument();
             string xmlData = "<?xml version='1.0' encoding='utf-8'?>";
             xmlData += "<XnaContent>";
             xmlData += "  <Level";
@@ -61,11 +66,13 @@ namespace PodPanic.LevelObjects
             xmlData += " ProbabilityEnemyFish='0.6'";
             xmlData += " TimeBetweenEvents='35' />";
             xmlData += "</XnaContent>";
-            level1.LoadXml(xmlData);
+            lvl.LoadXml(xmlData);
+            return lvl;
         }
 
-        private static void initLevel4()
+        private static XmlDocument initLevel4()
         {
+            XmlDocument lvl = new XmlDocument();
             string xmlData = "<?xml version='1.0' encoding='utf-8'?>";
             xmlData += "<XnaContent>";
             xmlData += "  <Level";
@@ -78,7 +85,8 @@ namespace PodPanic.LevelObjects
             xmlData += " ProbabilityEnemyFish='0.85'";
             xmlData += " TimeBetweenEvents='35' />";
             xmlData += "</XnaContent>";
-            level1.LoadXml(xmlData);
+            lvl.LoadXml(xmlData);
+            return lvl;
         }
     }
 }

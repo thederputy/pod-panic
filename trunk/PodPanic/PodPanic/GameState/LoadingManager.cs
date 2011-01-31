@@ -53,5 +53,32 @@ namespace PodPanic.GameState
             
             return levelNode;
         }
+
+        public static XmlNode getXmlLevelNodeFromDocument(XmlDocument levelXml)
+        {
+            XmlNodeList rootNodes = levelXml.ChildNodes;
+            XmlNodeList contentNodes = null;
+            XmlNode currNode = null, levelNode = null;
+
+            for (int i = 0; i < rootNodes.Count; i++)
+            {
+                currNode = rootNodes.Item(i);
+                if (currNode.Name.Equals("XnaContent"))
+                {
+                    contentNodes = currNode.ChildNodes;
+                }
+            }
+
+            for (int i = 0; i < contentNodes.Count; i++)
+            {
+                currNode = contentNodes.Item(i);
+                if (currNode.Name.Equals("Level"))
+                {
+                    levelNode = currNode;
+                }
+            }
+
+            return levelNode;
+        }
     }
 }
