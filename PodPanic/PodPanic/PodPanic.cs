@@ -158,7 +158,7 @@ namespace PodPanic
             PausedFont = this.Content.Load<SpriteFont>("PausedFont");
             Texture2D test = this.Content.Load<Texture2D>("MenuItem");
             Texture2D logo = this.Content.Load<Texture2D>("LOGO");
-            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 4 - logo.Height / 2), new List<string>(new String[] { "Start", "About", "Credits", "Exit" }), test, logo, devFont);
+            mainMenu = new global::PodPanic.GameObjects.Menu((int)(SCREEN_SIZE.X / 2 - logo.Width/2), (int)(SCREEN_SIZE.Y / 5 - logo.Height / 2), new List<string>(new String[] { "Start", "Tutorial",  "About", "Credits", "Exit" }), test, logo, devFont);
             Levels = new global::PodPanic.LevelObjects.LevelLogic[numberOfLevels];
             score = new GameObjects.Score(new Vector2(600, 5), devFont);
 
