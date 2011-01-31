@@ -88,7 +88,7 @@ namespace PodPanic.GameObjects
             get { return currHP; }
         }
 
-        public void reset()
+        public void resetPlayer()
         {
             Speed = 1;
             currHP = MAX_HP;
@@ -97,7 +97,6 @@ namespace PodPanic.GameObjects
             left1 = 0;
             left2 = 0;
             left3 = 0;
-
         }
 
         private bool alive;

@@ -346,10 +346,7 @@ namespace PodPanic
                         thePlayer.reduceHP(1);
                     }
 
-
-                    //Event Spawning Logic - dooood, do shit here. No
-
-
+                    //Event Spawning Logic - dooood, do shit here.
                     secondsSinceLastEvent += 1;
                     if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
                     {
@@ -424,8 +421,8 @@ namespace PodPanic
                         else
                         {
                             BonusTexture = BonusTexturesArray[thePlayer.whatVictory()];
-
-                            Reset();
+                            removeObjectsFromGame(gameTime);
+                            ResetGame();
                             TimesWon++;
                             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
                             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
@@ -501,15 +498,7 @@ namespace PodPanic
                 }
                 else  // we're at the end of the level, so remove all the enemies and fish
                 {
-                    for (int i = 0; i < Objects.Count; i++)
-                    {
-                        GameObjects.GameObject obj = Objects[i];
-                        obj.Update(gameTime);
-                        if ((obj is GameObjects.Enemy) || (obj is GameObjects.Fish))
-                        {
-                            Objects.Remove(obj);
-                        }
-                    }
+                    removeObjectsFromGame(gameTime);
                 }
                 //Update Player Position
                 thePlayer.Update(gameTime);
@@ -526,7 +515,8 @@ namespace PodPanic
                 if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
                 {
                     curState = global::PodPanic.GameState.GameStateEnum.Menu;
-                    Reset();
+                    removeObjectsFromGame(gameTime);
+                    ResetGame();
                 }
             }
             else if (curState == global::PodPanic.GameState.GameStateEnum.DisplayTexture)
@@ -553,8 +543,43 @@ namespace PodPanic
             base.Update(gameTime);
         }
 
-        private void Reset()
+
+        /// <summary>
+        /// Removed the objects from the game.
+        /// This method gets called when you end a level or you go from in-game straight to the main menu.
+        /// </summary>
+        /// <param name="gameTime">the gametime to update</param>
+        private void removeObjectsFromGame(GameTime gameTime)
         {
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                GameObjects.GameObject obj = Objects[i];
+                obj.Update(gameTime);
+                if ((obj is GameObjects.Enemy) || (obj is GameObjects.Fish))
+                {
+                    Objects.Remove(obj);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Clears the objects
+        /// </summary>
+        private void clearObjects()
+        {
+            for (int i = 0; i < Objects.Count; i++)
+            {
+                GameObjects.GameObject obj = Objects[i];
+                if ((obj is GameObjects.Enemy) || (obj is GameObjects.Fish))
+                {
+                    Objects.Remove(obj);
+                }
+            }
+        }
+
+        private void ResetGame()
+        {
+            clearObjects();
             for (int i = 0; i < numberOfLevels; i++)
             {
                 Levels[i].CurrentPosition = 0;
@@ -562,7 +587,7 @@ namespace PodPanic
             CurrentLevel = 0;
             lvlProgress = global::PodPanic.GameState.LevelProgress.StartingLevel;
             distanceCovered = 0;
-            thePlayer.reset();
+            thePlayer.resetPlayer();
             score.resetScore();
         }
 
@@ -782,7 +807,7 @@ namespace PodPanic
         public void endGameFail()
         {
             BonusTexture = BonusTexturesArray[1];
-            Reset();
+            ResetGame();
             TimesLost++;
             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
