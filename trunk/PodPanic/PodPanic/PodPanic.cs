@@ -217,13 +217,14 @@ namespace PodPanic
             //*******************************************************
             #endregion
 
-            BonusTexturesArray = new Texture2D[5];
+            BonusTexturesArray = new Texture2D[6];
             //Set the contents of the array
             BonusTexturesArray[0] = Content.Load<Texture2D>("Slides/About");
             BonusTexturesArray[1] = Content.Load<Texture2D>("Slides/ExtinctScreen");
             BonusTexturesArray[2] = Content.Load<Texture2D>("Slides/gameOver");
             BonusTexturesArray[3] = Content.Load<Texture2D>("Slides/Victory");
             BonusTexturesArray[4] = Content.Load<Texture2D>("Slides/Credits");
+            BonusTexturesArray[5] = Content.Load<Texture2D>("Slides/ComingSoon");
             BonusTexture = null;
 
             Player = new VideoPlayer();
@@ -278,7 +279,10 @@ namespace PodPanic
                     }
                     else if (firstChar == 'H')
                     {
-
+                        BonusTexture = BonusTexturesArray[5];
+                        prevState = curState;
+                        curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
+                        //curState = global::PodPanic.GameState.GameStateEnum.HighScores;
                     }
                     else if (firstChar == 'A')
                     {
