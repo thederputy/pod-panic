@@ -25,7 +25,6 @@ namespace PodPanic.GameObjects
         protected Boolean isDead;
         public bool hasHitPlayer { get; set; }
         public bool signalRemoval { get; set; }
-        protected System.Timers.Timer deadCounter;
         /// <summary>
         /// The amount of time the object has been alive for
         /// </summary>
@@ -78,7 +77,6 @@ namespace PodPanic.GameObjects
             velocity = 0.0f;
             position = Vector2.Zero;
             sprite = loadedTexture;
-            deadCounter = new System.Timers.Timer();
             rect = new Rectangle();
             rect.Width = SPRITE_WIDTH;
             rect.Height = SPRITE_HEIGHT;
