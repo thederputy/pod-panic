@@ -1,0 +1,210 @@
+This is a legal agreement ("Agreement") between you ("Developer") and Intel Corporation ("Intel") relating to your submission of Applications and Components to the Intel AppUp? Developer Program Store for evaluation and possible distribution. By checking the box "I have read and accept the terms and conditions" and clicking "Done" below, Developer agrees to be bound by the terms of this Agreement and represents that Developer has the authority to accept this Agreement.
+
+For a list of other agreements, terms and conditions that also apply to the Site and the Intel AppUp? Developer Program Store, please see Section 9 below.
+
+Definitions.
+"Agreement" means this Agreement as may be amended from time to time.
+
+"Annual Fee" shall mean the fee payable to Intel pursuant to Section 5(a). Unless otherwise indicated on the Site, the Annual Fee is US$99.00.
+
+"Application" means a software application (including games, productivity programs, Internet based services and utilities) and all materials related to such application (marketing materials, screen shots etc.), designed for use on an Intel AppUp? processor based computing system.
+
+"Approved Application" means an Application that has been approved by Intel and/or the Store Operator for inclusion in the Store.
+
+"Approved Component" means a Component that has been approved by Intel [and/or the Store Operator] for inclusion in the Site for download and potential usage by other developers.
+
+"Catalog" means the index of Approved Applications and Approved Components.
+
+"Component" means a reusable module that can be incorporated into other applications in the form of libraries, modules, etc. that may be submitted by other developers, designed for use on an Intel AppUp? processor based computing system. 
+
+"Component User" means another developer on the Site that uses an Approved Component in such developer's Application.
+
+"Device" means any device capable of accessing the Store, downloading and running an Application.
+
+"Developer" means the person or legal entity entering into this Agreement. If this Agreement is entered into on behalf of a corporation, organization or other legal entity, then "Developer" refers to that corporation, organization or other legal entity, and you represent that you have the authority to bind such entity to these terms and conditions of the Agreement.
+
+“Identifier Logo” means the On Intel AppUp? identifier logo available at [appdeveloper.intel.com] that Developer may use to advertise the inclusion of its Approved Application in the Store. Intel may modify the Identifier Logo at any time and will provide notice of any such modification to Developer.
+
+"Intel" means Intel Corporation.
+
+"Materials" means the content and materials provided or otherwise available on the Site, including but not limited to software development kits, Components, code samples, download areas, communication forums, blogs, documentation, videos, articles and contests, and such other content or services that Intel may make available to Developer in conjunction with the Site.
+
+"Net Sales Proceeds" from sales of Approved Applications means the Purchase Price received by the Store Operator from Purchaser downloads of an Approved Application, minus: (i) amounts refunded to Purchasers in accordance with the Refund Policy; (ii) amounts associated with uncollectible debts as pursuant to Payment Agent's terms (which shall be reasonably communicated to Developer); (iii) any amount of tax withheld by the Store Operator; and (iv) the Purchase Price of any Component used in the Application. Net Sales Proceeds from sales of Approved Components means the Purchase Price for any Component used in the Application, minus items (i) through (iii) above.
+
+"Payment Agent" has the meaning set forth in Section 5(d)(i).
+
+"Purchase Price" has the meaning set forth in Section 5(b).
+
+"Purchaser" means a customer of the Store that purchases an Approved Application or downloads a free Approved Application.
+
+"Registered Developer" means a developer who accepted the Intel AppUp? Developer Program Site Registration and Access Agreement.
+
+"Site" means the Intel AppUp? Developer Program site.
+
+"Store" means the Intel AppUp? Developer Program Store (and successor platforms) and other storefronts that Intel may offer in collaboration with various third parties, including OEM device manufacturers, through which Components and Applications are offered and distributed to Purchasers.
+
+"Store Operator" means Intel and/or a third party selected by Intel to operate the Store (for example, an OEM device manufacturer).
+
+Application or Component Submission Process.
+Submission. Developer may, from time to time, submit Components or Applications to Intel for consideration for distribution through the Store. All submissions must comply with the Site interface and all requested information must be supplied prior to Intel conducting any evaluation of the Component or Application. Developer is solely responsible for all submission materials, including back-ups.
+
+Evaluation. Intel will endeavor to (i) provide the evaluation status of a submitted Application or Component on the Developer's dashboard located on the Site; and (ii) evaluate Component and Application submissions within a reasonable time after receipt of all materials required for submission on the Site. Evaluations will be conducted in a manner consistent with the then current Suitability and Validation Guidelines, which will be posted on the Site. Intel may use a third party to conduct validation activities.
+
+Validation. Intel will notify Developer whether each submitted Application and Component has passed the evaluation. Applications and Components approved pursuant to the evaluation process shall be treated as Approved Applications and Approved Components for purposes of this Agreement. Intel's evaluation and validation of any Approved Application or Approved Component does not relieve Developer from any of its obligations with respect to the Approved Application or Approved Component under this Agreement or otherwise. Notwithstanding anything in this Agreement or the Suitability and Validation Guidelines, Intel reserves sole discretion as to whether to validate any Component or Application submitted for review.
+
+Placement and Distribution. Only Approved Components and Approved Applications are eligible for placement in the Catalog from which Approved Components are made available to other developers and Approved Applications are made available to Store Operators for placement in the Store (or Stores) for distribution to Purchasers.
+
+Removal.
+By Developer. Developer may have an Approved Application or Approved Component removed from the Catalog by either (1) submitting an update to the Approved Application or Approved Component on the Site that specifies a publication end date as desired by the Developer; or (2) submitting a written request by e-mail to the Site at the following address: appdeveloper.support@intel.com. Intel or Store Operator will endeavor to remove an Approved Application or Approved Component within thirty (30) days after receipt of written request by Developer.
+
+By Intel. While Intel does not intend to monitor all Approved Applications and Approved Components provided on the Store, Intel reserves the right to remove any Approved Application or Approved Component at any time and for any reason from the Store. Reasons for removal may include: (1) failure to pay the Annual Fee; (2) violation of this Agreement, the Registration and Access Agreement, the Privacy Policy, the Site Terms of Use, the Site Terms of Service or other agreements associated with the Site and the Store; (3) allegations that Developer's Approved Application or Approved Component violates the intellectual property rights of a third party; (4) disruption of communication networks or negative impact on the Store servers; (5) failure to support the Approved Application or Approved Component; (6) failure to comply with refund policies; (7) objectionable content; (8) the Approved Application or Approved Component contains a virus or malware; (9) compliance with the U.S. Digital Millennium Copyright Act (DMCA) or similar legislation anywhere in the world; (10) compliance with applicable law, including any court order or requirement of a governmental agency; (11) Intel or Store Operator deems removal to be prudent or necessary. If Intel removes an Approved Application from the Store, Developer must immediately cease all use of the Identifier Logo with respect to that Application.
+
+By Third Parties. It is contemplated that Intel will enter into various distribution agreements with third parties (including device manufacturers and wireless communication providers) to place the Store on Devices. These agreements may allow such third parties the right to remove Applications from the Store that are in violation of such party's terms of service.
+
+Continuing Obligations Post Removal. Notwithstanding any removal, Developer agrees to comply with this Agreement and any remaining payment processing (including refund requirements). Additionally, Developer acknowledges that removal of an Approved Application or Approved Component does not (1) impact existing Purchaser licenses for previously purchased or downloaded Approved Applications or Approved Components, (2) entitle Developer to have Approved Application or Approved Component removed from Devices or from any part of the Store where previously purchased or downloaded Approved Application or Approved Component are stored on behalf of Purchasers, (3) change Developer's support obligations for previously purchased or downloaded Approved Applications or Approved Components, or (4) relieve Developer of its obligations to Intel and Store Operator under this Agreement with respect to the removed Application or Component.
+
+Status of Approved Components or Approved Applications.
+Ownership. Intel does not obtain any right, title or other ownership interest in Developer's Approved Application or Approved Component based on its acceptance or availability on the Store other than the license rights granted in Section 4 below.
+
+Use of Store. Developer shall only use the Store for purposes that are permitted by (1) this Agreement and (2) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries). In all circumstances Developer will comply with the Privacy Policy and to the extent Developer acquires or is provided with any Purchaser personal information, including account names or passwords, Developer shall provide prior notice to Purchasers of the collection of any such information, provide a legally adequate privacy notice and otherwise protect and not misuse any such Purchaser information. Use of any Purchaser information shall be limited to the express purpose for which it was provided and such information shall be protected in a commercially reasonable manner. To the extent Developer and Purchaser have entered into a separate agreement relating to the collection, use and storage of Purchaser personal information, such agreement shall apply.
+
+Prohibited Actions. Developer agrees that it will not engage in any activity with the Store, including the development or distribution of Approved Applications and Approved Components, that interferes with, disrupts, damages, or accesses in an unauthorized manner the devices, servers, networks, or other properties or services of any third party including, but not limited to, Purchasers, Intel, Store Operator(s) or any mobile network operator. Developer may not use customer information obtained from the Site or the Store to sell or distribute Approved Applications and Approved Components outside of the Store. Developer may not use the Store to distribute or make available any Application or Component whose primary purpose is to facilitate the distribution of products outside the Store.
+
+Ongoing Requirements. Continued distribution of an Approved Application or Approved Component is subject to Developer remaining a verified Registered Developer in good standing.
+
+Responsibility for Approved Applications and Approved Components.
+Overall Liability. Developer agrees that it is solely responsible for (and that Intel has no responsibility to Developer or to any third party for) any Approved Applications and Approved Components it distributes through the Store and for the consequences of its actions (including any loss or damage which Intel may suffer) by doing so. Developer agrees that it is solely responsible for (and that Intel has no responsibility to Developer or to any third party for) any breach of its obligations under this Agreement, any applicable third party contract or terms of service, or any applicable law or regulation, and for the consequences (including any loss or damage which Intel or any third party may suffer) of any such breach.
+
+Support. Developer shall be solely responsible for support and maintenance of Developer's Approved Applications and Approved Components. Store Operator shall endeavor to provide Developer with usage data related to Approved Applications and Approved Components. Purchasers may also directly contact Developer with support questions or requests. Developer shall provide Intel with e-mail contact information for customer support purposes and shall respond to Purchaser correspondence within a reasonable time. While updates to Approved Applications and Approved Components are not required, Developer is encouraged to provide bug fixes and other modifications to Intel for evaluation pursuant to the Suitability and Validation Guidelines.
+
+Marketing Information. Developer is responsible for uploading or otherwise providing required Application and Component information to users, and accurately disclosing the security permissions necessary for the Application or Component to function on user Devices. Applications and Components that are not properly uploaded will not be published via the Store.
+
+Content Compliance. Developer is responsible for ensuring at all times that Approved Applications and Approved Components submitted by Developer comply with the then current Suitability and Validation Guidelines.
+
+Ratings. Developer acknowledges and agrees as follows:
+Content Ratings. In conjunction with the submission of an Application or Component, Developer shall provide accurate and proper content rating information consistent with applicable law in the relevant jurisdictions and the Suitability and Validation Guidelines. Notwithstanding the rating information provided by Developer, Developer acknowledges that Intel may change the rating of any Approved Application and Approved Component.
+
+User Ratings. In addition to the ratings that may be assigned pursuant to the prior paragraph, Purchasers may also be entitled to review and comment on Approved Applications and Approved Components. These Purchaser ratings are expected to be used to determine place of various Approved Applications and Approved Components.
+
+The use of all ratings shall be determined by, and subject to, Intel's (or other Store operator's) sole discretion.
+
+To the extent Developer disagrees with a Purchaser review or rating, Developer may contact Intel at appdeveloper.support@intel.com.
+
+Licenses
+License from Developer to Intel. Developer hereby grants the following licenses to Intel and any Site Operators under all of Developer's rights (including intellectual property rights in any country in the world) in the relevant Approved Application or Approved Component as follows:
+Developer grants to Intel and any Site Operators (including any third party contractors that may be used) a nonexclusive, worldwide, license to copy, perform, display, and use Developer's Approved Applications and Approved Components together with accompanying information provided in the submission process and as set forth in Section 3 above for evaluation, administrative, promotional and demonstration purposes in connection with the operation and marketing of the Store.
+
+Developer grants to Intel and any Site Operators a nonexclusive worldwide license to host Developer's Approved Applications and Approved Components on the Store (including Stores operated with third parties as contemplated herein) for download by Purchasers or other developers in the case of Approved Components. Intel's rights shall be implemented in a manner consistent with the information submitted by Developer in conjunction with Developer's submission of the relevant Approved Application or Approved Component on the Site or to the Store.
+
+Developer grants to Intel and any Site Operators a nonexclusive, irrevocable, royalty-free, worldwide license to use and display Developer's company name, trademarks, service marks and/or logos in connection with including Developer's Approved Application or Approved Components on the Store and in promoting and marketing the Store.
+
+License from Developer to Purchaser.
+Applications. Developer hereby expressly authorizes Intel or the Store Operator of the Store to extend an end user license agreement ("EULA") to Purchasers in approved jurisdictions for Approved Applications, granting a non-exclusive, worldwide, and perpetual license to perform, display, and use the Approved Application on a Device. After a 24-hour trial period, the license set forth in this Section shall be subject to, and conditioned on, the Purchaser paying the Purchase Price (if any) for the Approved Application. The EULA shall be between Developer and Purchaser. Developer may either (i) provide its own form of EULA which would be linked from the placement page for the Approved Application or Approved Component; or (ii) use the standard EULA provided by Intel for use by Developers (a copy of which is available on the Site). In the event Developer uses its own form of EULA, such agreement shall at a minimum: (A) include the minimum terms provided in the standard EULA offered for use by Intel; (B) comply with all applicable laws; (C) allow Purchaser(s) to use an Approved Application on at least five (5) Devices associated with the Purchaser's account (Purchasers are also allowed unlimited reinstalls of each Approved Application distributed via the Store); (D) include disclaimers and limitations on liability that are at least as protective of Intel or the Store Operator as those provided in the standard EULA offered for use by Intel; (E) grant rights to the Approved Application in perpetuity and (F) not provide any support obligations by Intel, the Store Operator, or any communications service provider.
+
+Components. Developer hereby grants to each other developer on the Site or using the Store a non-exclusive, worldwide, and perpetual license to perform, display, and use the Approved Component solely in an Approved Application subject to payment of the Purchase Price (if any) for such Approved Component. The foregoing license shall extend and be sub-licensable to each Purchaser of an Approved Application using such Approved Component in a manner consistent with Section 4(b)(i) above. Developer may utilize additional standard licensing terms which may be available on the site or may set Developer's own license terms for a Component at the time of submission, which shall apply in lieu of the foregoing license grant. Notwithstanding the foregoing, the Developer provided license must otherwise comply with this Agreement and the purposes outlined herein and on the Site. Intel may, in its sole discretion, remove an Approved Component if the Developer provided license is deemed insufficient or otherwise inadequate for purposes of the Site or the Store.
+
+License from Intel.
+The use of the Intel AppUp? Developer Program SDK shall be subject to a separate SDK License which will require acceptance prior to download from the Site.
+Intel grants to Developer, and Developer accepts, a limited, non-exclusive, non-transferable, royalty-free, revocable worldwide license to use the Identifier Logo online and in print marketing materials solely to advertise the inclusion of its Approved Application in the Store. Developer agrees to abide by all usage guidelines that Intel may provide for use of the Identifier Logo.
+
+
+No Other Licenses. Except for the licenses set forth in this Section 4, no other licenses, express or implied, are provided by this Agreement.
+
+Program Fee, Pricing and Payments.
+Program Fee. As consideration for the various services provided to Developer pursuant to this Agreement by Intel, and as consideration for various licenses provided to Developer by Intel, Developer agrees to pay Intel the Annual Fee as set forth on the Site. Intel will not undertake any review of submitted Applications or Components unless such annual program fee is up-to-date as of the date of submission. The annual program fee is non-refundable, and Developers continued use of the Site and the Store is subject to Developers payment of such fees.
+
+Establishment of Pricing. As part of the Application and Component submission process, Developer will be allowed to establish the price (if any) of its Application or the price (if any) for a Component (the "Purchase Price"). The Store Operator may display to users the price of Approved Applications and Approved Components either inclusive or exclusive (net) of any sales, use, goods and services, value added, or other taxes or comparable levies. All Approved Application and Approved Component pricing shall be subject to the Intel's final approval. The Developer established price will be used for purposes of calculating Net Sale Proceeds. The Store may display to users the price of Approved Applications and Approved Components in their native currency, but Store Operator is not responsible for the accuracy of currency rates or conversion.
+
+Free Approved Applications and Approved Components. Developer may also choose to distribute Approved Applications and Approved Components for free. In such case, Developer may not collect future charges from Purchasers (including other developers/users in the case of Approved Components) for copies of the Approved Applications and Approved Components that those Purchasers (including other developers/users in the case of Approved Components) were initially allowed to download for free. This is not intended to prevent distribution of free trial versions of Approved Applications with an "up-sell" option to obtain the full version of the Approved Application - such free trials for Approved Applications are encouraged. However, if Developer wants to collect fees after the free trial expires, Developer must collect all fees for the full version of the Approved Application through the Payment Agent on the Store. In this Agreement, "free" means there are no charges or fees of any kind for use of the Approved Application or Approved Component. All fees received by Developers for Approved Applications or Approved Components distributed via the Store must be processed by the Store's Payment Agent.
+
+Collection.
+The Store Operator may use a payment agent or agents (the "Payment Agent") for the purpose of collecting and remitting all amounts due pursuant to this Agreement and the operation of the Store. The Store Operator or Payment Agent shall collect the Purchase Price and any sales, use, goods and services, value added or other similar taxes from the Purchaser. To the extent required by the Payment Agent(s), Developer shall obtain and maintain accounts with such entities.
+
+Developer acknowledges and agrees that all Purchasers shall have a 24-hour free trial period for Approved Applications. Purchases shall only be processed by the Store Operator or the Payment Agent after such trial period has expired.
+
+Payment to Developer. On a monthly basis, the Store Operator will calculate the Net Sales Proceeds and remit seventy percent (70%) of such Net Sales Proceeds to Developer's specified deposit account, subject to the adjustments for taxes described below in Section 5(g). Intel will retain the remaining thirty percent (30%) of the Net Sales Proceeds.
+
+Monthly Reports. Intel, the Store Operator and/or the Payment Agent will aggregate Net Sale Proceeds associated with all Approved Applications and Approved Components for Developer on a monthly basis and submit a report to Developer showing the total amount of purchases, itemized retained amounts and the net amount due to Developer. To the extent allowed by applicable law, Intel, the Store Operator and the Payment Agent may offset any amounts owed by Developer to such entity against amounts such entities owe to Developer.
+
+Taxes: Developer Payments.
+Withholding Taxes. In the event that any payment to Developer is subject to any withholding or similar tax, the full amount of that withholding or similar tax shall be solely for Developer's account. If Intel reasonably believes that such tax is due, Intel will deduct the full amount of such withholding or similar tax from the gross amount owed to Developer, and will pay the full amount due over to the competent tax authorities. Intel will apply a reduced rate of withholding tax, if any, provided for in any applicable income tax treaty only if Developer furnishes Intel with such documentation required under that income tax treaty or as requested by and satisfactory to Intel, sufficient to establish Developer's entitlement to the benefit of that reduced rate of withholding tax. Intel will use commercially practical efforts to obtain, and to furnish to Developer, copies of official tax receipts or similar evidence of payment, confirming Intel's payment of those withholding or similar taxes to the competent tax authorities. Developer will indemnify and hold Intel harmless against any and all claims by any competent tax authority for any underpayment of any such withholding or similar taxes and any penalties and/or interest thereon, including, but not limited to, underpayments attributable to any erroneous claim or representation by the Developer as to Developer's entitlement to the benefit of a reduced rate of withholding tax.
+
+Other Taxes. Developer shall be responsible for any and all other applicable taxes related to its receipt of the Net Sales Proceeds, including but not limited to any sales, use, goods and services, value added, or other taxes or comparable levies, transaction privilege taxes, gross receipts taxes, and withholding taxes not described above in Section 5(g)(i), and other charges such as duties, customs, tariffs, imposts, and government imposed surcharges.
+
+Income Taxes. Each party is responsible for its own respective income taxes or taxes based upon gross revenues, including, but not limited to, business and occupation taxes, but specifically excluding all taxes addressed in paragraphs (i) and (ii) above.
+
+Representations and Undertakings of Developer. Developer represents and warrants to Intel and Store Operator as follows:
+Authority to enter Agreement. Developer has the power and authority to enter into this Agreement and to fully perform its obligations under this Agreement. The person entering into this Agreement on behalf of Developer is at least the age of majority in the jurisdiction in which such person resides.
+
+Intellectual Property. All Applications and Components submitted by Developer to the Site are the original work of Developer and do not violate any Intel, Site Operator or third-party intellectual property rights. Developer has obtained all required consents, approvals and licenses required for the submission and distribution of its Application or Component via the Store, including any rights that may be necessary or required for such Application or Component to access Internet-based services that may be part of such Application or Component. Developer is in full compliance with any and all licenses to intellectual property that may apply to its Application or Component. Developer's Applications and Components do not contain any unauthorized third party content.
+
+Compliance with Other Agreements. The submission and distribution of any Developer Application or Component does not violate any agreements to which Developer is a party or which Developer is otherwise aware.
+
+Use of Open Source. Developer has complied with all Free and Open Source Software (FOSS) licenses and accurately identified all use of FOSS in any Application or Component submitted by Developer, including accurately setting forth the license terms associated with any such Application or Component. Except as expressly stated in the submission materials, Developer's submission (including Applications and Components) do not contain any FOSS, except as expressly and clearly marked. Developer's submission (including Applications and Components) will not cause the Site, the Store (including any client software associated with the Store) or any materials of Intel or the Site Operator to be subject to the terms of a FOSS license.
+
+No malware. Applications and Components submitted by Developer do not include any malware, viruses, malicious applications or other hidden content (for example, "trap doors", "worms," "Trojans" or "time bombs"). Developer's Applications and Components do not collect any Purchaser or user information without Purchaser or user consent.
+
+General. All information and materials Developer provides to Intel and the Store Operator in conjunction with this Agreement and the Registration and Access Agreement comply with the representations set forth above and are true, accurate, and up-to-date. Developer has not omitted any information or materials that would be useful in understanding or interpreting Developers submission(s).
+
+Indemnity. To the maximum extent permitted by law, Developer agrees to defend, indemnify and hold harmless Intel and the Store Operator, and their respective affiliates, directors, officers, employees and agents, from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) Developer's use of the Store in violation of this Agreement, (b) any assertion that Developer's Approved Application or Approved Component or their respective name(s) infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy; and (c) any violation of this Agreement.
+
+Term and Termination.
+Term and Termination. This Agreement will continue to apply until terminated by either Developer or Intel as set out below.
+If Developer wants to terminate this Agreement, Developer must provide Intel with thirty (30) days prior written notice.
+
+Intel may terminate this Agreement at any time if Developer:
+has breached any provision of this Agreement;
+
+is required by law or a legal authority to do so;
+
+violates any of the other terms and conditions applicable to the Site or Store; or
+
+Intel decides to cease operating the Store.
+
+Retention
+After termination of this Agreement, Intel is not obligated to distribute Developer’s Approved Application or Approved Component, but may retain and use copies of the Application or Component for support of the Store.
+
+
+Other Agreements. This Agreement constitutes the whole legal agreement between Developer and Intel and governs Developer's use of the Site and the Store, and completely replaces any prior agreements between Developer and Intel in relation to the Site and the Store. Notwithstanding the foregoing, the following additional terms and agreements are included by reference and not superseded by anything in this Agreement. To the extent of any conflict, this Agreement will control. Additional agreements and terms included in this Agreement by reference:
+Registration and Access Agreement
+
+Suitability and Validation Guidelines
+
+Privacy Policy
+
+Refund Policy
+
+Site Terms of Use
+
+Site Terms of Service
+
+SDK License Agreement
+
+Disclaimers - Limitation of Liability. DEVELOPER EXPRESSLY UNDERSTANDS AND AGREES THAT:
+DEVELOPER'S USE OF THE SITES, MATERIALS AND IDENTIFIER LOGO IS AT ITS SOLE RISK AND THAT THE SERVICES AND IDENTIFIER LOGO ARE PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT ANY EXPRESS OR IMPLIED WARRANTY OF ANY KIND INCLUDING WARRANTIES OF MERCHANTABILITY, NONINFRINGEMENT OF INTELLECTUAL PROPERTY, OR FITNESS FOR ANY PARTICULAR PURPOSE.
+
+ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE SERVICES IS DONE AT DEVELOPER'S SOLE DISCRETION AND RISK AND DEVELOPER WILL BE SOLELY RESPONSIBLE FOR ANY DAMAGE TO ITS COMPUTER SYSTEM(S) OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM THE DOWNLOAD OF ANY SUCH MATERIAL.
+
+IN NO EVENT SHALL INTEL OR ITS SUPPLIERS BE LIABLE FOR (1) ANY DAMAGES WHATSOEVER, INCLUDING, WITHOUT LIMITATION, ANY SPECIAL, DIRECT, INDIRECT OR CONSEQUENTIAL DAMAGES, DAMAGES FOR LOSS OF PROFITS, BUSINESS INTERRUPTION, LOSS OF INFORMATION, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE, INABILITY TO USE, OR PERFORMANCE OF THE SITE, THE MATERIALS, ANY SOFTWARE, DOCUMENTS, OR OTHER INFORMATION, EVEN IF INTEL HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. BECAUSE SOME JURISDICTIONS PROHIBIT THE EXCLUSION OR LIMITATION OF LIABILITY FOR CONSEQUENTIAL OR INCIDENTAL DAMAGES, THE ABOVE LIMITATION MAY NOT APPLY TO DEVELOPER.
+
+Intel is not responsible for Applications and Components not received due to lost, failed, delayed or interrupted connections or miscommunications, or other electronic malfunctions. Intel is not responsible for incorrect or inaccurate registration information, whether caused by Developer or any other persons or by any of the equipment or programming associated with or utilized on the Site or the Store.
+
+Amendments. Intel may make changes to this Agreement at any time by sending the Developer notice by email describing the modifications made. Intel will also endeavor to post a notification on the Site describing the modifications made. The changes will become effective, and will be deemed accepted by Developer, (a) immediately for those who become Developers after the notification is posted, and (b) for pre-existing Developers, upon acceptance of the modified Agreement (except changes required by law which will be effective immediately). If a pre-existing Developer does not accept the updates to this Agreement, Intel or the Site Operator may suspend distribution of such Developer's Approved Application(s) and/or Approved Components. If Developer does not accept updates to this Agreement, Developer's sole and exclusive remedy shall be to cease use of the Site and the Store pursuant to the termination provisions set forth herein.
+
+General Legal Terms.
+Use of Contractors. Intel may use consultants and other contractors in connection with the performance of obligations and exercise of rights under this agreement (including one or more Store Operators and Payment Agents), provided that such consultants and contractors will be subject to the same obligations as Intel.
+
+Developer agrees that if Intel does not exercise or enforce any legal right or remedy which is contained in this Agreement (or which Intel has the benefit of under any applicable law), this will not be taken to be a formal waiver of Intel's rights and that those rights or remedies will still be available to Intel.
+
+If any court of law, having the jurisdiction to decide on this matter, rules that any provision of this Agreement is invalid, then that provision will be removed from this Agreement without affecting the rest of this Agreement. The remaining provisions of this Agreement will continue to be valid and enforceable.
+
+Developer agrees to comply with all applicable U.S. and other worldwide government and regulatory export laws and regulations. In particular, but without limitation, Developer agrees to (i) comply with the US export and re-export controls governing transfers of software, technology, services and technical data; (ii) exclude from participation and access to the Site, individuals, countries, and nationals of countries that are subject to US or other governmental trade sanctions or identified on then current US or other government export exclusion lists, including but not limited to the Denied Persons, Entity and Specially Designated Nationals Lists; and (iii) guard against direct and indirect use of their respective Materials for military, nuclear, missile, chemical and biological weaponry end uses. Developer represents and warrants that it is not (nor its employees if Developer is a legal entity) located in any such countries or on any such lists. Developer also agrees that it will not use any confidential information of Intel for any purposes prohibited by United States or other country laws, including, without limitation, the development, design, manufacture or production of military, nuclear, missile, chemical and biological weaponry end uses.
+
+Without limiting the generality of the foregoing representation and warranty, Developer hereby certifies that: (i) each Application and Component does not contain, embody or support any data encryption or cryptographic functions or features; or (ii) if any such Application or Component does contain, embody or support any such data encryption or cryptographic functions or features, that Application or Component has been duly authorized for export by means of a "one time technical review" by the United States Department of Commerce, Bureau of Industry and Security ("BIS"), and Developer will furnish Intel with a copy of the CCATS export classification ruling issued by BIS confirming that the Application or Component has been qualified for export in accordance with the Export Administration Regulations.
+
+The rights and obligations granted in this Agreement may not be assigned or transferred by either Developer or Intel without the prior written approval of the other party, provided, however, that the prior written authorization of the Developer will not be required for Intel to assign, delegate or transfer any of its rights or obligations arising under this Agreement to any legal entity it controls. The term "control" will mean the ownership of more than eighty percent (80%) of the voting shares in any entity or association.
+
+Any claim arising under or relating to this Agreement shall be governed by the internal substantive laws of the State of Delaware or federal courts located in Delaware, without regard to principles of conflict of laws. Notwithstanding this, Developer agrees that Intel shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+
+The obligations in Sections 1, 2(e)(iv), 3, 4(b), 4(d), 6, 7, 8(b), 10, and 12 will survive any expiration or termination of this Agreement.
+
