@@ -19,7 +19,6 @@ namespace PodPanic.LevelObjects
 {
     class LevelLogic
     {
-
         public int LevelLength { get; set;}
         public float ProbabilityFishPollution { get; set; }
         public float ProbabilityEnemyType { get; set; }
@@ -31,7 +30,6 @@ namespace PodPanic.LevelObjects
         public int CurrentPosition { get; set; }
 
         public Texture2D Background {get; set;}
-
 
         public LevelLogic()
         {
