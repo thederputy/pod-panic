@@ -12,6 +12,7 @@ namespace PodPanic.LevelObjects
         public static XmlDocument level2 = initLevel2();
         public static XmlDocument level3 = initLevel3();
         public static XmlDocument level4 = initLevel4();
+        public static string[,] levelBKGs = initLevelBKGs();
 
         private static XmlDocument initLevel1()
         {
@@ -87,6 +88,16 @@ namespace PodPanic.LevelObjects
             xmlData += "</XnaContent>";
             lvl.LoadXml(xmlData);
             return lvl;
+        }
+        private static string[,] initLevelBKGs()
+        {
+            return new string[,]
+            {
+                {"Water_Final", "MidGround", "SkyandDepth"},
+                {"Fore1", "Mid1", "Back1"},
+                {"Fore2", "Mid2", "Back2"},
+                {"Water_Final", "MidGround", "SkyandDepth"}
+            };
         }
     }
 }

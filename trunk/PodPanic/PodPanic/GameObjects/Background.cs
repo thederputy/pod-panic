@@ -34,6 +34,10 @@ namespace PodPanic.GameObjects
         private int alphaRight;
         private int leftRight;
         private bool isRightPosit;
+        private byte alphaBlend;
+        private Texture2D[] blendToTextures;
+        private bool hasSignalledBlendTo;
+
         public Background(Game game)
             : base(game)
         {
@@ -44,6 +48,9 @@ namespace PodPanic.GameObjects
             leftRight = 125;
             isLeftPosit = true;
             isRightPosit = false;
+            alphaBlend = 0;
+            blendToTextures = new Texture2D[3];
+            hasSignalledBlendTo = false;
         }
 
         /// <summary>
@@ -97,22 +104,73 @@ namespace PodPanic.GameObjects
             colRight.A = (byte)Math.Abs(alphaRight);
             curGame.spriteBatch.Draw(LightareasTexture, new Vector2(leftLeft, 0), colLeft);
             curGame.spriteBatch.Draw(LightareasTexture, new Rectangle(leftRight, 0, (int)PodPanic.SCREEN_SIZE.X, (int)PodPanic.SCREEN_SIZE.Y), null, colRight, 0.0f, Vector2.Zero, SpriteEffects.FlipHorizontally, 0.0f);
-            //curGame.spriteBatch.Draw(WaveArea, new Vector2(-leftWave, -47), drawColor);
-            //curGame.spriteBatch.Draw(WaveArea, new Vector2(-leftWave + WaveArea.Width, -47), drawColor);
         }
 
         public override void Draw(GameTime gameTime)
         {
             PodPanic curGame = (PodPanic)(this.Game);
-            curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPosBack, -35), drawColor);
-            curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
-            curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
-            curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(-curXPosMide, -35), drawColor);
-            curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
-            curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
-            curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(-curXPosFore, -35), drawColor);
-            curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawColor);
+            if (hasSignalledBlendTo)
+            {
+                alphaBlend += 1;
+                if (alphaBlend == 255)
+                {
+                    BackgroundTexture = blendToTextures[2];
+                    MidegroundTexture = blendToTextures[1];
+                    ForegroundTexture = blendToTextures[0];
+                    hasSignalledBlendTo = false;
+                }
+                Color drawNewColor = new Color() { A = alphaBlend, R = drawColor.R, B = drawColor.B, G = drawColor.G };
+
+                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPosBack, -35), drawColor);
+                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(-curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(-curXPosFore, -35), drawColor);
+                curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawColor);
+
+                curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(-curXPosBack, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(-curXPosMide, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[0], new Vector2(-curXPosFore, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[0], new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawNewColor);
+                    
+            }
+            else
+            {
+                alphaBlend = 0;
+                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPosBack, -35), drawColor);
+                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(-curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(-curXPosFore, -35), drawColor);
+                curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawColor);
+            }
             base.Draw(gameTime);
+        }
+
+        public void SignalBlendTo()
+        {
+            if(!hasSignalledBlendTo)
+                hasSignalledBlendTo = true;
+        }
+
+        public bool HasSignalledBlendTo()
+        {
+            return hasSignalledBlendTo;
+        }
+
+        public void SetBlendToTextures(Texture2D[] NewTextures)
+        {
+            blendToTextures[0] = NewTextures[0];
+            blendToTextures[1] = NewTextures[1];
+            blendToTextures[2] = NewTextures[2];
         }
     }
 }

@@ -20,6 +20,7 @@ namespace PodPanic
     /// </summary>
     public class PodPanic : Microsoft.Xna.Framework.Game
     {
+        private static string BKG_LOC = "Background/";
         public static Vector2 SCREEN_SIZE = new Vector2(800, 600);
         public const int TOPCHANNEL_Y = 150;
         public const int MIDCHANNEL_Y = 300;
@@ -67,6 +68,7 @@ namespace PodPanic
         Texture2D BonusTexture;
         VideoPlayer Player;
         Video tutorialVideo;
+        Texture2D[,] bkgArray;
         
 
         GameState.GameStateEnum prevState;
@@ -129,6 +131,7 @@ namespace PodPanic
             GameState.ButtonMapping.CurrentButtonMap = GameState.ButtonMapping.GetDefaultButtonMap();
             TimesWon = 0;
             TimesLost = 0;
+            bkgArray = new Texture2D[4,3];
             base.Initialize();
         }
 
@@ -139,10 +142,18 @@ namespace PodPanic
         protected override void LoadContent()
         {
             thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaFinal2"), this.Content.Load<Texture2D>("Orca/OrcaSkeletons"), this);
-            backTemp.ForegroundTexture = this.Content.Load<Texture2D>("Background/Water_Final");
-            backTemp.MidegroundTexture = this.Content.Load<Texture2D>("Background/MidGround");
-            backTemp.BackgroundTexture = this.Content.Load<Texture2D>("Background/SkyandDepth");
-            backTemp.LightareasTexture = this.Content.Load<Texture2D>("Background/WaterLights");
+
+            //background texture loading logic
+            for (int i = 0; i < LevelObjects.LevelData.levelBKGs.GetUpperBound(0); i++)
+            {
+                bkgArray[i,0] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[i,0]);
+                bkgArray[i,1] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[i,1]);
+                bkgArray[i,2] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[i,2]);
+            }
+            backTemp.BackgroundTexture = bkgArray[0, 2];
+            backTemp.MidegroundTexture = bkgArray[0, 1];
+            backTemp.ForegroundTexture = bkgArray[0, 0];
+            backTemp.LightareasTexture = this.Content.Load<Texture2D>(BKG_LOC + "WaterLights");
             backTemp.WaveArea = this.Content.Load<Texture2D>("Background/Wave");
             Net = this.Content.Load<Texture2D>("Enemies/Net_Final");
             OilSlicks = new Texture2D[]
@@ -386,6 +397,8 @@ namespace PodPanic
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.FinishedLevel;
                         distanceCovered = 0;
+                        setTextures(CurrentLevel + 1);
+                        backTemp.SignalBlendTo();
                     }
                     if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
                     {
@@ -815,6 +828,10 @@ namespace PodPanic
             TimesLost++;
             prevState = global::PodPanic.GameState.GameStateEnum.Menu;
             curState = global::PodPanic.GameState.GameStateEnum.DisplayTexture;
+        }
+        public void setTextures(int levelChoice)
+        {
+            backTemp.SetBlendToTextures(new Texture2D[] { bkgArray[levelChoice, 0], bkgArray[levelChoice, 1], bkgArray[levelChoice, 2] });
         }
     }
 }
