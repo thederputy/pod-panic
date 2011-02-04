@@ -38,7 +38,9 @@ namespace PodPanic.GameObjects
         private int SPRITE_HEIGHT;
         protected Rectangle rect;
         static private Boolean firsts = true;
-        private const float SIZEVARIATION = 0.2f; 
+        private const float SIZEVARIATION = 0.2f;
+        protected int hitBoxOffsetX;
+        protected int hitBoxOffsetY;
 
         /// <summary>
         /// Used for collision detection
@@ -130,10 +132,10 @@ namespace PodPanic.GameObjects
 
         public override void  Draw(GameTime gameTime)
         {
+            base.Draw(gameTime);
             Color finDrawColor = drawColor;
             if (isDead) finDrawColor.A = (byte)blinker.AlphaVal;
             ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X -50, (int)position.Y- 25, SPRITE_WIDTH, SPRITE_HEIGHT), finDrawColor);
-            base.Draw(gameTime);
         }
 
     }

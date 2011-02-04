@@ -88,17 +88,6 @@ namespace PodPanic.GameObjects
             get { return currHP; }
         }
 
-        public void resetPlayer()
-        {
-            Speed = 1;
-            currHP = MAX_HP;
-            livesOwned = MAX_LIVES;
-            //livesOwned = 0;
-            left1 = 0;
-            left2 = 0;
-            left3 = 0;
-        }
-
         private bool alive;
 
         /// <summary>
@@ -152,8 +141,11 @@ namespace PodPanic.GameObjects
             livesOwned = MAX_LIVES;
             currHP = MAX_HP;
             blinker = new AlphaBlinker();
-            rect.Width = 45;
-            rect.Height = 40;
+
+            hitBoxOffsetX = 30;
+            hitBoxOffsetY = 20;
+            rect.Width = 100;
+            rect.Height = 60;
         }
 
         public int getHealthPercent()
@@ -162,7 +154,7 @@ namespace PodPanic.GameObjects
         }
 
         /// <summary>
-        /// Reduces the player's health. If it is 0, they will be marked as not alive.
+        /// Reduces the player's health. If it is 0, they will lose a life.
         /// </summary>
         /// <param name="damageAmount">the amount to decrease the HP by</param>
         public void reduceHP(int damageAmount)
@@ -232,7 +224,7 @@ namespace PodPanic.GameObjects
         /// <summary>
         /// Moves the player down to the next channel
         /// </summary>
-        public void modeDown()
+        public void moveDown()
         {
             switch (currChannel)
             {
@@ -258,6 +250,8 @@ namespace PodPanic.GameObjects
             if (position.X >= 350)
                 position.X -= 5;
         }
+
+        #region Update and Draw
 
         public override void Update(GameTime gameTime)
         {
@@ -357,8 +351,8 @@ namespace PodPanic.GameObjects
             {
                 currRot = -0.54f;
             }
-            rect.X = (int)position.X + 130;
-            rect.Y = (int)position.Y + 80;
+            rect.X = (int)position.X + hitBoxOffsetX;
+            rect.Y = (int)position.Y + hitBoxOffsetY;
         }
 
         public override void Draw(GameTime gameTime)
@@ -410,10 +404,15 @@ namespace PodPanic.GameObjects
                 left3++;
             }
             ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X - left3 * 3), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
-            
+
+#if DEBUG
+            ((PodPanic)(this.Game)).spriteBatch.Draw(((PodPanic)(this.Game)).hitBoxHighlight, rect, drawColor);
+#endif
             //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
             //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned);
         }
+
+        #endregion
 
         /// <summary>
         /// Chooses what end game screen gets displayed based on how many lives you have at the end.
@@ -427,6 +426,17 @@ namespace PodPanic.GameObjects
             //    return 2;
             //else
             //    return 1;
+        }
+
+        public void resetPlayer()
+        {
+            Speed = 1;
+            currHP = MAX_HP;
+            livesOwned = MAX_LIVES;
+            //livesOwned = 0;
+            left1 = 0;
+            left2 = 0;
+            left3 = 0;
         }
     }
 }
