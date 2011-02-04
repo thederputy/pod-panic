@@ -35,15 +35,12 @@ namespace PodPanic.GameObjects
         private const int FISHDISTANCEY = 10;
         private const float FISHSIZEVARIATION = 10;
         private const float FISHLESS_PER_XLEVELS = 1;
-        private const int foodValue = 1;
         static private Random rnd;
+        private const int foodValue = 1;
         public int FoodValue
         {
             get { return foodValue; }
         } 
-
-
-        
         
         /// <summary>
         /// create a fish that moves from right to left
@@ -53,7 +50,6 @@ namespace PodPanic.GameObjects
         /// <param name="normFish">image for normal fish</param>
         /// <param name="sickFish">image for sick fish</param>
         /// 
-
         public Fish(int x, int y, Texture2D normFish, Texture2D sickFish, Game game)
             : base(normFish, game)
         {
@@ -73,7 +69,6 @@ namespace PodPanic.GameObjects
             animationPointer = 0;
             //System.Diagnostics.Trace.WriteLine("");
 
-
             bobbers = new List<Fish_Bobber>();
 
             for (int i = 0; i < FISHNUM; i++)
@@ -87,11 +82,7 @@ namespace PodPanic.GameObjects
 
                 bobbers.Add(new Fish_Bobber(offY, dir, BOB_RATE, OFFY_AMOUNT, FISHSIZEVARIATION, rnd));
             }
-
-
             //bobbers.Add(new Fish_Bobber());
-
-
             if (rnd.NextDouble() <= polluted_percent)
             {
                 isPolluted = true;
@@ -103,6 +94,11 @@ namespace PodPanic.GameObjects
                 //spriteAnimations = normFish;    
                 sprite = normFish;
             }
+
+            hitBoxOffsetX = 5;
+            hitBoxOffsetY = 5;
+            rect.Width = 100;
+            rect.Height = 50;
         }
 
         /// <summary>
@@ -212,10 +208,10 @@ namespace PodPanic.GameObjects
                 //System.Diagnostics.Trace.WriteLine("this :" + i + " : " + bobbers[i].getAddSize());
 
                 //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width/FRAMES)))), source, drawColor);
-
-
             }
-
+#if DEBUG
+            ((PodPanic)(this.Game)).spriteBatch.Draw(((PodPanic)(this.Game)).hitBoxHighlight, rect, drawColor);
+#endif
             //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X, (int)position.Y, (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width/FRAMES)))), source, drawColor);
         }
     }

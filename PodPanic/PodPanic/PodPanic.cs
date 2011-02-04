@@ -69,8 +69,10 @@ namespace PodPanic
         VideoPlayer Player;
         Video tutorialVideo;
         Texture2D[,] bkgArray;
+#if DEBUG
+        public Texture2D hitBoxHighlight;
+#endif
         
-
         GameState.GameStateEnum prevState;
 
 
@@ -237,6 +239,12 @@ namespace PodPanic
             BonusTexturesArray[4] = Content.Load<Texture2D>("Slides/Credits");
             BonusTexturesArray[5] = Content.Load<Texture2D>("Slides/ComingSoon");
             BonusTexture = null;
+
+            #region Debug Loading
+#if DEBUG
+            hitBoxHighlight = Content.Load<Texture2D>("Debug/hitBoxHighlight");
+#endif
+            #endregion
 
             Player = new VideoPlayer();
             tutorialVideo = this.Content.Load<Video>("Movies/Tutorial");
@@ -414,7 +422,7 @@ namespace PodPanic
                     else if (keyManager.isCommandPressed(GameState.KeyMapEnum.MoveDown))
                     {
                         SoundManager.playSound(finSplashInstance, 0.1f);
-                        thePlayer.modeDown();
+                        thePlayer.moveDown();
                     }
                     if (keyManager.isCommandDown(GameState.KeyMapEnum.MoveRight))
                     {
@@ -456,8 +464,8 @@ namespace PodPanic
                         GameObjects.GameObject obj = Objects[i];
                         obj.Update(gameTime);
                         //Collision Detection
-                        Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
-                        if (thePlayer.Rect.Intersects(objRect))
+                        //Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
+                        if (thePlayer.Rect.Intersects(obj.Rect))
                         {
                             //has collided with object - friend or foe?
                             if (obj.GetType() == typeof(GameObjects.Enemy))

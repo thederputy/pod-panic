@@ -40,7 +40,6 @@ namespace PodPanic.GameObjects
 
             //System.Diagnostics.Trace.WriteLine("");
 
-
             offY = (float)rnd.NextDouble();
 
             if (rnd.NextDouble() > 0.5f)
@@ -53,6 +52,9 @@ namespace PodPanic.GameObjects
             baseY = y;
             
             damage = dam;
+
+            hitBoxOffsetX = 5;
+            hitBoxOffsetY = 5;
         }
         
         /// <summary>
