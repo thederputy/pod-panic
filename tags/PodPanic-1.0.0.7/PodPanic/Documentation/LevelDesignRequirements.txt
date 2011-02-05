@@ -1,0 +1,13 @@
+Levels:
+-Attributes:
+--Level Length
+--Probability Fish Pollution
+--Probability Enemy Type
+--Probability Enemy/Fish
+--Time Between Events
+--Pollution Level
+--Level Name
+--Level Number
+--Background Texture
+-Functions:
+--Function for Loading
