@@ -153,7 +153,7 @@ namespace PodPanic.GameObjects
             }
             else // the fish are dead
             {
-                if (timeAlive - timeOfDeath > 200)
+                if (timeAlive - timeOfDeath > 20)
                 {
                     this.signalRemoval = true;
                 }
