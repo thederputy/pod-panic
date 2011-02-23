@@ -116,7 +116,7 @@ namespace PodPanic.LevelObjects
 
         public int PercentCompleted()
         {
-            return (int)(CurrentPosition/LevelLength) * 10;
+            return (int)((CurrentPosition/LevelLength) * 10);
         }
       
     }

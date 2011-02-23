@@ -370,36 +370,40 @@ namespace PodPanic
                     }
 
                     //Event Spawning Logic - dooood, do shit here.
-                    secondsSinceLastEvent += 1;
-                    if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
+                    if (Levels[CurrentLevel].PercentCompleted() < 95) //don't spawn enemies that we'll never hit
                     {
-                        int position = rand.Next(0, 9) / 3;
-                        GameState.Channel newChannel = global::PodPanic.GameState.Channel.Middle;
-                        if (position == 0)
-                            newChannel = global::PodPanic.GameState.Channel.Top;
-                        else if (position == 1)
-                            newChannel = global::PodPanic.GameState.Channel.Middle;
-                        else if (position == 2)
-                            newChannel = global::PodPanic.GameState.Channel.Bottom;
-                        secondsSinceLastEvent = 0;
-                        float chance = rand.Next(0, 20) / 20.0f;
-                        if (chance < Levels[CurrentLevel].ProbabilityEnemyFish)
+                        secondsSinceLastEvent += 1;
+                        if (secondsSinceLastEvent >= Levels[CurrentLevel].TimeBetweenEvents + rand.Next(0, 100))
                         {
-                            chance = rand.Next(0, 20) / 20.0f;
-                            GameObjects.Enemy newEnemy;
-                            if (chance < Levels[CurrentLevel].ProbabilityEnemyType)
-                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 5, this, GameState.EnemyType.Net);
+                            int position = rand.Next(0, 9) / 3;
+                            GameState.Channel newChannel = global::PodPanic.GameState.Channel.Middle;
+                            if (position == 0)
+                                newChannel = global::PodPanic.GameState.Channel.Top;
+                            else if (position == 1)
+                                newChannel = global::PodPanic.GameState.Channel.Middle;
+                            else if (position == 2)
+                                newChannel = global::PodPanic.GameState.Channel.Bottom;
+                            secondsSinceLastEvent = 0;
+                            float chance = rand.Next(0, 20) / 20.0f;
+                            if (chance < Levels[CurrentLevel].ProbabilityEnemyFish)
+                            {
+                                chance = rand.Next(0, 20) / 20.0f;
+                                GameObjects.Enemy newEnemy;
+                                if (chance < Levels[CurrentLevel].ProbabilityEnemyType)
+                                    newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), Net, 5, this, GameState.EnemyType.Net);
+                                else
+                                    newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilSlicks[rand.Next(0, 3)], 5, this, GameState.EnemyType.Barrel);
+                                Objects.Add(newEnemy);
+                            }
                             else
-                                newEnemy = new global::PodPanic.GameObjects.Enemy((int)SCREEN_SIZE.X, getYChannel(newChannel), OilSlicks[rand.Next(0, 3)], 5, this, GameState.EnemyType.Barrel);
-                            Objects.Add(newEnemy);
+                            {
+                                GameObjects.Fish.setPollutionPercent(Levels[CurrentLevel].ProbabilityFishPollution);
+                                GameObjects.Fish newFish = new global::PodPanic.GameObjects.Fish((int)SCREEN_SIZE.X, getYChannel(newChannel), Fish, Fish_Sick, this);
+                                Objects.Add(newFish);
+                            }
                         }
-                        else
-                        {
-                            GameObjects.Fish.setPollutionPercent(Levels[CurrentLevel].ProbabilityFishPollution);
-                            GameObjects.Fish newFish = new global::PodPanic.GameObjects.Fish((int)SCREEN_SIZE.X, getYChannel(newChannel), Fish, Fish_Sick, this);
-                            Objects.Add(newFish);
-                        }
-                    }
+                    }//end enemy spawning logic
+
                     distanceCovered += GameObjects.Player.Speed;
                     if (distanceCovered >= Levels[CurrentLevel].LevelLength)
                     {
