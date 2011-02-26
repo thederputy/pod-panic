@@ -125,8 +125,6 @@
     <Compile Include="Sound\SoundManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Documentation\LevelDesignRequirements.txt" />
-    <Content Include="Documentation\level_data.xml.txt" />
     <Content Include="Game.ico" />
     <Content Include="GameThumbnail.png" />
   </ItemGroup>

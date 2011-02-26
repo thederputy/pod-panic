@@ -55,7 +55,7 @@ namespace PodPanic.GameObjects
         private const int SPRITE_HEIGHT = 84;
         private const int SPRITE_WIDTH = 235;
         private const int FRAMES = 4;
-        private int timeCounter;
+        private double timeCounter;
         
         private int animationPointer1;
         private int animationPointer2;
@@ -165,7 +165,11 @@ namespace PodPanic.GameObjects
                 currHP = 0;
                 updateAlive();
             }
-            isInDamagedState = true;
+            if (damageAmount > 1)
+            {
+                isInDamagedState = true;
+                timeOfDeath = 0;
+            }
         }
 
         /// <summary>
@@ -255,6 +259,10 @@ namespace PodPanic.GameObjects
 
         public override void Update(GameTime gameTime)
         {
+            if (isInDamagedState)
+            {
+                timeOfDeath += gameTime.ElapsedGameTime.TotalMilliseconds;
+            }
             base.Update(gameTime);
             blinker.Update(gameTime);
             updateAlive();
@@ -292,18 +300,17 @@ namespace PodPanic.GameObjects
             if (position.X >= 50)
                 position.X -= 2;
 
-            timeCounter += gameTime.ElapsedGameTime.Milliseconds;
+            timeCounter += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (timeCounter / ANIMATE_SPEED > 0)
+            if (timeCounter / ANIMATE_SPEED > 1)
             {
-
                 if (flip1)
-                   animationPointer1--;
+                    animationPointer1--;
                 else
                     animationPointer1++;
                 animationPointer1 = animationPointer1 % FRAMES;
                 if (animationPointer1 == 0 || animationPointer1 == 3)
-                 flip1 =!flip1;
+                    flip1 = !flip1;
 
                 if (flip2)
                     animationPointer2--;
@@ -330,7 +337,6 @@ namespace PodPanic.GameObjects
                     animationPointer4++;
                 animationPointer4 = animationPointer4 % FRAMES;
             }
-
             timeCounter = timeCounter % ANIMATE_SPEED;
 
             bobber_lead.Update();
@@ -361,15 +367,13 @@ namespace PodPanic.GameObjects
             if (isInDamagedState && blinker.AlphaVal == 255)
             {
                 drawnTex = dmg_sprite;
-                if(!doOnceBlinkCount)
-                    numBlinks += 1;
             }
             else
             {
-                doOnceBlinkCount = false;
                 drawnTex = sprite;
-                if (numBlinks >= 3)
+                if (timeOfDeath > 750)
                 {
+                    timeOfDeath = 0;
                     isInDamagedState = false;
                 }
             }
@@ -404,10 +408,6 @@ namespace PodPanic.GameObjects
                 left3++;
             }
             ((PodPanic)(this.Game)).spriteBatch.Draw(drawnTex, new Rectangle((int)(position.X + OFFSET_BOTWHALE.X - left3 * 3), (int)(position.Y + OFFSET_BOTWHALE.Y + bobber_bottom.getOff()), (int)SIZE_OF_WHALE.X, (int)SIZE_OF_WHALE.Y), source, drawColor, currRot, new Vector2(sprite.Width / 2, sprite.Height / 2), SpriteEffects.None, 0);
-
-#if DEBUG
-            ((PodPanic)(this.Game)).spriteBatch.Draw(((PodPanic)(this.Game)).hitBoxHighlight, rect, drawColor);
-#endif
             //System.Diagnostics.Trace.WriteLine(" this : " + livesOwned / MAX_LIVES * 100.0f);
             //System.Diagnostics.Trace.WriteLine(" lives : " + livesOwned);
         }

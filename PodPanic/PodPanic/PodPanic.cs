@@ -69,9 +69,6 @@ namespace PodPanic
         VideoPlayer Player;
         Video tutorialVideo;
         Texture2D[,] bkgArray;
-#if DEBUG
-        public Texture2D hitBoxHighlight;
-#endif
         
         GameState.GameStateEnum prevState;
 
@@ -146,12 +143,13 @@ namespace PodPanic
             thePlayer = new global::PodPanic.GameObjects.Player(this.Content.Load<Texture2D>("Orca/OrcaFinal2"), this.Content.Load<Texture2D>("Orca/OrcaSkeletons"), this);
 
             //background texture loading logic
-            for (int i = 0; i < LevelObjects.LevelData.levelBKGs.GetUpperBound(0); i++)
+            for (int i = 0; i <= LevelObjects.LevelData.levelBKGs.GetUpperBound(0); i++)
             {
                 bkgArray[i,0] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[i,0]);
                 bkgArray[i,1] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[i,1]);
                 bkgArray[i,2] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[i,2]);
             }
+            //bkgArray[3, 0] = this.Content.Load<Texture2D>(BKG_LOC + LevelObjects.LevelData.levelBKGs[3, 0]);
             backTemp.BackgroundTexture = bkgArray[0, 2];
             backTemp.MidegroundTexture = bkgArray[0, 1];
             backTemp.ForegroundTexture = bkgArray[0, 0];
@@ -240,12 +238,6 @@ namespace PodPanic
             BonusTexturesArray[5] = Content.Load<Texture2D>("Slides/ComingSoon");
             BonusTexture = null;
 
-            #region Debug Loading
-#if DEBUG
-            hitBoxHighlight = Content.Load<Texture2D>("Debug/hitBoxHighlight");
-#endif
-            #endregion
-
             Player = new VideoPlayer();
             tutorialVideo = this.Content.Load<Video>("Movies/Tutorial");
             Player.Play(tutorialVideo);
@@ -285,6 +277,9 @@ namespace PodPanic
                     if (firstChar == 'S') //
                     {
                         curState = global::PodPanic.GameState.GameStateEnum.GameRun;
+                        CurrentLevel = 0;
+                        setTextures(CurrentLevel);
+                        backTemp.SignalBlendTo();
                         score.Show();
                         score.Start();
                         SoundManager.stopSound(gameStartInstance);

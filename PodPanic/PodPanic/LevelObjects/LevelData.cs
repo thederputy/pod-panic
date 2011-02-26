@@ -96,7 +96,7 @@ namespace PodPanic.LevelObjects
                 {"Water_Final", "MidGround", "SkyandDepth"},
                 {"Fore1", "Mid1", "Back1"},
                 {"Fore2", "Mid2", "Back2"},
-                {"Water_Final", "MidGround", "SkyandDepth"}
+                {"Fore3", "Mid3", "Back3"}
             };
         }
     }
