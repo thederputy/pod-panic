@@ -102,7 +102,8 @@ namespace PodPanic.GameObjects
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-            timeAlive += gameTime.ElapsedRealTime.Milliseconds;
+            if (isDead)
+                timeOfDeath += gameTime.ElapsedRealTime.TotalMilliseconds;
             rect.X = (int)position.X;
             rect.Y = (int)position.Y;
         }
@@ -134,7 +135,8 @@ namespace PodPanic.GameObjects
         {
             base.Draw(gameTime);
             Color finDrawColor = drawColor;
-            if (isDead) finDrawColor.A = (byte)blinker.AlphaVal;
+            if (isDead) 
+                finDrawColor.A = (byte)blinker.AlphaVal;
             ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X -50, (int)position.Y- 25, SPRITE_WIDTH, SPRITE_HEIGHT), finDrawColor);
         }
 

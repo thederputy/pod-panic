@@ -89,7 +89,7 @@ namespace PodPanic.GameObjects
             }
             else // the enemy is dead
             {
-                if (timeAlive - timeOfDeath > 2500)
+                if (timeOfDeath > 750)
                 {
                     this.signalRemoval = true;
                 }
