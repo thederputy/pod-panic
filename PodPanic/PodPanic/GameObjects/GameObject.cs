@@ -19,10 +19,11 @@ namespace PodPanic.GameObjects
     class GameObject : Microsoft.Xna.Framework.DrawableGameComponent
     {
         #region Attributes
+        public const double TIME_ON_SCREEN_AFTER_HIT = 750;
         protected Texture2D sprite;
         protected Vector2 position;
         protected float velocity;
-        protected Boolean isDead;
+        public Boolean isDead { get; set; }
         public bool hasHitPlayer { get; set; }
         public bool signalRemoval { get; set; }
         /// <summary>
@@ -32,7 +33,7 @@ namespace PodPanic.GameObjects
         /// <summary>
         /// The time the object hit the player
         /// </summary>
-        protected double timeOfDeath;
+        public double timeOfDeath { get; set; }
         static private Random rnds;
         private int SPRITE_WIDTH;
         private int SPRITE_HEIGHT;
@@ -133,11 +134,14 @@ namespace PodPanic.GameObjects
 
         public override void  Draw(GameTime gameTime)
         {
-            base.Draw(gameTime);
-            Color finDrawColor = drawColor;
-            if (isDead) 
-                finDrawColor.A = (byte)blinker.AlphaVal;
-            ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X -50, (int)position.Y- 25, SPRITE_WIDTH, SPRITE_HEIGHT), finDrawColor);
+            if (!signalRemoval)
+            {
+                base.Draw(gameTime);
+                Color finDrawColor = drawColor;
+                if (isDead)
+                    finDrawColor.A = (byte)blinker.AlphaVal;
+                ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X - 50, (int)position.Y - 25, SPRITE_WIDTH, SPRITE_HEIGHT), finDrawColor);
+            }
         }
 
     }

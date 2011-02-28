@@ -110,7 +110,7 @@ namespace PodPanic
         {
             this.graphics.PreferredBackBufferHeight = (int)SCREEN_SIZE.Y;
             this.graphics.PreferredBackBufferWidth = (int)SCREEN_SIZE.X;
-            //this.graphics.IsFullScreen = true;
+            this.graphics.IsFullScreen = true;
             this.graphics.ApplyChanges();
             Window.Title = "Pod Panic";
             keyManager = new global::PodPanic.GameState.InputManager(this);
@@ -462,63 +462,66 @@ namespace PodPanic
                     {
                         GameObjects.GameObject obj = Objects[i];
                         obj.Update(gameTime);
-                        //Collision Detection
-                        //Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
-                        if (thePlayer.Rect.Intersects(obj.Rect))
-                        {
-                            //has collided with object - friend or foe?
-                            if (obj.GetType() == typeof(GameObjects.Enemy))
+                        //if (obj.isDead && obj.timeOfDeath >= GameObjects.GameObject.TIME_ON_SCREEN_AFTER_HIT || obj.signalRemoval)
+                        //    Objects.Remove(obj);
+                        //else
+                        //{
+                            //Collision Detection
+                            //Rectangle objRect = new Rectangle((int)obj.getPosition().X + 25, (int)obj.getPosition().Y + 25, 150, 100);
+                            if (thePlayer.Rect.Intersects(obj.Rect))
                             {
-                                GameObjects.Enemy enemy = obj as GameObjects.Enemy;
-                                if (enemy.hasHitPlayer == false)
+                                //has collided with object - friend or foe?
+                                if (obj.GetType() == typeof(GameObjects.Enemy))
                                 {
-                                    thePlayer.reduceHP(enemy.getDamage());
-                                    enemy.hasHitPlayer = true;
-                                    score.hitDuringLevel = true;
-
-                                    // play the appropriate sounds for the enemy
-                                    // update the score acordingly
-                                    switch (enemy.type)
+                                    GameObjects.Enemy enemy = obj as GameObjects.Enemy;
+                                    if (enemy.hasHitPlayer == false)
                                     {
-                                        case GameState.EnemyType.Net:
-                                            SoundManager.playSound(netCaughtInstance, 0.6f);
-                                            score.modify(-50);
-                                            break;
-                                        case GameState.EnemyType.Barrel:
-                                            SoundManager.playSound(barrelHitInstance, 0.8f);
-                                            score.modify(-30);
-                                            break;
-                                        default:
-                                            break;
-                                    }
-                                }
-                            }
-                            else // we've collided with some fish
-                            {
-                                SoundManager.playSound(chompInstance, 0.6f);
-                                GameObjects.Fish fish = obj as GameObjects.Fish;
-                                if (fish.hasHitPlayer == false)
-                                {
-                                    if (fish.isSick())
-                                    {
-                                        thePlayer.reduceHP((int)(fish.FoodValue * 3));
-                                        score.modify(-20);
+                                        thePlayer.reduceHP(enemy.getDamage());
+                                        enemy.hasHitPlayer = true;
                                         score.hitDuringLevel = true;
+
+                                        // play the appropriate sounds for the enemy
+                                        // update the score acordingly
+                                        switch (enemy.type)
+                                        {
+                                            case GameState.EnemyType.Net:
+                                                SoundManager.playSound(netCaughtInstance, 0.6f);
+                                                score.modify(-50);
+                                                break;
+                                            case GameState.EnemyType.Barrel:
+                                                SoundManager.playSound(barrelHitInstance, 0.8f);
+                                                score.modify(-30);
+                                                break;
+                                            default:
+                                                break;
+                                        }
                                     }
-                                    else
-                                    {
-                                        thePlayer.increaseHP(fish.FoodValue);
-                                        score.modify(100);
-                                    }
-                                    fish.hasHitPlayer = true;
                                 }
-                            }
-                        } //end intersection checking
-                        if (obj.getPosition().X < -obj.getTexture().Width)
-                            Objects.Remove(obj);
-                        if (obj.signalRemoval)
-                            Objects.Remove(obj);
-                    }//end collision detection
+                                else // we've collided with some fish
+                                {
+                                    SoundManager.playSound(chompInstance, 0.6f);
+                                    GameObjects.Fish fish = obj as GameObjects.Fish;
+                                    if (fish.hasHitPlayer == false)
+                                    {
+                                        if (fish.isSick())
+                                        {
+                                            thePlayer.reduceHP((int)(fish.FoodValue * 3));
+                                            score.modify(-20);
+                                            score.hitDuringLevel = true;
+                                        }
+                                        else
+                                        {
+                                            thePlayer.increaseHP(fish.FoodValue);
+                                            score.modify(100);
+                                        }
+                                        fish.hasHitPlayer = true;
+                                    }
+                                }
+                            } //end intersection checking
+                            if (obj.getPosition().X < -obj.getTexture().Width)
+                                Objects.Remove(obj);
+                        }
+                    //}//end collision detection
                 }
                 else  // we're at the end of the level, so remove all the enemies and fish
                 {
