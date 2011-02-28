@@ -123,19 +123,19 @@ namespace PodPanic.GameObjects
 
                 curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPosBack, -35), drawColor);
                 curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
-                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+                //curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
                 curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(-curXPosMide, -35), drawColor);
-                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
-                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(ForegroundTexture.Width - curXPosMide, -35), drawColor);
+                //curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(ForegroundTexture.Width - curXPosMide, -35), drawColor);
                 curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(-curXPosFore, -35), drawColor);
                 curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawColor);
 
                 curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(-curXPosBack, -35), drawNewColor);
                 curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawNewColor);
-                curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawNewColor);
+                //curGame.spriteBatch.Draw(blendToTextures[2], new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawNewColor);
                 curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(-curXPosMide, -35), drawNewColor);
-                curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawNewColor);
-                curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawNewColor);
+                curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(ForegroundTexture.Width - curXPosMide, -35), drawNewColor);
+                //curGame.spriteBatch.Draw(blendToTextures[1], new Vector2(ForegroundTexture.Width - curXPosMide, -35), drawNewColor);
                 curGame.spriteBatch.Draw(blendToTextures[0], new Vector2(-curXPosFore, -35), drawNewColor);
                 curGame.spriteBatch.Draw(blendToTextures[0], new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawNewColor);
                     
@@ -145,14 +145,14 @@ namespace PodPanic.GameObjects
                 alphaBlend = 0;
                 curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(-curXPosBack, -35), drawColor);
                 curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
-                curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
+                //curGame.spriteBatch.Draw(BackgroundTexture, new Vector2(ForegroundTexture.Width - curXPosBack, -35), drawColor);
                 curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(-curXPosMide, -35), drawColor);
-                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
-                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(MidegroundTexture.Width - curXPosMide, -35), drawColor);
+                curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(ForegroundTexture.Width - curXPosMide, -35), drawColor);
+                //curGame.spriteBatch.Draw(MidegroundTexture, new Vector2(ForegroundTexture.Width - curXPosMide, -35), drawColor);
                 curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(-curXPosFore, -35), drawColor);
                 curGame.spriteBatch.Draw(ForegroundTexture, new Vector2(ForegroundTexture.Width - curXPosFore, -35), drawColor);
             }
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
 
         public void SignalBlendTo()
