@@ -104,9 +104,13 @@ namespace PodPanic.GameObjects
         {
             base.Update(gameTime);
             if (isDead)
-                timeOfDeath += gameTime.ElapsedRealTime.TotalMilliseconds;
+                timeOfDeath += gameTime.ElapsedGameTime.TotalMilliseconds;
             rect.X = (int)position.X;
             rect.Y = (int)position.Y;
+            if (timeOfDeath > TIME_ON_SCREEN_AFTER_HIT)
+            {
+                this.signalRemoval = true;
+            }
         }
 
         /// <summary>

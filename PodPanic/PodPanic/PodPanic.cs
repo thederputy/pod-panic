@@ -29,7 +29,7 @@ namespace PodPanic
         GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch { get; set; }
         GameState.GameStateEnum curState;
-        SpriteFont devFont;
+        public SpriteFont devFont { get; set; }
         SpriteFont PausedFont;
         GameObjects.Player thePlayer;
         GameState.AlphaShader AlphaShader;
@@ -404,7 +404,10 @@ namespace PodPanic
                     {
                         lvlProgress = global::PodPanic.GameState.LevelProgress.FinishedLevel;
                         distanceCovered = 0;
-                        setTextures(CurrentLevel + 1);
+                        if (CurrentLevel + 1 >= Levels.Length)
+                            setTextures(CurrentLevel);
+                        else
+                            setTextures(CurrentLevel + 1);
                         backTemp.SignalBlendTo();
                     }
                     if (keyManager.isCommandPressed(GameState.KeyMapEnum.ExitKey))
@@ -474,7 +477,7 @@ namespace PodPanic
                                 if (obj.GetType() == typeof(GameObjects.Enemy))
                                 {
                                     GameObjects.Enemy enemy = obj as GameObjects.Enemy;
-                                    if (enemy.hasHitPlayer == false)
+                                    if (enemy.hasHitPlayer == false && !enemy.isDead)
                                     {
                                         thePlayer.reduceHP(enemy.getDamage());
                                         enemy.hasHitPlayer = true;
@@ -499,27 +502,30 @@ namespace PodPanic
                                 }
                                 else // we've collided with some fish
                                 {
-                                    SoundManager.playSound(chompInstance, 0.6f);
-                                    GameObjects.Fish fish = obj as GameObjects.Fish;
-                                    if (fish.hasHitPlayer == false)
+                                    if (!obj.isDead)
                                     {
-                                        if (fish.isSick())
+                                        SoundManager.playSound(chompInstance, 0.6f);
+                                        GameObjects.Fish fish = obj as GameObjects.Fish;
+                                        if (fish.hasHitPlayer == false)
                                         {
-                                            thePlayer.reduceHP((int)(fish.FoodValue * 3));
-                                            score.modify(-20);
-                                            score.hitDuringLevel = true;
+                                            if (fish.isSick())
+                                            {
+                                                thePlayer.reduceHP((int)(fish.FoodValue * 3));
+                                                score.modify(-20);
+                                                score.hitDuringLevel = true;
+                                            }
+                                            else
+                                            {
+                                                thePlayer.increaseHP(fish.FoodValue);
+                                                score.modify(100);
+                                            }
+                                            fish.hasHitPlayer = true;
                                         }
-                                        else
-                                        {
-                                            thePlayer.increaseHP(fish.FoodValue);
-                                            score.modify(100);
-                                        }
-                                        fish.hasHitPlayer = true;
                                     }
                                 }
                             } //end intersection checking
-                            if (obj.getPosition().X < -obj.getTexture().Width)
-                                Objects.Remove(obj);
+                            //if (obj.getPosition().X < -obj.getTexture().Width)
+                            //    Objects.Remove(obj);
                         }
                     //}//end collision detection
                 }

@@ -151,13 +151,13 @@ namespace PodPanic.GameObjects
                     bobbers[i].Update();
                 }
             }
-            else // the fish are dead
-            {
-                if (timeOfDeath > TIME_ON_SCREEN_AFTER_HIT)
-                {
-                    this.signalRemoval = true;
-                }
-            }
+            //else // the fish are dead
+            //{
+            //    if (timeOfDeath > TIME_ON_SCREEN_AFTER_HIT)
+            //    {
+            //        this.signalRemoval = true;
+            //    }
+            //}
 
             // System.Diagnostics.Trace.WriteLine(" hey : " + gameTime.ElapsedRealTime.Milliseconds);
 
@@ -203,6 +203,7 @@ namespace PodPanic.GameObjects
                     //float variation = FISHSIZEVARIATION * (float)rnd.NextDouble() - FISHSIZEVARIATION/2; // FISHSIZEVARIATION * variation
                     //((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (int)(200 * rnd.NextDouble()), (int)position.Y + (int)(150 * rnd.NextDouble()), (int)FISH_LENGTH, (int)(FISH_LENGTH * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, drawColor);       
                     ((PodPanic)(this.Game)).spriteBatch.Draw(sprite, new Rectangle((int)position.X + (FISHDISTANCEX * (i % 3)), (int)position.Y + (int)bobbers[i].getOff() + (FISHDISTANCEY * (i / 3)), (int)(FISH_LENGTH + bobbers[i].getAddSize()), (int)((FISH_LENGTH + bobbers[i].getAddSize()) * ((float)sprite.Height / ((float)sprite.Width / FRAMES)))), source, finDrawColor);
+                    //((PodPanic)(this.Game)).spriteBatch.DrawString(((PodPanic)(this.Game)).devFont, timeOfDeath.ToString(), position, Color.White);
                     //System.Diagnostics.Trace.WriteLine("this :" + i + " : " + bobbers[i].getAddSize());
 
                     //float variation = FISHSIZEVARIATION * (float)rnd.NextDouble() - FISHSIZEVARIATION/2; // FISHSIZEVARIATION * variation

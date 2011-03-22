@@ -87,13 +87,13 @@ namespace PodPanic.GameObjects
                 position.X -= velocity;
                 position.Y = baseY + (OFFY_AMOUNT * offY);
             }
-            else // the enemy is dead
-            {
-                if (timeOfDeath > 750)
-                {
-                    this.signalRemoval = true;
-                }
-            }
+            //else // the enemy is dead
+            //{
+            //    if (timeOfDeath > 750)
+            //    {
+            //        this.signalRemoval = true;
+            //    }
+            //}
             blinker.Update(gameTime);
             base.Update(gameTime);
         }
