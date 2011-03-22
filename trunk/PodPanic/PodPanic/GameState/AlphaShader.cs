@@ -66,7 +66,7 @@ namespace PodPanic.GameState
         }
         public void Update(GameTime curTime)
         {
-            milliCovered += curTime.ElapsedRealTime.TotalMilliseconds;
+            milliCovered += curTime.ElapsedGameTime.TotalMilliseconds;
             if (milliCovered >= NUM_MILLISECONDS)
             {
                 if (AlphaVal == MIN_ALPHA)
