@@ -19,7 +19,7 @@ namespace PodPanic.GameObjects
     class GameObject : Microsoft.Xna.Framework.DrawableGameComponent
     {
         #region Attributes
-        public const double TIME_ON_SCREEN_AFTER_HIT = 750;
+        public const double TIME_ON_SCREEN_AFTER_HIT = 20;
         protected Texture2D sprite;
         protected Vector2 position;
         protected float velocity;

@@ -22,7 +22,7 @@ namespace PodPanic.LevelObjects
             xmlData += "  <Level";
             xmlData += " LevelNumber='1'";
             xmlData += " LevelName='Burrard Inlet'";
-            xmlData += " LevelLength='20'";
+            xmlData += " LevelLength='1500'";//1500
             xmlData += " PollutionLevel='0'";
             xmlData += " ProbabilityFishPollution='0.5'";
             xmlData += " ProbabilityEnemyType='0'";
@@ -41,7 +41,7 @@ namespace PodPanic.LevelObjects
             xmlData += "  <Level";
             xmlData += " LevelNumber='2'";
             xmlData += " LevelName='Salish Swim'";
-            xmlData += " LevelLength='70'";
+            xmlData += " LevelLength='7000'";//7000
             xmlData += " PollutionLevel='0.2'";
             xmlData += " ProbabilityFishPollution='0.2'";
             xmlData += " ProbabilityEnemyType='0.3'";
@@ -60,7 +60,7 @@ namespace PodPanic.LevelObjects
             xmlData += "  <Level";
             xmlData += " LevelNumber='3'";
             xmlData += " LevelName='Georgia Gateway'";
-            xmlData += " LevelLength='150'";
+            xmlData += " LevelLength='12000'";//12000
             xmlData += " PollutionLevel='0.3'";
             xmlData += " ProbabilityFishPollution='0.3'";
             xmlData += " ProbabilityEnemyType='0.7'";
@@ -79,7 +79,7 @@ namespace PodPanic.LevelObjects
             xmlData += "  <Level";
             xmlData += " LevelNumber='4'";
             xmlData += " LevelName='Juan de Fuca Strait'";
-            xmlData += " LevelLength='250'";
+            xmlData += " LevelLength='18000'";//18000
             xmlData += " PollutionLevel='0.6'";
             xmlData += " ProbabilityFishPollution='0.7'";
             xmlData += " ProbabilityEnemyType='0.8'";
