@@ -727,11 +727,19 @@ namespace PodPanic
                 Vector2 stringLoc = new Vector2(SCREEN_SIZE.X / 2, 2 * SCREEN_SIZE.Y / 3);
 
                 stringLoc.Y -= 50;
-                string menu = "Back = Main Menu";
+                string menu;
+                string resume;
+#if WINDOWS
+                menu = "Esc = Main Menu";
+                resume = "Enter = Resume";
+#endif
+#if XBOX
+                menu = "B = Main Menu";
+                resume = "A = Resume";
+#endif
                 spriteBatch.DrawString(PausedFont, menu,  stringLoc - new Vector2(PausedFont.MeasureString(menu).X * 0.5f, PausedFont.MeasureString(menu).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
 
                 stringLoc.Y += 50;
-                string resume = "Action = Resume";
                 spriteBatch.DrawString(PausedFont, resume, stringLoc - new Vector2(PausedFont.MeasureString(resume).X * 0.5f, PausedFont.MeasureString(resume).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
                 
                 
