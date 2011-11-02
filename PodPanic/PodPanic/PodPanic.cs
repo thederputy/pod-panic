@@ -734,7 +734,7 @@ namespace PodPanic
                 resume = "Enter = Resume";
 #endif
 #if XBOX
-                menu = "B = Main Menu";
+                menu = "Start = Main Menu";
                 resume = "A = Resume";
 #endif
                 spriteBatch.DrawString(PausedFont, menu,  stringLoc - new Vector2(PausedFont.MeasureString(menu).X * 0.5f, PausedFont.MeasureString(menu).Y * 0.5f), new Color() { A = (byte)AlphaShader.AlphaVal, B = 255, G = 255, R = 255 });
